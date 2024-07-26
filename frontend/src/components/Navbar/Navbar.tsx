@@ -18,7 +18,6 @@ import { DeleteContainer } from "../Containers/DeleteContainer";
 import { EditBoardContainer } from "../Containers/EditBoardContainer";
 
 
-
 export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   const [menuVisibility, setMenuVisibility] = useState<boolean>(false);
   const [delEditVisible, setDelEditVisible] = useState<boolean>(false);
