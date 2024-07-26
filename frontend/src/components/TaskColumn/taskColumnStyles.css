@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+.emptyBoardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 1rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+.emptyBoardContainer > .text {
+  color: #828FA3;
+  font-size: clamp(0.9375rem, 0.94vw, 0.94rem);
+  padding: 0rem 0.5rem;
+}
+
+.taskColumnContainer {
+  z-index: -10;
+  margin: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  width: 17.5rem;
+}
+.taskColumnContainer > .taskColumnNameCount {
+  display: flex;
+  flex-direction: row;
+  -moz-column-gap: 0.3rem;
+       column-gap: 0.3rem;
+  align-items: center;
+  font-size: clamp(0.75rem, 0.755vw, 0.76rem);
+  color: #828FA3;
+  letter-spacing: 2.4px;
+}
+.taskColumnContainer > .taskColumnNameCount > .colorCircle {
+  width: 0.9375rem;
+  height: 0.9375rem;
+  border-radius: 50%;
+}
+.taskColumnContainer > .taskScrollableContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainTaskContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 1rem;
+  height: 100%;
+  margin-bottom: 2.5rem;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+.mainTaskContainer ::-webkit-scrollbar {
+  display: none;
+}
+.mainTaskContainer > .columnTaskContainer {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+.mainTaskContainer > .columnTaskContainer > .taskTitle {
+  font-size: clamp(0.9375rem, 0.94vw, 0.94rem);
+  line-height: auto;
+  cursor: pointer;
+}
+.mainTaskContainer > .columnTaskContainer > .subtaskCount {
+  font-size: clamp(0.75rem, 0.755vw, 0.76rem);
+  color: #828FA3;
+}
+
+.containerOpen {
+  z-index: 9999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media (max-width: 767px) {
+  .containerOpen {
+    margin-top: 7rem;
+    margin-bottom: 7rem;
+  }
+}
+@media (min-width: 768px) {
+  .containerOpen {
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+  }
+}
+
+#overLayEffect {
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}/*# sourceMappingURL=taskColumnStyles.css.map */

@@ -1,0 +1,447 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+.deleteContainer {
+  width: 21.4375rem;
+  height: auto;
+  border-radius: 0.5rem;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .deleteContainer {
+    width: 30rem;
+    height: auto;
+    padding: 2.5rem 2rem;
+  }
+}
+.deleteContainer > article {
+  font-size: clamp(1.125rem, 1.13vw, 1.13rem);
+  color: #ea5555;
+}
+.deleteContainer > p.deleteText {
+  color: #828fa3;
+  font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
+}
+.deleteContainer > .btnContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 1rem;
+}
+@media (min-width: 768px) {
+  .deleteContainer > .btnContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    -moz-column-gap: 1rem;
+         column-gap: 1rem;
+  }
+}
+
+.editBoardContainer {
+  width: 21.4375rem;
+  height: auto;
+  border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.75rem;
+  padding: 2rem 1.5rem;
+}
+@media (min-width: 768px) {
+  .editBoardContainer {
+    width: 30rem;
+  }
+}
+.editBoardContainer > article {
+  font-size: clamp(1.125rem, 1.13vw, 1.13rem);
+}
+.editBoardContainer > .boardNameContainer > label {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(0.75rem, 0.755vw, 0.76rem);
+  row-gap: 0.5rem;
+  width: 100%;
+}
+.editBoardContainer > .boardNameContainer > label > input {
+  height: 2.5rem;
+  font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
+  background-color: transparent;
+  border: 1px solid #828fa3;
+  outline: none;
+  border-radius: 0.25rem;
+  padding: 0rem 0rem 0rem 1rem;
+}
+.editBoardContainer > .boardNameContainer > label > input:hover {
+  border-color: #635fc7;
+  cursor: pointer;
+}
+.editBoardContainer > .boardColumnsContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+.editBoardContainer > .boardColumnsContainer > p.boardColumnsText {
+  font-size: clamp(0.75rem, 0.755vw, 0.76rem);
+}
+.editBoardContainer > .boardColumnsContainer > .containerForColumn {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+}
+.editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer > label > input {
+  width: 16.5rem;
+  height: 2.5rem;
+  border-radius: 0.25rem;
+  font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
+  background-color: transparent;
+  border: 1px solid #828fa3;
+  outline: none;
+  padding: 0rem 0rem 0rem 1rem;
+}
+.editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer > label > input:hover {
+  border-color: #635fc7;
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer > label > input {
+    width: 24.0625rem;
+  }
+}
+
+.addTaskContainer {
+  width: 21.4375rem;
+  height: auto;
+  border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.75rem;
+  padding: 2rem 1.5rem;
+}
+@media (min-width: 768px) {
+  .addTaskContainer {
+    width: 30rem;
+  }
+}
+.addTaskContainer > article {
+  font-size: clamp(1.125rem, 1.13vw, 1.13rem);
+}
+.addTaskContainer > .boardNameContainer > label {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(0.75rem, 0.755vw, 0.76rem);
+  row-gap: 0.5rem;
+  width: 100%;
+}
+.addTaskContainer > .boardNameContainer > label > input {
+  height: 2.5rem;
+  font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
+  background-color: transparent;
+  border: 1px solid #828fa3;
+  outline: none;
+  border-radius: 0.25rem;
+  padding: 0rem 0rem 0rem 1rem;
+}
+.addTaskContainer > .boardNameContainer > label > input:hover {
+  border-color: #635fc7;
+  cursor: pointer;
+}
+.addTaskContainer > .boardNameContainer > label > textarea.descriptionContainer {
+  height: 7rem;
+  font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
+  background-color: transparent;
+  border: 1px solid #828fa3;
+  outline: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0rem 0rem 1rem;
+  text-align: left;
+}
+.addTaskContainer > .boardNameContainer > label > textarea.descriptionContainer:hover {
+  border-color: #635fc7;
+  cursor: pointer;
+}
+.addTaskContainer > .boardColumnsContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+.addTaskContainer > .boardColumnsContainer > p.boardColumnsText {
+  font-size: clamp(0.75rem, 0.755vw, 0.76rem);
+}
+.addTaskContainer > .boardColumnsContainer > .containerForColumn {
+  display: flex;
+  flex-direction: column;
+  height: 7rem;
+  overflow: hidden;
+}
+.addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+.addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer ::-webkit-scrollbar {
+  display: none;
+}
+.addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input {
+  width: 16.5rem;
+  height: 2.5rem;
+  border-radius: 0.25rem;
+  font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
+  background-color: transparent;
+  border: 1px solid #828fa3;
+  outline: none;
+  padding: 0rem 0rem 0rem 1rem;
+}
+.addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input:hover {
+  border-color: #635fc7;
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input {
+    width: 24.0625rem;
+  }
+}
+.addTaskContainer .card {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+.addTaskContainer .card > label {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(0.75rem, 0.755vw, 0.76rem);
+  row-gap: 0.5rem;
+  width: 100%;
+}
+.addTaskContainer .card > label > .select-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.addTaskContainer .card > label > .select-container > .dropdownContainer {
+  display: block;
+  align-items: center;
+  padding: 0rem 1rem;
+  border-radius: 0.25rem;
+  font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
+  background-color: transparent;
+  border: 1px solid #828fa3;
+  -webkit-appearance: none;
+  /* Removes default arrow in some browsers */
+  -moz-appearance: none;
+  /* Removes default arrow in Firefox */
+  appearance: none;
+}
+.addTaskContainer .card > label > .select-container > .dropdownContainer > option {
+  background-color: inherit;
+  color: inherit;
+}
+.addTaskContainer .card > label > .select-container .chevron-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: inherit;
+}
+
+.editDeleteContainer {
+  width: 12.125rem;
+  height: 5.875rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0rem 0rem 0rem 1rem;
+  row-gap: 0.75rem;
+}
+.editDeleteContainer > .editText,
+.editDeleteContainer .deleteText {
+  font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
+}
+.editDeleteContainer > .editText {
+  color: #828fa3;
+}
+.editDeleteContainer > .deleteText {
+  color: #ea5555;
+}
+
+.taskContainer {
+  width: 21.4375rem;
+  height: auto;
+  border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.75rem;
+  padding: 2rem 1.5rem;
+}
+@media (min-width: 768px) {
+  .taskContainer {
+    width: 30rem;
+  }
+}
+.taskContainer > article {
+  font-size: clamp(1.125rem, 1.13vw, 1.13rem);
+}
+.taskContainer > .titleWithEditBtn {
+  display: grid;
+  grid-template-columns: 1fr 0fr;
+  align-items: center;
+  justify-content: space-between;
+  -moz-column-gap: 1.5rem;
+       column-gap: 1.5rem;
+}
+.taskContainer > .titleWithEditBtn > article {
+  font-size: clamp(1.125rem, 1.13vw, 1.13rem);
+}
+.taskContainer > .descriptionContainer {
+  font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
+  color: #828fa3;
+}
+.taskContainer > .subTaskContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+.taskContainer > .subTaskContainer > article {
+  font-size: clamp(0.75rem, 0.755vw, 0.76rem);
+}
+.taskContainer > .subTaskContainer > .listOfTask {
+  display: flex;
+  flex-direction: column;
+  height: 7rem;
+  overflow: hidden;
+}
+.taskContainer > .subTaskContainer > .listOfTask > .scrollableContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+.taskContainer > .subTaskContainer > .listOfTask > .scrollableContainer ::-webkit-scrollbar {
+  display: none;
+}
+.taskContainer > .subTaskContainer > .listOfTask > .scrollableContainer > .subTaskContainer {
+  height: auto;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+  border-radius: 0.25rem;
+}
+.taskContainer > .subTaskContainer > .listOfTask > .scrollableContainer > .subTaskContainer > p.titleText {
+  font-size: clamp(0.75rem, 0.755vw, 0.76rem);
+  line-height: auto;
+}
+.taskContainer .card {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+.taskContainer .card > label {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(0.75rem, 0.755vw, 0.76rem);
+  row-gap: 0.5rem;
+  width: 100%;
+}
+.taskContainer .card > label > .select-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.taskContainer .card > label > .select-container > .dropdownContainer {
+  display: block;
+  align-items: center;
+  padding: 0rem 1rem;
+  border-radius: 0.25rem;
+  font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
+  background-color: transparent;
+  border: 1px solid #828fa3;
+  -webkit-appearance: none;
+  /* Removes default arrow in some browsers */
+  -moz-appearance: none;
+  /* Removes default arrow in Firefox */
+  appearance: none;
+}
+.taskContainer .card > label > .select-container > .dropdownContainer > option {
+  background-color: inherit;
+  color: inherit;
+}
+.taskContainer .card > label > .select-container .chevron-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: inherit;
+}
+
+.editDeleteBtn {
+  position: absolute;
+  top: 20%;
+  right: -15%;
+}
+@media (max-width: 768px) {
+  .editDeleteBtn {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+  }
+}
+
+.toggleContainer {
+  width: 83%;
+  height: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+  margin-inline: auto;
+  border-radius: 0.375rem;
+}
+
+.hideSideBar {
+  padding: 0rem 0rem 0rem 1.625rem;
+  color: #635fc7;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+  height: 3rem;
+}
+.hideSideBar:hover {
+  width: 92%;
+  background-color: #a8a4ff;
+  border-radius: 0rem 1.5rem 1.5rem 0rem;
+  color: #635fc7;
+}/*# sourceMappingURL=ContainersStyles.css.map */

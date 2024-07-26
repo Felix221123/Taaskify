@@ -1,0 +1,110 @@
+@import "../../static/base";
+
+
+// Button mixins here
+
+// sass code for the primary small button component
+@mixin PrimaryBtnSmall(){
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    @include fontSize13px();
+    font-family: $fontStyle;
+    @include flexComp(column);
+}
+
+// style primary btn
+@mixin AddNewColumn(){
+    width: 10.875rem;
+    height: 3rem;
+    border-radius: 1.5rem;
+    font-family: $fontStyle;
+    @include fontSize15px();
+    @include flexComp(column);
+}
+
+// styles for secondary btn
+@mixin SecondaryBtn(){
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    @include fontSize13px();
+    font-family: $fontStyle;
+    @include flexComp(column);
+}
+
+// styles for destructive btn
+@mixin DeleteBtn(){
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    @include fontSize13px();
+    font-family: $fontStyle;
+    @include flexComp(column);
+
+    @media (min-width:768px) {
+        width: 12.5rem;
+    }
+
+}
+
+// styles for cancel btn
+@mixin CancelBtn(){
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    @include fontSize13px();
+    font-family: $fontStyle;
+    @include flexComp(column);
+
+    @media (min-width:768px) {
+        width: 12.5rem;
+    }
+}
+
+// styles for edit btn
+@mixin EditBtn(){
+    @include flex(column);
+    row-gap: .1875rem;
+    > .dot{
+        width: .2888rem;
+        height: .2888rem;
+        border-radius: 50%;
+        background-color: $mediumGrey;
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+// main class selectors
+button.primaryBtnSmall{
+    @include PrimaryBtnSmall();
+}
+
+button.AddNewColumnBtn{
+    @include AddNewColumn();
+}
+
+button.secondaryBtn{
+    @include SecondaryBtn();
+}
+
+
+button.deleteBtn{
+    @include DeleteBtn();
+}
+
+button.cancelBtn{
+    @include CancelBtn();
+}
+
+button.container{
+    @include EditBtn();
+}

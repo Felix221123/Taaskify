@@ -1,0 +1,358 @@
+@import "../../static/base";
+
+// create your mixins here
+@mixin DeleteContainer() {
+    // mobile first
+    width: 21.4375rem;
+    height: auto;
+    border-radius: 0.5rem;
+    padding: 2rem 1.5rem;
+    @include flex(column);
+    row-gap: 1.5rem;
+
+    @media (min-width: 768px) {
+        width: 30rem;
+        height: auto;
+        padding: 2.5rem 2rem;
+    }
+
+    > article {
+        @include fontSize18px();
+        color: $redclr;
+    }
+
+    > p.deleteText {
+        color: $mediumGrey;
+        @include fontSize13px();
+    }
+
+    > .btnContainer {
+        @include flexComp(column);
+        row-gap: 1rem;
+
+        @media (min-width: 768px) {
+            @include flexComp(row);
+            column-gap: 1rem;
+        }
+    }
+}
+
+@mixin EditBoardContainer() {
+    @include ContainerSize();
+
+    > .boardNameContainer {
+        > label {
+            @include flex(column);
+            @include fontSize12px();
+            row-gap: 0.5rem;
+            width: 100%;
+
+            > input {
+                height: 2.5rem;
+                @include fontSize13px();
+                background-color: transparent;
+                border: 1px solid $mediumGrey;
+                outline: none;
+                border-radius: 0.25rem;
+                padding: 0rem 0rem 0rem 1rem;
+
+                &:hover {
+                    border-color: $deepPurpleclr;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    > .boardColumnsContainer {
+        @include flex(column);
+        row-gap: 0.5rem;
+
+        > p.boardColumnsText {
+            @include fontSize12px();
+        }
+
+        > .containerForColumn {
+            @include flex(column);
+            row-gap: 0.25rem;
+
+            > .eachColumnContainer {
+                @include flex(row);
+                align-items: center;
+                justify-content: space-between;
+
+                > label {
+                    > input {
+                        width: 16.5rem;
+                        height: 2.5rem;
+                        border-radius: 0.25rem;
+                        @include fontSize13px();
+                        background-color: transparent;
+                        border: 1px solid $mediumGrey;
+                        outline: none;
+                        padding: 0rem 0rem 0rem 1rem;
+
+                        &:hover {
+                            border-color: $deepPurpleclr;
+                            cursor: pointer;
+                        }
+
+                        @media (min-width: 768px) {
+                            width: 24.0625rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin AddTaskContainer() {
+    @include ContainerSize();
+
+    > .boardNameContainer {
+        > label {
+            @include flex(column);
+            @include fontSize12px();
+            row-gap: 0.5rem;
+            width: 100%;
+
+            > input {
+                height: 2.5rem;
+                @include fontSize13px();
+                background-color: transparent;
+                border: 1px solid $mediumGrey;
+                outline: none;
+                border-radius: 0.25rem;
+                padding: 0rem 0rem 0rem 1rem;
+
+                &:hover {
+                    border-color: $deepPurpleclr;
+                    cursor: pointer;
+                }
+            }
+
+            > textarea.descriptionContainer {
+                height: 7rem;
+                @include fontSize13px();
+                background-color: transparent;
+                border: 1px solid $mediumGrey;
+                outline: none;
+                border-radius: 0.25rem;
+                padding: 0.5rem 0rem 0rem 1rem;
+                text-align: left;
+
+                &:hover {
+                    border-color: $deepPurpleclr;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    > .boardColumnsContainer {
+        @include flex(column);
+        row-gap: 0.5rem;
+
+        > p.boardColumnsText {
+            @include fontSize12px();
+        }
+
+        > .containerForColumn {
+            @include flex(column);
+            height: 7rem;
+            overflow: hidden;
+
+            > .scrollableContainer {
+                @include flex(column);
+                row-gap: 0.25rem;
+                overflow: auto;
+                -ms-overflow-style: none; /* IE and Edge */
+                scrollbar-width: none;
+
+                ::-webkit-scrollbar {
+                    display: none;
+                }
+
+                > .eachColumnContainer {
+                    @include flex(row);
+                    align-items: center;
+                    justify-content: space-between;
+
+                    > label {
+                        > input {
+                            width: 16.5rem;
+                            height: 2.5rem;
+                            border-radius: 0.25rem;
+                            @include fontSize13px();
+                            background-color: transparent;
+                            border: 1px solid $mediumGrey;
+                            outline: none;
+                            padding: 0rem 0rem 0rem 1rem;
+
+                            &:hover {
+                                border-color: $deepPurpleclr;
+                                cursor: pointer;
+                            }
+
+                            @media (min-width: 768px) {
+                                width: 24.0625rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include CardComponentStyle();
+}
+
+@mixin EditDeleteContainer() {
+    width: 12.125rem;
+    height: 5.875rem;
+    border-radius: 0.5rem;
+    @include flex(column);
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0rem 0rem 0rem 1rem;
+    row-gap: 0.75rem;
+
+    > .editText,
+    .deleteText {
+        @include fontSize13px();
+    }
+
+    > .editText {
+        color: $mediumGrey;
+    }
+
+    > .deleteText {
+        color: $redclr;
+    }
+}
+
+@mixin TaskContainer() {
+    @include ContainerSize();
+
+    > .titleWithEditBtn {
+        display: grid;
+        grid-template-columns: 1fr 0fr;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 1.5rem;
+
+        > article {
+            @include fontSize18px();
+        }
+    }
+
+    > .descriptionContainer {
+        @include fontSize13px();
+        color: $mediumGrey;
+    }
+
+    > .subTaskContainer {
+        @include flex(column);
+        row-gap: 0.5rem;
+
+        > article {
+            @include fontSize12px();
+        }
+
+        > .listOfTask {
+            @include flex(column);
+            height: 7rem;
+            overflow: hidden;
+
+            > .scrollableContainer {
+                @include flex(column);
+                row-gap: 0.5rem;
+                overflow: auto;
+                -ms-overflow-style: none; /* IE and Edge */
+                scrollbar-width: none;
+
+                ::-webkit-scrollbar {
+                    display: none;
+                }
+
+                > .subTaskContainer {
+                    height: auto;
+                    padding: 0.5rem 1rem;
+                    @include flex(row);
+                    align-items: center;
+                    column-gap: 1rem;
+                    border-radius: 0.25rem;
+
+                    > p.titleText {
+                        @include fontSize12px();
+                        line-height: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    @include CardComponentStyle();
+}
+
+
+
+
+// main selectors
+.deleteContainer {
+    @include DeleteContainer();
+}
+
+.editBoardContainer {
+    @include EditBoardContainer();
+}
+
+.addTaskContainer {
+    @include AddTaskContainer();
+}
+
+.editDeleteContainer {
+    @include EditDeleteContainer();
+}
+
+.taskContainer {
+    @include TaskContainer();
+}
+
+.editDeleteBtn {
+    position: absolute;
+    top: 20%;
+    right: -15%;
+
+    @media (max-width: 768px) {
+        position: absolute;
+        top: 20%;
+        right: 10%;
+    }
+}
+
+.toggleContainer {
+    width: 83%;
+    height: 3rem;
+    @include flexComp(row);
+    column-gap: 1rem;
+    margin-inline: auto;
+    border-radius: 0.375rem;
+}
+
+.hideSideBar {
+    padding: 0rem 0rem 0rem 1.625rem;
+    color: $deepPurpleclr;
+    @include flex(row);
+    align-items: center;
+    column-gap: 1rem;
+    height: 3rem;
+
+    &:hover {
+        width: 92%;
+        background-color: $hoverPurpleclr;
+        border-radius: 0rem 1.5rem 1.5rem 0rem;
+        color: $deepPurpleclr;
+    }
+}

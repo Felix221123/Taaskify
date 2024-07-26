@@ -1,0 +1,26 @@
+.vscode/*
+.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+
+frontend/node_modules
+backend/node_modules
+frontend/dist
+backend/dist
+backend/.env
+
+
+# Built Visual Studio Code Extensions
+*.vsix
+.DS_Store
+
+dist
+dist-ssr
+*.local
+.env
