@@ -1,10 +1,10 @@
-name: Node.js CI
+name: Pull Request
 
 on: [push]
 
 jobs:
   build:
-    name: Run type checking & tests
+    name: Run type checking & tests(Vitest for testing)
     runs-on: ubuntu-latest
 
     steps:

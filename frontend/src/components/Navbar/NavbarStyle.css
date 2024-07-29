@@ -1,8 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
-* {
-  box-sizing: border-box;
-}
-
 .mobileNavbarContainer {
   width: 100%;
   height: 4rem;
@@ -334,7 +330,7 @@
 }
 
 .mobileContainerBar {
-  width: 70%;
+  width: 80%;
   height: auto;
   position: fixed;
   top: 13%;
@@ -399,8 +395,7 @@
 }
 @media (max-width: 767px) {
   .containerOpen {
-    margin-top: 7rem;
-    margin-bottom: 7rem;
+    margin-top: 6.5rem;
   }
 }
 @media (min-width: 768px) {
@@ -419,7 +414,7 @@
 }
 @media (max-width: 767px) {
   .containerOpenForBoard {
-    margin-top: 1rem;
+    margin-top: 0rem;
   }
 }
 @media (min-width: 768px) {

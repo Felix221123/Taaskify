@@ -86,8 +86,8 @@ export const AddNewTaskContainer: React.FC = () => {
               onChange={handleInputChange}
               className="descriptionContainer font-medium leading-6"
               style={TitleColorOnChange}
-              placeholder="e.g.It’s always good to take a break. This 
-15 minute break will  recharge the batteries 
+              placeholder="e.g.It’s always good to take a break. This
+15 minute break will  recharge the batteries
 a little."
             ></textarea>
           </label>
@@ -198,7 +198,7 @@ export const TaskStatus = ({ taskContainerName, status, setStatus }: TaskStatusC
         style={TextColorOnChange}
       >
         {taskContainerName}
-        <div className="select-container">
+        <div className="select-container cursor-pointer">
           <select
             value={status}
             onChange={handleStatusChange}

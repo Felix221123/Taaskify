@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
   const [isHoveredTask, setIsHoveredTask] = useState<number | null>(null);
+  const [selectedTaskIndex, setSelectedTaskIndex] = useState<number | null>(null);
   const [selectedViewTask, setSelectedViewTask] = useState<Task | null>(null);
   const viewTaskContainer = useRef<HTMLDivElement>(null);
 
@@ -20,13 +21,6 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
 
   // hook to generate and set the circle color of a task column name
   const [backgroundColor] = useState(generateRandomColor());
-
-  // handles the opening of the task container
-  // const handleOnOpenTask = () => {
-  //   // console.log(`Task details: ${JSON.stringify(task)}`);
-  //   // setSelectedViewTask(task);
-  //   console.log('im clicked');
-  // }
 
   // hook to handle clicks outside the container
   useEffect(() => {
@@ -46,7 +40,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
     };
   }, [selectedViewTask]);
 
-  // animations for the view container 
+  // animations for the view container
   const getMenuAnimationVariantsForViewTask = () => ({
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
@@ -55,11 +49,20 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
 
   useEffect(() => {
     console.log(selectedViewTask, 'is the value of viewTask now');
+    console.log(isHoveredTask , " is the valuse for hovered");
 
-  }, [selectedViewTask]);
+
+  }, [selectedViewTask, isHoveredTask]);
 
 
-  // function to handle the hovering of a board 
+  useEffect(() => {
+    if (selectedTaskIndex !== null) {
+      setSelectedViewTask(tasks[selectedTaskIndex]);
+    }
+  }, [selectedTaskIndex, tasks]);
+
+
+  // function to handle the hovering of a board
   const handleHoveredTask = (index: number) => {
     setIsHoveredTask(index);
     console.log(`Hovering task: ${index}`);
@@ -69,6 +72,12 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
   const handleUnHoveredTask = () => {
     setIsHoveredTask(null);
     console.log(`Hovering task: set to false`);
+  };
+
+  // handles the onclick function of a task
+  const handleOnClickTask = (index: number) => {
+    setSelectedTaskIndex(index);
+    console.log(`Task clicked: ${tasks[index].title}`);
   };
 
   // styles to match the task board container when theme changes
@@ -91,7 +100,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
           <p className="taskCount" data-testid="taskCount">({tasks?.length})</p>
         </div>
         <div className="mainTaskContainer">
-          {tasks?.map((task, index) =>
+          {tasks.map((task, index) =>
           (
             <div
               className="columnTaskContainer cursor-pointer"
@@ -99,7 +108,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
               style={handleBgTheme}
               onMouseEnter={() => handleHoveredTask(index)}
               onMouseLeave={() => handleUnHoveredTask()}
-              onClick={() => console.log('here is the task details')}
+              onClick={() => handleOnClickTask(index)}
             >
               <article className="taskTitle cursor-pointer font-bold" data-testid="taskTitle"
                 style={{
@@ -139,7 +148,6 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
                 subtasks={selectedViewTask.subtasks}
               />
             </motion.div>
-            <div>Debug: viewTask and selectedTask are true</div>
           </>
         )}
       </AnimatePresence>

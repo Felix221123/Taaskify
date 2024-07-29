@@ -211,7 +211,6 @@
     border-right: 1px solid $linesLight;
     @include flex(column);
     padding: 0rem 0rem 1.625rem 0rem;
-
     justify-content: space-between;
 
     @media (min-width: 1440px) {
@@ -279,13 +278,10 @@
     }
 }
 
-* {
-    box-sizing: border-box;
-}
 
 // mobile container
 @mixin MobileContainerBar() {
-    width: 70%;
+    width: 80%;
     height: auto;
     position: fixed;
     top: 13%;

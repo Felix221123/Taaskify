@@ -182,7 +182,7 @@ $borderClr: #979797;
 }
 
 // container opening Effect
-@mixin ContainerPosition($smallCon) {
+@mixin ContainerPosition($con) {
     z-index: 9999;
     position: absolute;
     top: 50%;
@@ -190,11 +190,10 @@ $borderClr: #979797;
     transform: translate(-50%, -50%);
 
     @media (max-width: 767px) {
-        @if $smallCon == "small" {
-            margin-top: 1rem;
+        @if $con == "large" {
+            margin-top: 6.5rem;
         } @else {
-            margin-top: 7rem;
-            margin-bottom: 7rem;
+          margin-top: 0rem;
         }
     }
 

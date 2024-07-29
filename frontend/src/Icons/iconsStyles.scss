@@ -21,7 +21,7 @@
             }
 
             &::after {
-                content: url(../../public/assets/icon-check.svg);
+                content: url("/src/assets/icon-check.svg");
                 color: white;
                 font-weight: 500;
                 @include fontSize12px();

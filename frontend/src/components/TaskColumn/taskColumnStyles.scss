@@ -118,7 +118,7 @@
 }
 
 .containerOpen{
-    @include ContainerPosition();
+    @include ContainerPosition("small");
 }
 
 #overLayEffect {

@@ -103,8 +103,8 @@ export const TaaskifyApp = () => {
       {boards.length > 0 && boards[activeBoardIndex]?.columns.map((column, columnIndex) => (
           <TaskColumn
             key={`${activeBoardIndex}-${columnIndex}`}
-            name={column.name}
-            tasks={column.tasks}
+            name={column?.name}
+            tasks={column?.tasks}
           />
         )) || <EmptyColumn />}
       </div>

@@ -1,4 +1,4 @@
 export interface EditProps{
-    boardName: string;
+    boardName: string | undefined;
     // boardColumns: string[];
 }
