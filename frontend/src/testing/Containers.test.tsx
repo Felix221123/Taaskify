@@ -7,13 +7,14 @@ import {
   AddNewTaskContainer,
   SubTaskAddNewTaskColumnContainer,
 } from "../components/Containers/AddNewTaskContainer";
-import {EditDeleteContainer} from "../components/Containers/EditDeleteContainer";
+import { EditDeleteContainer } from "../components/Containers/EditDeleteContainer";
 import { SubTaskForTaskContainer, ViewTaskContainer } from "../components/Containers/ViewTaskContainer";
 import { customRender } from "../utils/testingUtils";
 import { useState } from "react";
 import { Task } from "../components/Interface/AddTaskInterface";
+import { ProfileContainer } from "../components/Containers/ProfileContainer";
 
-export const SubtaskWrapper: React.FC<{container:string}> = ({ container }) => {
+export const SubtaskWrapper: React.FC<{ container: string }> = ({ container }) => {
   const [task, setTask] = useState<Task>({
     title: "",
     description: "",
@@ -22,9 +23,9 @@ export const SubtaskWrapper: React.FC<{container:string}> = ({ container }) => {
       { title: "", isCompleted: false },
       { title: "", isCompleted: false }
     ],
-  }); 
+  });
 
-  
+
   return (
     <>
       {container === "SubTaskAddNewTaskColumnContainer" ? (
@@ -56,7 +57,7 @@ describe("Delete Component", () => {
       <DeleteContainer
         deleteContainerItemName="my lunch"
         deleteContainerName="task"
-        setEditDelBoardCon={() => {}}
+        setEditDelBoardCon={() => { }}
       />
     );
     const heading = screen.getByText(/Delete this task/i);
@@ -69,7 +70,7 @@ describe("Delete Component", () => {
       <DeleteContainer
         deleteContainerItemName="my lunch"
         deleteContainerName="task"
-        setEditDelBoardCon={() => {}}
+        setEditDelBoardCon={() => { }}
       />
     );
     const text =
@@ -83,7 +84,7 @@ describe("Delete Component", () => {
       <DeleteContainer
         deleteContainerItemName="my lunch"
         deleteContainerName="task"
-        setEditDelBoardCon={() => {}}
+        setEditDelBoardCon={() => { }}
       />
     );
 
@@ -198,7 +199,7 @@ describe("Add New Task Container Component", () => {
   });
 
   it("it should display board columns title with the columns", () => {
-    customRender(<SubtaskWrapper container="SubTaskAddNewTaskColumnContainer"/>);
+    customRender(<SubtaskWrapper container="SubTaskAddNewTaskColumnContainer" />);
     const paragraph = screen.getByText(/Subtasks/i);
     expect(paragraph).toBeVisible();
     expect(paragraph).toBeInTheDocument();
@@ -263,7 +264,7 @@ describe("SubTaskColumnContainer task component", () => {
       screen.queryByPlaceholderText("e.g. Sample Text")
     ).not.toBeInTheDocument();
   });
-  
+
 });
 
 // testing the edit / delete container component
@@ -277,9 +278,9 @@ describe('Edit Delete container', () => {
 
     const button2 = screen.getByTestId("btn2");
     expect(button2).toBeInTheDocument();
-        
+
   })
-    
+
 });
 
 // testing the task Container component
@@ -290,17 +291,17 @@ describe('Task Container Component', () => {
       description: "",
       status: "Todo",
       subtasks: [
-          {
-              title: "Account page",
-              isCompleted: false
-          },
-          {
-              title: "Billing page",
-              isCompleted: false
-          }
+        {
+          title: "Account page",
+          isCompleted: false
+        },
+        {
+          title: "Billing page",
+          isCompleted: false
+        }
       ]
-  }
-    customRender(<ViewTaskContainer title={task.title} description={task.description} status={task.status} subtasks={task.subtasks}/>)
+    }
+    customRender(<ViewTaskContainer title={task.title} description={task.description} status={task.status} subtasks={task.subtasks} />)
     const editBtn = screen.getByTestId("editBtn");
     fireEvent.click(editBtn);
 
@@ -317,4 +318,18 @@ describe('Task Container Component', () => {
     expect(screen.getByTestId("subtaskContainer")).toBeInTheDocument()
     expect(screen.getByTestId("subtaskContainer")).toBeVisible()
   })
+});
+
+// testing the profile container
+describe('Profile Container', () => {
+  it('it should display the users characters in the circle and the settings icon', () => {
+    customRender(<ProfileContainer firstName="felix" lastName="baah" onClickProps={() => {}}/>);
+    expect(screen.getByTestId("avatarCircle")).toBeInTheDocument();
+    expect(screen.getByTestId("avatarCircle")).toBeVisible();
+    expect(screen.getByTestId("settingsIcon")).toBeInTheDocument();
+    expect(screen.getByTestId("settingsIcon")).toBeVisible();
+  })
+
 })
+
+

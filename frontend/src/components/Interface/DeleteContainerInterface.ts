@@ -1,5 +1,5 @@
 export interface DeleteContainerProps{
     deleteContainerName: string,
-    deleteContainerItemName:string,
+    deleteContainerItemName:string | undefined,
     onClickProps?:() => void;
 }

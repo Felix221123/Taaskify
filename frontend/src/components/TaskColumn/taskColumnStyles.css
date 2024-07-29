@@ -12,7 +12,7 @@
   z-index: -1;
 }
 .emptyBoardContainer > .text {
-  color: #828FA3;
+  color: #828fa3;
   font-size: clamp(0.9375rem, 0.94vw, 0.94rem);
   padding: 0rem 0.5rem;
 }
@@ -32,7 +32,7 @@
        column-gap: 0.3rem;
   align-items: center;
   font-size: clamp(0.75rem, 0.755vw, 0.76rem);
-  color: #828FA3;
+  color: #828fa3;
   letter-spacing: 2.4px;
 }
 .taskColumnContainer > .taskColumnNameCount > .colorCircle {
@@ -76,7 +76,7 @@
 }
 .mainTaskContainer > .columnTaskContainer > .subtaskCount {
   font-size: clamp(0.75rem, 0.755vw, 0.76rem);
-  color: #828FA3;
+  color: #828fa3;
 }
 
 .containerOpen {
@@ -88,8 +88,7 @@
 }
 @media (max-width: 767px) {
   .containerOpen {
-    margin-top: 7rem;
-    margin-bottom: 7rem;
+    margin-top: 0rem;
   }
 }
 @media (min-width: 768px) {

@@ -16,6 +16,7 @@ import { AddNewTaskContainer } from "../Containers/AddNewTaskContainer";
 import { AddNewBoard } from "../Containers/AddNewBoard";
 import { DeleteContainer } from "../Containers/DeleteContainer";
 import { EditBoardContainer } from "../Containers/EditBoardContainer";
+import { ProfileContainer } from "../Containers/ProfileContainer";
 
 
 export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
@@ -43,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   const handleMenuVisibility = useCallback(() => {
     if (delEditVisible) {
       setDelEditVisible(false);
-    } 
+    }
     setMenuVisibility(true);
   }, [delEditVisible]);
 
@@ -158,7 +159,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
     };
   }, [menuVisibility, delEditVisible, addTaskBtn, addBoardBtn, editDelBoardCon]);
 
-  // function to handle the hovering of a board 
+  // function to handle the hovering of a board
   const handleHovered = (index: number) => {
     setIsHovered(index);
   };
@@ -168,7 +169,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
     setIsHovered(null);
   };
 
-  // function to handle the hovering of the hide side bar btn 
+  // function to handle the hovering of the hide side bar btn
   const handleSideBarHovered = (sidebar: string) => {
     setIsHideSideBarHovered(sidebar);
   };
@@ -181,7 +182,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   // styling for when an element is hovered
   const HoveredStyle: React.CSSProperties = {
     width: "92%",
-    backgroundColor: theme === "light" ? "#E4EBFA" : "#FFFFFF",
+    backgroundColor: theme === "light" ? "rgba(99, 95, 199, 0.25)" : "#FFFFFF",
     borderRadius: "0rem 1.5rem 1.5rem 0rem",
     color: theme === "dark" ? "#635FC7" : "#635FC7",
   };
@@ -340,6 +341,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
             {/* toggle btn with hide side bar */}
             <div className="toggleHideContainer">
               <ToggleContainer />
+              <ProfileContainer firstName="felix" lastName="baah" onClickProps={() => {}}/>
               <div
                 className={`hideSideBar font-bold cursor-pointer`}
                 onClick={handlesSideBarClose}
@@ -392,6 +394,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
               {"+ Create New Board"}
             </button>
             <ToggleContainer />
+            <ProfileContainer firstName="felix" lastName="baah" onClickProps={() => {}}/>
           </motion.div>
         )}
       </AnimatePresence>
@@ -438,7 +441,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
               transition={{ duration: 0.5 }}
               ref={EditDelContainer}
             >
-              <DeleteContainer deleteContainerName="board" deleteContainerItemName="platform lunch" setEditDelBoardCon={setEditDelBoardCon}/>
+              <DeleteContainer deleteContainerName="board" deleteContainerItemName={boards[activeBoard]?.name} setEditDelBoardCon={setEditDelBoardCon}/>
             </motion.div>
           )
         }
@@ -451,7 +454,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
               transition={{ duration: 0.5 }}
               ref={EditDelContainer}
             >
-              <EditBoardContainer boardName="platform" />
+              <EditBoardContainer boardName={boards[activeBoard]?.name} />
             </motion.div>
           )
         }

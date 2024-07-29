@@ -137,7 +137,7 @@ export const SubTaskForTaskContainer = ({
                   ...combinedStyle,
                   backgroundColor:
                     hoveredIndex === index
-                      ? "#A8A4FF"
+                      ? "rgba(99, 95, 199, 0.25)"
                       : bgThemeForSubTask.backgroundColor,
                 }}
                 onMouseOver={() => handleMouseOver(index)}

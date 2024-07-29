@@ -7,7 +7,7 @@ import { useTheme } from "../../Context/UseTheme";
 import { CrossIcon } from "../../Icons/Cross";
 
 export const EditBoardContainer = ({ boardName  }: EditProps) => {
-  const [content, setContent] = useState<string>(boardName);
+  const [content, setContent] = useState<string | undefined>(boardName);
 
   // forms to handle the onChange of the board name
   const handleBoardNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +90,7 @@ export const BoardColumnContainer = () => {
     setBoardColumns(newColumns);
   };
 
-  // removing columns 
+  // removing columns
   const removeColumn = (index: number) => {
     const newColumns = boardColumns.filter((_, i) => i !== index);
     setBoardColumns(newColumns);

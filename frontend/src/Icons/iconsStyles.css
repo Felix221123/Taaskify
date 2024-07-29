@@ -16,7 +16,7 @@
   border-color: #635fc7;
 }
 .iconContainer > label > input::after {
-  content: url(../../public/assets/icon-check.svg);
+  content: url("/src/assets/icon-check.svg");
   color: white;
   font-weight: 500;
   font-size: clamp(0.75rem, 0.755vw, 0.76rem);
