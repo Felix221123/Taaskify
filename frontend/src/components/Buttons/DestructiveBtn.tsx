@@ -1,10 +1,10 @@
-import { useTheme } from "../../Context/UseTheme";
-import { useState } from "react";
-import { ButtonProps } from "../Interface/ButtonInterface";
-import React from "react";
-import "./button-styles.css";
+import { useTheme } from '../../Context/UseTheme';
+import { useState } from 'react';
+import { ButtonProps } from '../Interface/ButtonInterface';
+import React from 'react';
+import './button-styles.css';
 
-export const DestructiveBtn = ({ buttonName , onClick }: ButtonProps) => {
+export const DestructiveBtn = ({ buttonName, onClick }: ButtonProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   // Event handlers to toggle hover state
@@ -21,14 +21,14 @@ export const DestructiveBtn = ({ buttonName , onClick }: ButtonProps) => {
 
   // sets the color of the buttons based on the theme chosed by the user
   const themeStyle: React.CSSProperties = {
-    color: theme === "light" ? "#FFFFFF" : "#FFFFFF",
-    backgroundColor: theme === "light" ? "#EA5555" : "#EA5555",
+    color: theme === 'light' ? '#FFFFFF' : '#FFFFFF',
+    backgroundColor: theme === 'light' ? '#EA5555' : '#EA5555',
   };
 
   // setting the hover state of the button
   const hoverBtnStyle: React.CSSProperties = {
-    backgroundColor: "#FF9898",
-    transition: "all 0.5s",
+    backgroundColor: '#FF9898',
+    transition: 'all 0.5s',
   };
 
   const combinedStyles = isHovered

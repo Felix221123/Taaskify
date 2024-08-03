@@ -1,9 +1,6 @@
-import { Task } from "./AddTaskInterface";
+import { Task } from './AddTaskInterface';
 
-export interface ColumnProps{
-    name:string;
-    tasks: Task[];
+export interface ColumnProps {
+  name: string;
+  tasks: Task[];
 }
-
-
-

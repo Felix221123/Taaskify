@@ -1,18 +1,18 @@
-import React, { useRef, useState, useEffect } from "react";
-import { ColumnProps } from "../Interface/Column";
-import { generateRandomColor } from "../../utils/ColorGeneration";
-import { Task } from "../Interface/AddTaskInterface";
-import "./taskColumnStyles.css"
-import { useTheme } from "../../Context/UseTheme";
-import { ViewTaskContainer } from "../Containers/ViewTaskContainer";
-import { countIncompleteSubtasks } from "../../utils/CountSubtask";
-import { motion, AnimatePresence } from "framer-motion";
-
-
+import React, { useRef, useState, useEffect } from 'react';
+import { ColumnProps } from '../Interface/Column';
+import { generateRandomColor } from '../../utils/ColorGeneration';
+import { Task } from '../Interface/AddTaskInterface';
+import './taskColumnStyles.css';
+import { useTheme } from '../../Context/UseTheme';
+import { ViewTaskContainer } from '../Containers/ViewTaskContainer';
+import { countIncompleteSubtasks } from '../../utils/CountSubtask';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
   const [isHoveredTask, setIsHoveredTask] = useState<number | null>(null);
-  const [selectedTaskIndex, setSelectedTaskIndex] = useState<number | null>(null);
+  const [selectedTaskIndex, setSelectedTaskIndex] = useState<number | null>(
+    null
+  );
   const [selectedViewTask, setSelectedViewTask] = useState<Task | null>(null);
   const viewTaskContainer = useRef<HTMLDivElement>(null);
 
@@ -34,9 +34,9 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [selectedViewTask]);
 
@@ -49,18 +49,14 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
 
   useEffect(() => {
     console.log(selectedViewTask, 'is the value of viewTask now');
-    console.log(isHoveredTask , " is the valuse for hovered");
-
-
+    console.log(isHoveredTask, ' is the valuse for hovered');
   }, [selectedViewTask, isHoveredTask]);
-
 
   useEffect(() => {
     if (selectedTaskIndex !== null) {
       setSelectedViewTask(tasks[selectedTaskIndex]);
     }
   }, [selectedTaskIndex, tasks]);
-
 
   // function to handle the hovering of a board
   const handleHoveredTask = (index: number) => {
@@ -82,26 +78,32 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
 
   // styles to match the task board container when theme changes
   const handleBgTheme: React.CSSProperties = {
-    backgroundColor: theme === "light" ? "#FFFFFF" : "#3E3F4E",
+    backgroundColor: theme === 'light' ? '#FFFFFF' : '#3E3F4E',
   };
 
   // styles for the task board title when theme changes
   const TitleColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#000112" : "#FFFFFF",
+    color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
-
 
   return (
     <>
       <div className="taskColumnContainer">
         <div className="taskColumnNameCount font-bold">
-          <div className="colorCircle" style={{ background: backgroundColor }} data-testid="colorCircle"></div>
-          <p className="taskColumnName uppercase" data-testid="taskName">{name}</p>
-          <p className="taskCount" data-testid="taskCount">({tasks?.length})</p>
+          <div
+            className="colorCircle"
+            style={{ background: backgroundColor }}
+            data-testid="colorCircle"
+          ></div>
+          <p className="taskColumnName uppercase" data-testid="taskName">
+            {name}
+          </p>
+          <p className="taskCount" data-testid="taskCount">
+            ({tasks?.length})
+          </p>
         </div>
         <div className="mainTaskContainer">
-          {tasks.map((task, index) =>
-          (
+          {tasks.map((task, index) => (
             <div
               className="columnTaskContainer cursor-pointer"
               key={index}
@@ -110,23 +112,29 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
               onMouseLeave={() => handleUnHoveredTask()}
               onClick={() => handleOnClickTask(index)}
             >
-              <article className="taskTitle cursor-pointer font-bold" data-testid="taskTitle"
+              <article
+                className="taskTitle cursor-pointer font-bold"
+                data-testid="taskTitle"
                 style={{
                   ...TitleColorOnChange,
-                  color: isHoveredTask === index ? "#635FC7" : TitleColorOnChange.color,
+                  color:
+                    isHoveredTask === index
+                      ? '#635FC7'
+                      : TitleColorOnChange.color,
                 }}
               >
                 {task.title}
               </article>
-              <div className="subtaskCount font-bold" data-testid="subTaskCount">
-                {countIncompleteSubtasks(task.subtasks, "completed")}
+              <div
+                className="subtaskCount font-bold"
+                data-testid="subTaskCount"
+              >
+                {countIncompleteSubtasks(task.subtasks, 'completed')}
               </div>
             </div>
-          )
-          )}
+          ))}
         </div>
       </div>
-
 
       {/* container to view task when they are pressed */}
       <AnimatePresence>
@@ -152,11 +160,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
         )}
       </AnimatePresence>
 
-
-      {selectedViewTask && (<div id="overLayEffect"></div>)}
+      {selectedViewTask && <div id="overLayEffect"></div>}
     </>
-  )
-}
-
-
-
+  );
+};

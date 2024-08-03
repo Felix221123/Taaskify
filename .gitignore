@@ -14,8 +14,7 @@ backend/node_modules
 frontend/dist
 backend/dist
 backend/.env
-
-
+backend/coverage
 # Built Visual Studio Code Extensions
 *.vsix
 .DS_Store

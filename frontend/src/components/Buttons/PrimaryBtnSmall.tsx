@@ -1,8 +1,8 @@
-import { useTheme } from "../../Context/UseTheme";
-import { useState } from "react";
-import { ButtonProps } from "../Interface/ButtonInterface";
-import React from "react";
-import "./button-styles.css";
+import { useTheme } from '../../Context/UseTheme';
+import { useState } from 'react';
+import { ButtonProps } from '../Interface/ButtonInterface';
+import React from 'react';
+import './button-styles.css';
 
 export const PrimaryBtnSmall = ({ buttonName }: ButtonProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -21,14 +21,14 @@ export const PrimaryBtnSmall = ({ buttonName }: ButtonProps) => {
 
   // sets the color of the buttons based on the theme chosed by the user
   const themeStyle: React.CSSProperties = {
-    color: theme === "light" ? "#FFFFFF" : "#FFFFFF",
-    backgroundColor: theme === "light" ? "#635FC7" : "#635FC7",
+    color: theme === 'light' ? '#FFFFFF' : '#FFFFFF',
+    backgroundColor: theme === 'light' ? '#635FC7' : '#635FC7',
   };
 
   // setting the hover state of the button
   const hoverBtnStyle: React.CSSProperties = {
-    backgroundColor: "#A8A4FF",
-    transition: "all 0.5s",
+    backgroundColor: '#A8A4FF',
+    transition: 'all 0.5s',
   };
 
   const combinedStyles = isHovered
@@ -38,11 +38,11 @@ export const PrimaryBtnSmall = ({ buttonName }: ButtonProps) => {
   return (
     <>
       <button
-        className="primaryBtnSmall font-bold leading-6 cursor-pointer"
+        className="primaryBtnSmall font-bold leading-6 cursor-pointer uppercase"
         style={combinedStyles}
         onMouseOver={handleMouseOver}
-              onMouseOut={handleMouseOut}
-              data-testid="custom-primary-button"
+        onMouseOut={handleMouseOut}
+        data-testid="custom-primary-button"
       >
         {buttonName}
       </button>

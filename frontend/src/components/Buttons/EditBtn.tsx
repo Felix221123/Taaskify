@@ -1,5 +1,5 @@
-import { onClickPropsEditBtnProps } from "../Interface/AddTaskInterface";
-import "./button-styles.css";
+import { onClickPropsEditBtnProps } from '../Interface/AddTaskInterface';
+import './button-styles.css';
 
 export const EditBtn = ({
   onClickEditBtn,

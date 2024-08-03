@@ -1,8 +1,8 @@
-import { useTheme } from "../../Context/UseTheme";
-import { useState } from "react";
-import { ButtonProps } from "../Interface/ButtonInterface";
-import React from "react";
-import "./button-styles.css";
+import { useTheme } from '../../Context/UseTheme';
+import { useState } from 'react';
+import { ButtonProps } from '../Interface/ButtonInterface';
+import React from 'react';
+import './button-styles.css';
 
 export const CancelBtn = ({ buttonName, onClick }: ButtonProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -21,20 +21,19 @@ export const CancelBtn = ({ buttonName, onClick }: ButtonProps) => {
 
   // sets the color of the buttons based on the theme chosed by the user
   const themeStyle: React.CSSProperties = {
-    color: theme === "light" ? "#635FC7" : "#635FC7",
-    backgroundColor: theme === "light" ? "rgba(99, 95, 199,0.1)" : "#FFFFFF",
+    color: theme === 'light' ? '#635FC7' : '#635FC7',
+    backgroundColor: theme === 'light' ? 'rgba(99, 95, 199,0.1)' : '#FFFFFF',
   };
 
   // setting the hover state of the button
   const hoverBtnStyle: React.CSSProperties = {
-    backgroundColor: "rgba(99, 95, 199,0.25)",
-    transition: "all 0.5s",
+    backgroundColor: 'rgba(99, 95, 199,0.25)',
+    transition: 'all 0.5s',
   };
 
   const combinedStyles = isHovered
     ? { ...themeStyle, ...hoverBtnStyle }
     : themeStyle;
-
 
   return (
     <>
@@ -49,6 +48,5 @@ export const CancelBtn = ({ buttonName, onClick }: ButtonProps) => {
         {buttonName}
       </button>
     </>
-  )
-}
-
+  );
+};

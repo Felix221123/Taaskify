@@ -1,126 +1,105 @@
-@import "../../static/base";
+@import '../../static/base';
 
 // Task Column mixins here
 
 // empty column styles
 @mixin EmptyBoardComponent() {
-    @include flexComp(column);
-    row-gap: 1rem;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
+  @include flexComp(column);
+  row-gap: 1rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
 
-    > .text {
-        color: $mediumGrey;
-        @include fontSize15px();
-        padding: 0rem 0.5rem;
-    }
+  > .text {
+    color: $mediumGrey;
+    @include fontSize15px();
+    padding: 0rem 0.5rem;
+  }
 }
-
-
 
 // style for task column
 @mixin TaskColumn() {
-    z-index: -10;
-    margin: 0.75rem;
+  z-index: -10;
+  margin: 0.75rem;
+  @include flex(column);
+  row-gap: 1rem;
+  width: 17.5rem;
+
+  > .taskColumnNameCount {
+    @include flex(row);
+    column-gap: 0.3rem;
+    align-items: center;
+    @include fontSize12px();
+    color: $mediumGrey;
+    letter-spacing: 2.4px;
+
+    > .colorCircle {
+      width: 0.9375rem;
+      height: 0.9375rem;
+      border-radius: 50%;
+    }
+  }
+
+  > .taskScrollableContainer {
     @include flex(column);
-    row-gap: 1rem;
-    width: 17.5rem;
-
-    > .taskColumnNameCount {
-        @include flex(row);
-        column-gap: 0.3rem;
-        align-items: center;
-        @include fontSize12px();
-        color: $mediumGrey;
-        letter-spacing: 2.4px;
-
-        > .colorCircle {
-            width: 0.9375rem;
-            height: 0.9375rem;
-            border-radius: 50%;
-        }
-    }
-
-    > .taskScrollableContainer{
-        @include flex(column);
-    }
-
+  }
 }
 
 // styles for task container
 @mixin TaskContainer() {
-    @include flex(column);
+  @include flex(column);
+  width: 100%;
+  row-gap: 1rem;
+  height: 100%;
+  margin-bottom: 2.5rem;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  > .columnTaskContainer {
     width: 100%;
-    row-gap: 1rem;
-    height: 100%;
-    margin-bottom: 2.5rem;
-    overflow: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none;
+    height: auto;
+    border-radius: 0.5rem;
+    padding: 1rem 0.75rem;
+    @include flex(column);
+    row-gap: 0.25rem;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
 
-    ::-webkit-scrollbar{
-        display: none;
+    > .taskTitle {
+      @include fontSize15px();
+      line-height: auto;
+      cursor: pointer;
     }
-
-    > .columnTaskContainer {
-        width: 100%;
-        height: auto;
-        border-radius: 0.5rem;
-        padding: 1rem 0.75rem;
-        @include flex(column);
-        row-gap: .25rem;
-        box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-
-        > .taskTitle {
-            @include fontSize15px();
-            line-height: auto;
-            cursor: pointer;
-        }
-        > .subtaskCount {
-            @include fontSize12px();
-            color: $mediumGrey;
-        }
+    > .subtaskCount {
+      @include fontSize12px();
+      color: $mediumGrey;
     }
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Including the right mixins for the right selectors
 .emptyBoardContainer {
-    @include EmptyBoardComponent();
+  @include EmptyBoardComponent();
 }
 
 .taskColumnContainer {
-    @include TaskColumn();
+  @include TaskColumn();
 }
 
 .mainTaskContainer {
-    @include TaskContainer();
+  @include TaskContainer();
 }
 
-.containerOpen{
-    @include ContainerPosition("small");
+.containerOpen {
+  @include ContainerPosition('small');
 }
 
 #overLayEffect {
-    @include OverlayEffect();
+  @include OverlayEffect();
 }

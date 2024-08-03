@@ -1,15 +1,27 @@
-import { useTheme } from "../../Context/UseTheme";
-import React, { useState } from "react";
-import { SubTaskEditTaskColumnContainerProps, Task } from "../Interface/AddTaskInterface";
-import "./ContainersStyles.css";
-import { SecondaryBtn } from "../Buttons/SecondaryBtn";
-import { CrossIcon } from "../../Icons/Cross";
-import { PrimaryBtnSmall } from "../Buttons/PrimaryBtnSmall";
-import { TaskStatus } from "./AddNewTaskContainer";
+import { useTheme } from '../../Context/UseTheme';
+import React, { useState } from 'react';
+import {
+  SubTaskEditTaskColumnContainerProps,
+  Task,
+} from '../Interface/AddTaskInterface';
+import './ContainersStyles.css';
+import { SecondaryBtn } from '../Buttons/SecondaryBtn';
+import { CrossIcon } from '../../Icons/Cross';
+import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
+import { TaskStatus } from './AddNewTaskContainer';
 
-
-export const EditTaskContainer:React.FC<Task> = ({title,description,status,subtasks}) => {
-  const [task, setTask] = useState<Task>({ title, description, status, subtasks });
+export const EditTaskContainer: React.FC<Task> = ({
+  title,
+  description,
+  status,
+  subtasks,
+}) => {
+  const [task, setTask] = useState<Task>({
+    title,
+    description,
+    status,
+    subtasks,
+  });
 
   // handling the onchange of the input
   const handleInputChange = (
@@ -27,17 +39,17 @@ export const EditTaskContainer:React.FC<Task> = ({title,description,status,subta
 
   // background theme colors
   const boardContainerTheme: React.CSSProperties = {
-    backgroundColor: theme === "light" ? "#FFFFFF" : "#3E3F4E",
+    backgroundColor: theme === 'light' ? '#FFFFFF' : '#3E3F4E',
   };
 
   // title theme colors
   const TitleColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#000112" : "#FFFFFF",
+    color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
   // input color theme
   const TextColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#828FA3" : "#FFFFFF",
+    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
 
   return (
@@ -84,9 +96,17 @@ a little."
             ></textarea>
           </label>
         </div>
-        <SubTaskEditTaskColumnContainer subtasks={task.subtasks} setSubtasks={(newSubtasks) => setTask({ ...task, subtasks: newSubtasks })}/>
-        <TaskStatus taskContainerName="Status" status={task.status}
-        setStatus={(newStatus) => setTask({ ...task, status: newStatus })}/>
+        <SubTaskEditTaskColumnContainer
+          subtasks={task.subtasks}
+          setSubtasks={(newSubtasks) =>
+            setTask({ ...task, subtasks: newSubtasks })
+          }
+        />
+        <TaskStatus
+          taskContainerName="Status"
+          status={task.status}
+          setStatus={(newStatus) => setTask({ ...task, status: newStatus })}
+        />
         <PrimaryBtnSmall buttonName="Save Changes" />
       </div>
     </>
@@ -94,21 +114,23 @@ a little."
 };
 
 // sub component used to get the subtask from the user for the main component
-export const SubTaskEditTaskColumnContainer:React.FC<SubTaskEditTaskColumnContainerProps> = ({ subtasks, setSubtasks }) => {
+export const SubTaskEditTaskColumnContainer: React.FC<
+  SubTaskEditTaskColumnContainerProps
+> = ({ subtasks, setSubtasks }) => {
   // const to keep track of the columns available
   // Initialize with the first two subtasks
   const { theme } = useTheme();
   const TitleColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#000112" : "#FFFFFF",
+    color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
   const TextColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#828FA3" : "#FFFFFF",
+    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
 
   const addNewColumn = () => {
-    setSubtasks([...subtasks, { title: "", isCompleted: false }]);
-    console.log("Add new column clicked. Current columns:", subtasks);
+    setSubtasks([...subtasks, { title: '', isCompleted: false }]);
+    console.log('Add new column clicked. Current columns:', subtasks);
   };
 
   const handleColumnChange = (index: number, value: string) => {
@@ -145,10 +167,10 @@ export const SubTaskEditTaskColumnContainer:React.FC<SubTaskEditTaskColumnContai
                     onChange={(e) => handleColumnChange(index, e.target.value)}
                     placeholder={
                       index === 0
-                        ? "e.g. Make coffee"
+                        ? 'e.g. Make coffee'
                         : index === 1
-                          ? "e.g. Drink coffee & smile"
-                          : "e.g. Sample Text"
+                          ? 'e.g. Drink coffee & smile'
+                          : 'e.g. Sample Text'
                     }
                   />
                 </label>
@@ -156,7 +178,6 @@ export const SubTaskEditTaskColumnContainer:React.FC<SubTaskEditTaskColumnContai
               </div>
             ))}
           </div>
-
         </div>
 
         <SecondaryBtn buttonName="+ Add New Column" onClick={addNewColumn} />

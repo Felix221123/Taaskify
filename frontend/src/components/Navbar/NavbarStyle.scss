@@ -1,405 +1,408 @@
-@import "../../static/base";
+@import '../../static/base';
 
 // mobile navbar responsive
 @mixin MobileNavbarContainer() {
-    width: 100%;
-    height: 4rem;
-    padding: 1rem 1.25rem;
-    position: sticky;
-    top: 0;
+  width: 100%;
+  height: 4rem;
+  padding: 1rem 1.25rem;
+  position: sticky;
+  top: 0;
+  @include flex(row);
+  align-items: center;
+  justify-content: space-between;
+  z-index: 999999;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+
+  > .leftHandSide {
     @include flex(row);
     align-items: center;
-    justify-content: space-between;
-    z-index: 999999;
+    column-gap: 1rem;
 
-    @media (min-width: 768px) {
-        display: none;
+    > .logo {
+      @include fontSize12px();
+      color: $deepPurpleclr;
     }
 
-    > .leftHandSide {
-        @include flex(row);
-        align-items: center;
-        column-gap: 1rem;
+    > .currentBoardContainer {
+      @include flex(row);
+      align-items: center;
+      column-gap: 0.5rem;
+      @include fontSize18px();
 
-        > .logo {
-            @include fontSize12px();
-            color: $deepPurpleclr;
+      > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        @media (max-width: 500px) {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 9rem;
         }
+      }
 
-        > .currentBoardContainer {
-            @include flex(row);
-            align-items: center;
-            column-gap: 0.5rem;
-            @include fontSize18px();
+      > .arrowChevron {
+        transition: all 0.5s;
+      }
+    }
+  }
 
-            > span {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
+  > .rightHandSide {
+    display: grid;
+    grid-template-columns: 0.9fr 0.1fr;
+    align-items: center;
+    column-gap: 1rem;
 
-                @media (max-width: 500px) {
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    width: 9rem;
-                }
-            }
-
-            > .arrowChevron {
-                transition: all 0.5s;
-            }
-        }
+    > .addNewTaskBtn {
+      width: 3rem;
+      height: 2rem;
+      background-color: $deepPurpleclr;
+      @include flexComp(column);
     }
 
-    > .rightHandSide {
-        display: grid;
-        grid-template-columns: 0.9fr 0.1fr;
-        align-items: center;
-        column-gap: 1rem;
-
-        > .addNewTaskBtn {
-            width: 3rem;
-            height: 2rem;
-            background-color: $deepPurpleclr;
-            @include flexComp(column);
-        }
-
-        > .EditBtn {
-            margin-left: auto;
-            @include flex(column);
-        }
+    > .EditBtn {
+      margin-left: auto;
+      @include flex(column);
     }
+  }
 }
 
 // desktop navbar responsive
 @mixin DesktopNavbarContainer() {
-    @media (max-width: 767px) {
-        display: none;
-    }
-    width: 100%;
-    height: 5.0625rem;
-    padding: 0rem 1.5rem;
-    position: sticky;
-    top: 0;
+  @media (max-width: 767px) {
+    display: none;
+  }
+  width: 100%;
+  height: 5.0625rem;
+  padding: 0rem 1.5rem;
+  position: sticky;
+  top: 0;
+  @include flex(row);
+  justify-content: space-between;
+  border-bottom: 1px solid $linesLight;
+
+  @media (min-width: 1440px) {
+    height: 6.0625rem;
+  }
+
+  > .desktopLeftHandSide {
     @include flex(row);
-    justify-content: space-between;
-    border-bottom: 1px solid $linesLight;
+    align-items: center;
 
-    @media (min-width: 1440px) {
-        height: 6.0625rem;
+    > .appLogoCompany {
+      @include fontSize24px();
+      letter-spacing: 1.5px;
+      color: $deepPurpleclr;
+      margin-right: 1.5rem;
+    }
+    > .border {
+      width: 1px;
+      background-color: $linesLight;
+      height: 100%;
     }
 
-    > .desktopLeftHandSide {
-        @include flex(row);
-        align-items: center;
+    > article {
+      padding: 0rem 0rem 0rem 1.5rem;
+      @include fontSize20px();
 
-        > .appLogoCompany {
-            @include fontSize24px();
-            letter-spacing: 1.5px;
-            color: $deepPurpleclr;
-            margin-right: 1.5rem;
-        }
-        > .border {
-            width: 1px;
-            background-color: $linesLight;
-            height: 100%;
-        }
+      @media (min-width: 1440px) {
+        @include fontSize24px();
+      }
+    }
+  }
 
-        > article {
-            padding: 0rem 0rem 0rem 1.5rem;
-            @include fontSize20px();
+  > .desktopRightHandSide {
+    display: grid;
+    grid-template-columns: 0.9fr 0.1fr;
+    align-items: center;
+    column-gap: 1rem;
 
-            @media (min-width: 1440px) {
-                @include fontSize24px();
-            }
-        }
+    > .desktopAddNewTask {
+      @include flexComp(column);
+      width: 10.25rem;
+      border-radius: 1.5rem;
+      @include fontSize15px();
+      height: 3rem;
+      background-color: $deepPurpleclr;
+      color: $whiteclr;
+
+      &:hover,
+      :active {
+        background-color: $hoverPurpleclr;
+        transition: 0.5s;
+      }
     }
 
-    > .desktopRightHandSide {
-        display: grid;
-        grid-template-columns: 0.9fr 0.1fr;
-        align-items: center;
-        column-gap: 1rem;
-
-        > .desktopAddNewTask {
-            @include flexComp(column);
-            width: 10.25rem;
-            border-radius: 1.5rem;
-            @include fontSize15px();
-            height: 3rem;
-            background-color: $deepPurpleclr;
-            color: $whiteclr;
-
-            &:hover,
-            :active {
-                background-color: $hoverPurpleclr;
-                transition: 0.5s;
-            }
-        }
-
-        > .EditBtn {
-            margin-left: auto;
-            @include flex(column);
-        }
+    > .EditBtn {
+      margin-left: auto;
+      @include flex(column);
     }
+  }
 }
 
 // open sidebar container
 @mixin ShowSideEyeBtn() {
-    @media (max-width: 767px) {
-        display: none;
-    }
+  @media (max-width: 767px) {
+    display: none;
+  }
 
-    position: fixed;
-    bottom: 5%;
-    width: 3.5rem;
-    height: 3rem;
-    background-color: $deepPurpleclr;
-    @include flexComp(column);
-    border-radius: 0rem 1.5rem 1.5rem 0rem;
+  position: fixed;
+  bottom: 5%;
+  width: 3.5rem;
+  height: 3rem;
+  background-color: $deepPurpleclr;
+  @include flexComp(column);
+  border-radius: 0rem 1.5rem 1.5rem 0rem;
 }
 
 // toggle btn styles
 @mixin ToggleBtn() {
-    /* The switch - the box around the slider */
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 2.5rem;
-        height: 1.25rem;
-    }
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 2.5rem;
+    height: 1.25rem;
+  }
 
-    /* Hide default HTML checkbox */
-    .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 
-    /* The slider */
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        inset: 0;
-        background-color: $deepPurpleclr;
-        border-radius: 50px;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: $deepPurpleclr;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
 
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 0.875rem;
-        width: 0.875rem;
-        left: 0.2em;
-        bottom: 0.2em;
-        background-color: white;
-        border-radius: inherit;
-        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    }
+  .slider:before {
+    position: absolute;
+    content: '';
+    height: 0.875rem;
+    width: 0.875rem;
+    left: 0.2em;
+    bottom: 0.2em;
+    background-color: white;
+    border-radius: inherit;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
 
-    .switch input:checked + .slider:before {
-        transform: translateX(1.2rem);
-    }
+  .switch input:checked + .slider:before {
+    transform: translateX(1.2rem);
+  }
 }
 
 // side bar container styles
 @mixin SideBarContainer() {
-    width: 16.3125rem;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    border-right: 1px solid $linesLight;
+  width: 16.3125rem;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  border-right: 1px solid $linesLight;
+  @include flex(column);
+  padding: 0rem 0rem 1.625rem 0rem;
+  justify-content: space-between;
+
+  @media (min-width: 1440px) {
+    width: 18.75rem;
+  }
+
+  > .upperSide {
     @include flex(column);
-    padding: 0rem 0rem 1.625rem 0rem;
-    justify-content: space-between;
+    row-gap: 5rem;
 
-    @media (min-width: 1440px) {
-        width: 18.75rem;
+    > .appLogoCompany {
+      padding: 2.0488rem 0rem 0rem 1.625rem;
+      @include fontSize24px();
+      letter-spacing: 1.5px;
+      color: $deepPurpleclr;
     }
 
-    > .upperSide {
-        @include flex(column);
-        row-gap: 5rem;
+    > .allBoardsContainer {
+      @include flex(column);
+      row-gap: 1rem;
 
-        > .appLogoCompany {
-            padding: 2.0488rem 0rem 0rem 1.625rem;
-            @include fontSize24px();
-            letter-spacing: 1.5px;
-            color: $deepPurpleclr;
-        }
-
-        > .allBoardsContainer {
-            @include flex(column);
-            row-gap: 1rem;
-
-            > article {
-                @include fontSize12px();
-                letter-spacing: 2.4px;
-                padding: 0rem 0rem 0rem 1.625rem;
-                color: $mediumGrey;
-            }
-
-            > .boardCon {
-                @include flex(column);
-
-                // row-gap: 0.5rem;
-                > .boardStyle {
-                    padding: 0rem 0rem 0rem 1.625rem;
-                    @include flex(row);
-                    align-items: center;
-                    column-gap: 1rem;
-                    color: $mediumGrey;
-                    @include fontSize15px();
-                    height: 3rem;
-                    overflow: hidden;
-
-                    &:hover {
-                        width: 92%;
-                        background-color: $hoverPurpleclr;
-                        border-radius: 0rem 1.5rem 1.5rem 0rem;
-                        color: $deepPurpleclr;
-                    }
-                }
-            }
-
-            > .createMoreBoard {
-                padding: 0rem 0rem 0rem 1.625rem;
-                @include flex(row);
-                align-items: center;
-                column-gap: 1rem;
-                color: $deepPurpleclr;
-            }
-        }
-    }
-
-    > .toggleHideContainer {
-        @include flex(column);
-        row-gap: 1rem;
-    }
-}
-
-
-// mobile container
-@mixin MobileContainerBar() {
-    width: 80%;
-    height: auto;
-    position: fixed;
-    top: 13%;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 0.5rem;
-    padding: 1rem 0rem;
-    @include flex(column);
-    row-gap: 1rem;
-    z-index: 9999;
-
-    @media (max-height: 550px) {
-        top: 15%;
-    }
-
-    > article {
+      > article {
         @include fontSize12px();
         letter-spacing: 2.4px;
         padding: 0rem 0rem 0rem 1.625rem;
         color: $mediumGrey;
-    }
-    > .boardCon {
+      }
+
+      > .boardCon {
         @include flex(column);
 
         // row-gap: 0.5rem;
         > .boardStyle {
-            padding: 0rem 0rem 0rem 1.625rem;
-            @include flex(row);
-            align-items: center;
-            column-gap: 1rem;
-            color: $mediumGrey;
-            @include fontSize15px();
-            height: 3rem;
-            overflow: hidden;
+          padding: 0rem 0rem 0rem 1.625rem;
+          @include flex(row);
+          align-items: center;
+          column-gap: 1rem;
+          color: $mediumGrey;
+          @include fontSize15px();
+          height: 3rem;
+          overflow: hidden;
 
-            &:hover {
-                width: 92%;
-                background-color: $hoverPurpleclr;
-                border-radius: 0rem 1.5rem 1.5rem 0rem;
-                color: $deepPurpleclr;
-            }
+          &:hover {
+            width: 92%;
+            background-color: $hoverPurpleclr;
+            border-radius: 0rem 1.5rem 1.5rem 0rem;
+            color: $deepPurpleclr;
+          }
         }
-    }
-    > .createMoreBoard {
+      }
+
+      > .createMoreBoard {
         padding: 0rem 0rem 0rem 1.625rem;
         @include flex(row);
         align-items: center;
         column-gap: 1rem;
         color: $deepPurpleclr;
+      }
     }
+  }
+
+  > .toggleHideContainer {
+    @include flex(column);
+    row-gap: 1rem;
+  }
+}
+
+// mobile container
+@mixin MobileContainerBar() {
+  width: 80%;
+  height: auto;
+  position: fixed;
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0.5rem;
+  padding: 1rem 0rem;
+  @include flex(column);
+  row-gap: 1rem;
+  z-index: 9999;
+
+  @media (max-height: 550px) {
+    top: 15%;
+  }
+
+  > article {
+    @include fontSize12px();
+    letter-spacing: 2.4px;
+    padding: 0rem 0rem 0rem 1.625rem;
+    color: $mediumGrey;
+  }
+  > .boardCon {
+    @include flex(column);
+
+    // row-gap: 0.5rem;
+    > .boardStyle {
+      padding: 0rem 0rem 0rem 1.625rem;
+      @include flex(row);
+      align-items: center;
+      column-gap: 1rem;
+      color: $mediumGrey;
+      @include fontSize15px();
+      height: 3rem;
+      overflow: hidden;
+
+      &:hover {
+        width: 92%;
+        background-color: $hoverPurpleclr;
+        border-radius: 0rem 1.5rem 1.5rem 0rem;
+        color: $deepPurpleclr;
+      }
+    }
+  }
+  > .createMoreBoard {
+    padding: 0rem 0rem 0rem 1.625rem;
+    @include flex(row);
+    align-items: center;
+    column-gap: 1rem;
+    color: $deepPurpleclr;
+  }
 }
 
 // including the mixins in the selectors
 .mobileNavbarContainer {
-    @include MobileNavbarContainer();
+  @include MobileNavbarContainer();
 }
 
 .navBarComp {
-    @include DesktopNavbarContainer();
+  @include DesktopNavbarContainer();
 }
 
 .eyeBtn {
-    @include ShowSideEyeBtn();
+  @include ShowSideEyeBtn();
 }
 
 .toggleBtn {
-    @include ToggleBtn();
+  @include ToggleBtn();
 }
 
 .sideBarContainer {
-    @include SideBarContainer();
+  @include SideBarContainer();
 }
 
 .pushActiveBar {
-    margin-left: 4.5rem;
-    transition: all 0.5s;
+  margin-left: 4.5rem;
+  transition: all 0.5s;
 
-    @media (min-width: 1440px) {
-        margin-left: 7rem;
-    }
+  @media (min-width: 1440px) {
+    margin-left: 7rem;
+  }
 }
 
 .activeSidePage {
-    width: 92%;
-    background-color: $deepPurpleclr;
-    border-radius: 0rem 1.5rem 1.5rem 0rem;
-    color: $whiteclr;
+  width: 92%;
+  background-color: $deepPurpleclr;
+  border-radius: 0rem 1.5rem 1.5rem 0rem;
+  color: $whiteclr;
 }
 
 .containerForDelEdit {
-    position: fixed;
-    top: 9%;
-    right: 5%;
-    z-index: 10;
+  position: fixed;
+  top: 9%;
+  right: 5%;
+  z-index: 10;
 
-    @media (min-width: 768px) {
-        top: 11%;
-        right: 3%;
-    }
+  @media (min-width: 768px) {
+    top: 11%;
+    right: 3%;
+  }
 
-    @media (min-width: 1440px) {
-        top: 13%;
-        right: 2%;
-    }
+  @media (min-width: 1440px) {
+    top: 13%;
+    right: 2%;
+  }
 }
 
 #overLayEffect {
-    @include OverlayEffect();
+  @include OverlayEffect();
 }
 
 .mobileContainerBar {
-    @include MobileContainerBar();
+  @include MobileContainerBar();
 }
 
 .containerOpen {
-    @include ContainerPosition("large");
+  @include ContainerPosition('large');
 }
 
-.containerOpenForBoard{
-    @include ContainerPosition("small");
+.containerOpenForBoard {
+  @include ContainerPosition('small');
+}
+
+.containerOpenForProfile {
+  @include ContainerPosition('small');
 }

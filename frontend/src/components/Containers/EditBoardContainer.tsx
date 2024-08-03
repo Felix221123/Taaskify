@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { PrimaryBtnSmall } from "../Buttons/PrimaryBtnSmall";
-import { SecondaryBtn } from "../Buttons/SecondaryBtn";
-import { EditProps } from "../Interface/EditBoardInterface";
-import "./ContainersStyles.css";
-import { useTheme } from "../../Context/UseTheme";
-import { CrossIcon } from "../../Icons/Cross";
+import React, { useState } from 'react';
+import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
+import { SecondaryBtn } from '../Buttons/SecondaryBtn';
+import { EditProps } from '../Interface/EditBoardInterface';
+import './ContainersStyles.css';
+import { useTheme } from '../../Context/UseTheme';
+import { CrossIcon } from '../../Icons/Cross';
 
-export const EditBoardContainer = ({ boardName  }: EditProps) => {
+export const EditBoardContainer = ({ boardName }: EditProps) => {
   const [content, setContent] = useState<string | undefined>(boardName);
 
   // forms to handle the onChange of the board name
@@ -20,22 +20,26 @@ export const EditBoardContainer = ({ boardName  }: EditProps) => {
 
   // background theme colors
   const boardContainerTheme: React.CSSProperties = {
-    backgroundColor: theme === "light" ? "#FFFFFF" : "#3E3F4E",
+    backgroundColor: theme === 'light' ? '#FFFFFF' : '#3E3F4E',
   };
 
   // title theme colors
   const TitleColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#000112" : "#FFFFFF",
+    color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
-   // input color theme
+  // input color theme
   const TextColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#828FA3" : "#FFFFFF",
+    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
 
   return (
     <>
-      <div className="editBoardContainer" style={boardContainerTheme} data-testid="editContainer">
+      <div
+        className="editBoardContainer"
+        style={boardContainerTheme}
+        data-testid="editContainer"
+      >
         <article className="editBoardText font-bold" style={TitleColorOnChange}>
           Edit Board
         </article>
@@ -70,17 +74,17 @@ export const BoardColumnContainer = () => {
 
   const { theme } = useTheme();
   const TitleColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#000112" : "#FFFFFF",
+    color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
   const TextColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#828FA3" : "#FFFFFF",
+    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
 
   // dding new columns
   const addNewColumn = () => {
-    setBoardColumns((prevColumns) => [...prevColumns, ""]);
-    console.log("Add new column clicked. Current columns:", boardColumns);
+    setBoardColumns((prevColumns) => [...prevColumns, '']);
+    console.log('Add new column clicked. Current columns:', boardColumns);
   };
 
   // handling the input from each column
@@ -96,7 +100,6 @@ export const BoardColumnContainer = () => {
     setBoardColumns(newColumns);
   };
 
-
   return (
     <>
       <div className="boardColumnsContainer">
@@ -105,9 +108,9 @@ export const BoardColumnContainer = () => {
         </p>
         {/* TODO:CREATE A EDIT FOR THE COLUMNS BOARD */}
         <div className="containerForColumn">
-        {boardColumns.map((column, index) => (
+          {boardColumns.map((column, index) => (
             <div className="eachColumnContainer" key={index}>
-            <label htmlFor={`eachColumnBoard-${index}`}>
+              <label htmlFor={`eachColumnBoard-${index}`}>
                 <input
                   type="text"
                   id={`eachColumnBoard-${index}`}
@@ -116,12 +119,12 @@ export const BoardColumnContainer = () => {
                   onChange={(e) => handleColumnChange(index, e.target.value)}
                 />
               </label>
-              <CrossIcon onClick={() => removeColumn(index)}/>
+              <CrossIcon onClick={() => removeColumn(index)} />
             </div>
           ))}
         </div>
 
-        <SecondaryBtn buttonName="+ Add New Column" onClick={addNewColumn}/>
+        <SecondaryBtn buttonName="+ Add New Column" onClick={addNewColumn} />
       </div>
     </>
   );

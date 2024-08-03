@@ -1,29 +1,28 @@
-import { useEffect, useState,forwardRef } from "react";
+import { useEffect, useState, forwardRef } from 'react';
 import {
   EditDeleteContainerProps,
   onClickPropsForEdit,
   onClickPropsForDelete,
-} from "../Interface/AddTaskInterface";
-import "./ContainersStyles.css";
-import { useTheme } from "../../Context/UseTheme";
-import { motion, AnimatePresence } from "framer-motion";
+} from '../Interface/AddTaskInterface';
+import './ContainersStyles.css';
+import { useTheme } from '../../Context/UseTheme';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export const EditDeleteContainer = forwardRef<HTMLDivElement, onClickPropsForEdit & onClickPropsForDelete & EditDeleteContainerProps>(({
-  onClickEditProp,
-  onClickDeleteProp,
-  containerName,
-}, ref) => {
+export const EditDeleteContainer = forwardRef<
+  HTMLDivElement,
+  onClickPropsForEdit & onClickPropsForDelete & EditDeleteContainerProps
+>(({ onClickEditProp, onClickDeleteProp, containerName }, ref) => {
   // state to manage the name of the container
-  const [container, setContainer] = useState<string>("");
+  const [container, setContainer] = useState<string>('');
 
   // useEffect hook to handle setting the name of the container
   useEffect(() => {
     const handleSetContainerName = (title: string) => {
-      return title.toLowerCase() === "task"
-        ? setContainer("Task")
-        : title.toLowerCase() === "board"
-        ? setContainer("Board")
-        : "Error";
+      return title.toLowerCase() === 'task'
+        ? setContainer('Task')
+        : title.toLowerCase() === 'board'
+          ? setContainer('Board')
+          : 'Error';
     };
     handleSetContainerName(containerName);
   }, [containerName]);
@@ -32,7 +31,7 @@ export const EditDeleteContainer = forwardRef<HTMLDivElement, onClickPropsForEdi
 
   // background theme colors
   const boardContainerTheme: React.CSSProperties = {
-    backgroundColor: theme === "light" ? "#FFFFFF" : "#2B2C37",
+    backgroundColor: theme === 'light' ? '#FFFFFF' : '#2B2C37',
   };
 
   // animation for container
@@ -74,5 +73,3 @@ export const EditDeleteContainer = forwardRef<HTMLDivElement, onClickPropsForEdi
     </>
   );
 });
-
-
