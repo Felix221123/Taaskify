@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 .iconContainer > label > input {
   -moz-appearance: none;
-  appearance: none;
+       appearance: none;
   -webkit-appearance: none;
   width: 1.25rem;
   height: 1.25rem;
@@ -16,7 +16,7 @@
   border-color: #635fc7;
 }
 .iconContainer > label > input::after {
-  content: url('/src/assets/icon-check.svg');
+  content: url("/src/assets/icon-check.svg");
   color: white;
   font-weight: 500;
   font-size: clamp(0.75rem, 0.755vw, 0.76rem);
@@ -27,4 +27,4 @@
   transition: 0.5s;
   background-color: #635fc7;
   border: none;
-} /*# sourceMappingURL=iconsStyles.css.map */
+}/*# sourceMappingURL=iconsStyles.css.map */

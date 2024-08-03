@@ -2,9 +2,8 @@
 
 // Mixins here
 @mixin TaskColumnStyles() {
-  display: flex;
   overflow-x: auto;
-  white-space: nowrap;
+  // white-space: nowrap;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
 

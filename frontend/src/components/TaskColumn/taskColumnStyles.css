@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 .emptyBoardContainer {
   display: flex;
   flex-direction: column;
@@ -18,7 +18,6 @@
 }
 
 .taskColumnContainer {
-  z-index: -10;
   margin: 0.75rem;
   display: flex;
   flex-direction: column;
@@ -29,7 +28,7 @@
   display: flex;
   flex-direction: row;
   -moz-column-gap: 0.3rem;
-  column-gap: 0.3rem;
+       column-gap: 0.3rem;
   align-items: center;
   font-size: clamp(0.75rem, 0.755vw, 0.76rem);
   color: #828fa3;
@@ -109,4 +108,4 @@
   background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
   z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
   cursor: pointer; /* Add a pointer on hover */
-} /*# sourceMappingURL=taskColumnStyles.css.map */
+}/*# sourceMappingURL=taskColumnStyles.css.map */

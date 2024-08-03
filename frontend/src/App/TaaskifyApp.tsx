@@ -57,6 +57,26 @@ export const TaaskifyApp = () => {
             },
           ],
         },
+        {
+          name: 'Doing',
+          tasks: [
+            {
+              title: 'Build settings UI',
+              description: 'here is the description for my first to do list',
+              status: 'Todo',
+              subtasks: [
+                {
+                  title: 'Account page',
+                  isCompleted: true,
+                },
+                {
+                  title: 'Billing page',
+                  isCompleted: false,
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
     {
@@ -98,7 +118,7 @@ export const TaaskifyApp = () => {
     <>
       <Navbar boards={boards} onBoardChange={handleBoardChange} />
       <div
-        className="taskColumnContainerWrap flex flex-row"
+        className="taskColumnContainerWrap flex flex-row items-center gap-x-4"
         data-testid="taskColumn"
       >
         {(boards.length > 0 &&

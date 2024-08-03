@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 .deleteContainer {
   width: 21.4375rem;
   height: auto;
@@ -37,7 +37,7 @@
     justify-content: center;
     align-items: center;
     -moz-column-gap: 1rem;
-    column-gap: 1rem;
+         column-gap: 1rem;
   }
 }
 
@@ -91,21 +91,13 @@
   flex-direction: column;
   row-gap: 0.25rem;
 }
-.editBoardContainer
-  > .boardColumnsContainer
-  > .containerForColumn
-  > .eachColumnContainer {
+.editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
-.editBoardContainer
-  > .boardColumnsContainer
-  > .containerForColumn
-  > .eachColumnContainer
-  > label
-  > input {
+.editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer > label > input {
   width: 16.5rem;
   height: 2.5rem;
   border-radius: 0.25rem;
@@ -115,22 +107,12 @@
   outline: none;
   padding: 0rem 0rem 0rem 1rem;
 }
-.editBoardContainer
-  > .boardColumnsContainer
-  > .containerForColumn
-  > .eachColumnContainer
-  > label
-  > input:hover {
+.editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer > label > input:hover {
   border-color: #635fc7;
   cursor: pointer;
 }
 @media (min-width: 768px) {
-  .editBoardContainer
-    > .boardColumnsContainer
-    > .containerForColumn
-    > .eachColumnContainer
-    > label
-    > input {
+  .editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer > label > input {
     width: 24.0625rem;
   }
 }
@@ -172,10 +154,7 @@
   border-color: #635fc7;
   cursor: pointer;
 }
-.addTaskContainer
-  > .boardNameContainer
-  > label
-  > textarea.descriptionContainer {
+.addTaskContainer > .boardNameContainer > label > textarea.descriptionContainer {
   height: 7rem;
   font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
   background-color: transparent;
@@ -185,10 +164,7 @@
   padding: 0.5rem 0rem 0rem 1rem;
   text-align: left;
 }
-.addTaskContainer
-  > .boardNameContainer
-  > label
-  > textarea.descriptionContainer:hover {
+.addTaskContainer > .boardNameContainer > label > textarea.descriptionContainer:hover {
   border-color: #635fc7;
   cursor: pointer;
 }
@@ -206,10 +182,7 @@
   height: 7rem;
   overflow: hidden;
 }
-.addTaskContainer
-  > .boardColumnsContainer
-  > .containerForColumn
-  > .scrollableContainer {
+.addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer {
   display: flex;
   flex-direction: column;
   row-gap: 0.25rem;
@@ -217,30 +190,16 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
 }
-.addTaskContainer
-  > .boardColumnsContainer
-  > .containerForColumn
-  > .scrollableContainer
-  ::-webkit-scrollbar {
+.addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer ::-webkit-scrollbar {
   display: none;
 }
-.addTaskContainer
-  > .boardColumnsContainer
-  > .containerForColumn
-  > .scrollableContainer
-  > .eachColumnContainer {
+.addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
-.addTaskContainer
-  > .boardColumnsContainer
-  > .containerForColumn
-  > .scrollableContainer
-  > .eachColumnContainer
-  > label
-  > input {
+.addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input {
   width: 16.5rem;
   height: 2.5rem;
   border-radius: 0.25rem;
@@ -250,24 +209,12 @@
   outline: none;
   padding: 0rem 0rem 0rem 1rem;
 }
-.addTaskContainer
-  > .boardColumnsContainer
-  > .containerForColumn
-  > .scrollableContainer
-  > .eachColumnContainer
-  > label
-  > input:hover {
+.addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input:hover {
   border-color: #635fc7;
   cursor: pointer;
 }
 @media (min-width: 768px) {
-  .addTaskContainer
-    > .boardColumnsContainer
-    > .containerForColumn
-    > .scrollableContainer
-    > .eachColumnContainer
-    > label
-    > input {
+  .addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input {
     width: 24.0625rem;
   }
 }
@@ -304,12 +251,7 @@
   /* Removes default arrow in Firefox */
   appearance: none;
 }
-.addTaskContainer
-  .card
-  > label
-  > .select-container
-  > .dropdownContainer
-  > option {
+.addTaskContainer .card > label > .select-container > .dropdownContainer > option {
   background-color: inherit;
   color: inherit;
 }
@@ -367,7 +309,7 @@
   align-items: center;
   justify-content: space-between;
   -moz-column-gap: 1.5rem;
-  column-gap: 1.5rem;
+       column-gap: 1.5rem;
 }
 .taskContainer > .titleWithEditBtn > article {
   font-size: clamp(1.125rem, 1.13vw, 1.13rem);
@@ -398,33 +340,20 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
 }
-.taskContainer
-  > .subTaskContainer
-  > .listOfTask
-  > .scrollableContainer
-  ::-webkit-scrollbar {
+.taskContainer > .subTaskContainer > .listOfTask > .scrollableContainer ::-webkit-scrollbar {
   display: none;
 }
-.taskContainer
-  > .subTaskContainer
-  > .listOfTask
-  > .scrollableContainer
-  > .subTaskContainer {
+.taskContainer > .subTaskContainer > .listOfTask > .scrollableContainer > .subTaskContainer {
   height: auto;
   padding: 0.75rem 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   -moz-column-gap: 1rem;
-  column-gap: 1rem;
+       column-gap: 1rem;
   border-radius: 0.25rem;
 }
-.taskContainer
-  > .subTaskContainer
-  > .listOfTask
-  > .scrollableContainer
-  > .subTaskContainer
-  > p.titleText {
+.taskContainer > .subTaskContainer > .listOfTask > .scrollableContainer > .subTaskContainer > p.titleText {
   font-size: clamp(0.75rem, 0.755vw, 0.76rem);
   line-height: auto;
 }
@@ -495,7 +424,7 @@
   justify-content: center;
   align-items: center;
   -moz-column-gap: 1rem;
-  column-gap: 1rem;
+       column-gap: 1rem;
   margin-inline: auto;
   border-radius: 0.375rem;
 }
@@ -507,7 +436,7 @@
   flex-direction: row;
   align-items: center;
   -moz-column-gap: 1rem;
-  column-gap: 1rem;
+       column-gap: 1rem;
   height: 3rem;
 }
 .hideSideBar:hover {
@@ -525,7 +454,7 @@
   justify-content: center;
   align-items: center;
   -moz-column-gap: 1rem;
-  column-gap: 1rem;
+       column-gap: 1rem;
   margin-inline: auto;
   border-radius: 0.375rem;
   justify-content: space-between;
@@ -583,4 +512,4 @@
 }
 .profileContainer > .emailAddress {
   font-size: clamp(1.125rem, 1.13vw, 1.13rem);
-} /*# sourceMappingURL=ContainersStyles.css.map */
+}/*# sourceMappingURL=ContainersStyles.css.map */

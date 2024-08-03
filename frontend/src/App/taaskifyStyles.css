@@ -1,8 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 .taskColumnContainerWrap {
-  display: flex;
   overflow-x: auto;
-  white-space: nowrap;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
 }
@@ -11,4 +9,4 @@
 }
 .taskColumnContainerWrap > .taskColumnContainer {
   flex: 0 0 auto;
-} /*# sourceMappingURL=taaskifyStyles.css.map */
+}/*# sourceMappingURL=taaskifyStyles.css.map */

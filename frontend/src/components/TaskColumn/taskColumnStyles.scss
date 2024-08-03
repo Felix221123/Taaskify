@@ -21,7 +21,6 @@
 
 // style for task column
 @mixin TaskColumn() {
-  z-index: -10;
   margin: 0.75rem;
   @include flex(column);
   row-gap: 1rem;

@@ -94,7 +94,8 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
             className="colorCircle"
             style={{ background: backgroundColor }}
             data-testid="colorCircle"
-          ></div>
+          >
+          </div>
           <p className="taskColumnName uppercase" data-testid="taskName">
             {name}
           </p>
