@@ -2,49 +2,64 @@ import Email from "/src/assets/email.svg"
 import Password from "/src/assets/password.svg"
 import Google from "/src/assets/google.svg"
 import Apple from "/src/assets/apple.svg"
+import { useNavigate } from "react-router-dom"
 import "./formsStyles.css"
 
 
 export const SignUp = () => {
+
+
+  // calling the useNavigate component
+  const navigate = useNavigate();
+
+  // function to handle routing
+  const handleNavigation = (route:string) => {
+    const routeFormat = route.replace(/\s+/g, '-').toLowerCase()
+    navigate(`/${routeFormat}/`)
+  }
+
+
+
+
   return (
     <>
       <div className="Intro flex flex-col gap-y-3 mt-10">
         <article className="font-bold text-center text-4xl text-blue-500">Sign Up to Taaskify</article>
         <p className="text text-center font-medium text-lg">Please fill the info to sign up</p>
       </div>
-      <div className="formContainer">
+      <div className="formContainer" data-testid="signUpContainer">
         <form action="" className="LogInform flex flex-col gap-y-2">
           {/* user name */}
           <div className="UserName flex flex-row gap-x-4">
             <div className="flex flex-col gap-y-2">
-              <label className="font-bold">First Name </label>
-              <input placeholder="First Name" className="inputName rounded-lg font-normal py-3" type="text" />
+              <label className="font-bold" htmlFor="firstName">First Name</label>
+              <input placeholder="First Name" id="firstName" className="inputName rounded-lg font-normal py-3" type="text" />
             </div>
             <div className="flex flex-col gap-y-2">
-              <label className="font-bold">Last Name </label>
-              <input placeholder="Last Name" className="inputName rounded-lg font-normal py-3" type="text" />
+              <label className="font-bold" htmlFor="lastName">Last Name</label>
+              <input placeholder="Last Name" id="lastName" className="inputName rounded-lg font-normal py-3" type="text" />
             </div>
           </div>
 
           {/* email and password */}
           <div className="flex-column">
-            <label>Email </label>
+            <label htmlFor="emailAddress">Email </label>
           </div>
           <div className="inputForm">
             <img src={Email} alt="email icon" />
-            <input placeholder="Enter your Email" className="input" type="text" />
+            <input placeholder="Enter your Email" id="emailAddress" className="input" type="text" />
           </div>
           <div className="flex-column">
-            <label>Password </label></div>
+            <label htmlFor="password">Password </label></div>
           <div className="inputForm">
             <img src={Password} alt="password icon" />
-            <input placeholder="Enter your Password" className="input" type="password" />
+            <input placeholder="Enter your Password" id="password" className="input" type="password" />
           </div>
           <div className="flex-column">
-            <label>Confirm Password </label></div>
+            <label htmlFor="confirmPassword">Confirm Password </label></div>
           <div className="inputForm">
             <img src={Password} alt="password icon" />
-            <input placeholder="Confirm your Password" className="input" type="password" />
+            <input placeholder="Confirm your Password" id="confirmPassword" className="input" type="password" />
           </div>
           <button className="button-submit" type="submit">Sign Up</button>
 
@@ -61,7 +76,7 @@ export const SignUp = () => {
           </div>
 
           <p className="p">
-            Already have an account? <span className="span">Log In</span>
+            Already have an account? <span className="span" data-testid="loginBtn" onClick={() => handleNavigation("login")}>Log In</span>
           </p>
 
         </form>

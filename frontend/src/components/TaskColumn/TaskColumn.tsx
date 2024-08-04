@@ -1,19 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ColumnProps } from '../Interface/Column';
 import { generateRandomColor } from '../../utils/ColorGeneration';
-import { Task } from '../Interface/AddTaskInterface';
 import './taskColumnStyles.css';
 import { useTheme } from '../../Context/UseTheme';
 import { ViewTaskContainer } from '../Containers/ViewTaskContainer';
 import { countIncompleteSubtasks } from '../../utils/CountSubtask';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Task } from '../Interface/AddTaskInterface';
+
+
 
 export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
   const [isHoveredTask, setIsHoveredTask] = useState<number | null>(null);
-  const [selectedTaskIndex, setSelectedTaskIndex] = useState<number | null>(
-    null
-  );
   const [selectedViewTask, setSelectedViewTask] = useState<Task | null>(null);
+  // const [isEditing, setIsEditing] = useState<boolean>(false);
   const viewTaskContainer = useRef<HTMLDivElement>(null);
 
   // using the theme from context
@@ -52,12 +52,6 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
     console.log(isHoveredTask, ' is the valuse for hovered');
   }, [selectedViewTask, isHoveredTask]);
 
-  useEffect(() => {
-    if (selectedTaskIndex !== null) {
-      setSelectedViewTask(tasks[selectedTaskIndex]);
-    }
-  }, [selectedTaskIndex, tasks]);
-
   // function to handle the hovering of a board
   const handleHoveredTask = (index: number) => {
     setIsHoveredTask(index);
@@ -71,9 +65,9 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
   };
 
   // handles the onclick function of a task
-  const handleOnClickTask = (index: number) => {
-    setSelectedTaskIndex(index);
-    console.log(`Task clicked: ${tasks[index].title}`);
+  const handleOnClickTask = (task:Task) => {
+    setSelectedViewTask(task);
+    console.log(`Task clicked: ${task}`);
   };
 
   // styles to match the task board container when theme changes
@@ -85,6 +79,17 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
   const TitleColorOnChange: React.CSSProperties = {
     color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
+
+  // an issue here
+  // TODO: fix the on toggling of the edit container without
+  // TODO: WAYS TO FIX THIS IS TO ENABLE CALL THE EDIT CONTAINER IN THE TASK COLUMN SECTION SO IT MATCHES THE VIEW TASK CONTAINER AND ITS DELETE CONTAINER
+  // const handleEditToggle = (isEditing: boolean) => {
+  //   setIsEditing(isEditing);
+  //   if (isEditing) {
+  //     setSelectedViewTask(null);
+  //     // viewTaskContainer
+  //   }
+  // };
 
   return (
     <>
@@ -111,7 +116,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
               style={handleBgTheme}
               onMouseEnter={() => handleHoveredTask(index)}
               onMouseLeave={() => handleUnHoveredTask()}
-              onClick={() => handleOnClickTask(index)}
+              onClick={() => handleOnClickTask(task)}
             >
               <article
                 className="taskTitle cursor-pointer font-bold"

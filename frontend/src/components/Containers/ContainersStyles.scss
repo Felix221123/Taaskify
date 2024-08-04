@@ -341,6 +341,10 @@
   }
 }
 
+
+
+
+
 // main selectors
 .deleteContainer {
   @include DeleteContainer();
@@ -358,7 +362,7 @@
   @include EditDeleteContainer();
 }
 
-.taskContainer {
+.ViewTaskContainer {
   @include TaskContainer();
 }
 
@@ -405,4 +409,13 @@
 
 .profileContainer {
   @include ProfileContainer();
+}
+
+
+.containerOpen{
+  @include ContainerPosition("small")
+}
+
+#overlayEffect{
+  @include OverlayEffect();
 }

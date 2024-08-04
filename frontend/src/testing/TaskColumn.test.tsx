@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen , fireEvent} from '@testing-library/react';
 import { customRender } from '../utils/testingUtils';
 import { TaskColumn } from '../components/TaskColumn/TaskColumn';
 
@@ -82,4 +82,25 @@ describe('Task Column Component', () => {
     // subtask to be visible
     expect(screen.getByTestId('subTaskCount')).toBeVisible();
   });
+
+  test('it should render the view container when clicked ', () => {
+    const tasks = [
+      {
+        title: 'Task 1',
+        description: 'Description 1',
+        status: 'In Progress',
+        subtasks: [{ title: 'Subtask 1', isCompleted: false }],
+      },
+    ];
+
+    customRender(<TaskColumn name="Column 1" tasks={tasks} />);
+
+    // Click on the task
+    fireEvent.click(screen.getByText('Task 1'));
+
+    // Check if the view container is displayed
+    expect(screen.getByTestId('viewTaskContainer')).toBeInTheDocument();
+
+  })
+
 });
