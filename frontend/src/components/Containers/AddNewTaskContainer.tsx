@@ -103,7 +103,7 @@ a little."
         />
         <TaskStatus
           taskContainerName="Status"
-          status={task.status}
+          status={task.status ?? ""}
           setStatus={(newStatus) => setTask({ ...task, status: newStatus })}
         />
         <PrimaryBtnSmall buttonName="Create Task" />
