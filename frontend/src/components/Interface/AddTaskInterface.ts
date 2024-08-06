@@ -4,9 +4,9 @@ export interface Subtask {
 }
 
 export interface Task {
-  title: string;
-  description: string;
-  status: string;
+  title: string | undefined;
+  description: string | undefined;
+  status: string | undefined;
   subtasks: Subtask[];
 }
 

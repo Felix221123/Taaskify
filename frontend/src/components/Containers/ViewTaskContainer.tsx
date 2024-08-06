@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { IconCheck } from '../../Icons/IconCheck';
 import { EditBtn } from '../Buttons/EditBtn';
 import { useTheme } from '../../Context/UseTheme';
@@ -10,18 +10,20 @@ import { TaskStatus } from './AddNewTaskContainer';
 import './ContainersStyles.css';
 import { EditDeleteContainer } from './EditDeleteContainer';
 import { CountCompletedTasks } from '../../utils/CountSubtask';
-import { EditTaskContainer } from './EditTaskContainer';
-import { AnimatePresence } from 'framer-motion';
-import { motion } from "framer-motion"
 
 
+interface OnClickEditDeleteProps{
+  ontoggleEdit:() => void;
+  ontoggleDelete:() => void;
+}
 
-
-export const ViewTaskContainer: React.FC<Task> = ({
+export const ViewTaskContainer: React.FC<Task & OnClickEditDeleteProps> = ({
   title,
   description,
   status,
-  subtasks
+  subtasks,
+  ontoggleEdit,
+  ontoggleDelete
 }) => {
   const [task, setTask] = useState<Task>({
     title,
@@ -30,8 +32,6 @@ export const ViewTaskContainer: React.FC<Task> = ({
     subtasks,
   });
   const [deleEditContainer, setDelEditContainer] = useState<boolean>(false);
-  const [EditBtnContainer, setEditBtnContainer] = useState<boolean>(false);
-  const editTaskContainer = useRef<HTMLDivElement>(null)
 
   // handles the visibility of the edit/ delete container
   const handleVisibilityForDelEditContainer = () => {
@@ -47,42 +47,29 @@ export const ViewTaskContainer: React.FC<Task> = ({
   };
 
   // hook to handle edit task container
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        EditBtnContainer &&
-        editTaskContainer.current &&
-        !editTaskContainer.current.contains(event.target as Node)
-      ) {
-        setEditBtnContainer(false);
-        // onEditToggle(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       EditBtnContainer &&
+  //       editTaskContainer.current &&
+  //       !editTaskContainer.current.contains(event.target as Node)
+  //     ) {
+  //       setEditBtnContainer(false);
+  //       // onEditToggle(false);
+  //     }
+  //   };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
 
-  }, [EditBtnContainer]);
+  // }, [EditBtnContainer]);
 
   // title theme colors
   const TitleColorOnChange: React.CSSProperties = {
     color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
-
-  // handle on open edit container
-  const handleOnOpenEditContainer = () => {
-    setEditBtnContainer(true);
-    // onEditToggle(true);
-  }
-
-  // animations for the view container
-  const getMenuAnimationVariantsForViewTask = () => ({
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-    exit: { opacity: 0 },
-  });
 
   return (
     <>
@@ -107,40 +94,13 @@ export const ViewTaskContainer: React.FC<Task> = ({
         />
         <TaskStatus
           taskContainerName="Current Status"
-          status={task.status}
+          status={task?.status ?? ""}
           setStatus={(newStatus) => setTask({ ...task, status: newStatus })}
         />
         <div className="editDeleteBtn">
-          {deleEditContainer && <EditDeleteContainer containerName="task" onClickEditProp={() => handleOnOpenEditContainer()} />}
+          {deleEditContainer && <EditDeleteContainer containerName="task" onClickEditProp={ontoggleEdit} onClickDeleteProp={ontoggleDelete}/>}
         </div>
       </div>
-
-      {/* container to handle on edit task */}
-      <AnimatePresence>
-        {EditBtnContainer && (
-          <>
-            <motion.div
-              className="containerOpen"
-              initial={getMenuAnimationVariantsForViewTask().hidden}
-              animate={getMenuAnimationVariantsForViewTask().visible}
-              exit={getMenuAnimationVariantsForViewTask().exit}
-              data-testid="editTaskContainer"
-              transition={{ duration: 0.5 }}
-              ref={editTaskContainer}
-            >
-              <EditTaskContainer
-                title={task.title}
-                description={task.description}
-                subtasks={task.subtasks}
-                status={task.status}
-              />
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-
-      {EditBtnContainer && (<div id='overlayEffect'></div>)}
     </>
   );
 };

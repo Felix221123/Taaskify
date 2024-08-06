@@ -315,6 +315,8 @@ describe('Task Container Component', () => {
         description={task.description}
         status={task.status}
         subtasks={task.subtasks}
+        ontoggleDelete={() => {}}
+        ontoggleEdit={() => {}}
       />
     );
     const editBtn = screen.getByTestId('editBtn');

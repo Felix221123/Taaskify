@@ -90,8 +90,8 @@ export const EditTaskContainer: React.FC<Task> = ({
               onChange={handleInputChange}
               className="descriptionContainer font-medium leading-6"
               style={TitleColorOnChange}
-              placeholder="e.g.It’s always good to take a break. This 
-15 minute break will  recharge the batteries 
+              placeholder="e.g.It’s always good to take a break. This
+15 minute break will  recharge the batteries
 a little."
             ></textarea>
           </label>
@@ -104,7 +104,7 @@ a little."
         />
         <TaskStatus
           taskContainerName="Status"
-          status={task.status}
+          status={task.status ?? ""}
           setStatus={(newStatus) => setTask({ ...task, status: newStatus })}
         />
         <PrimaryBtnSmall buttonName="Save Changes" />
