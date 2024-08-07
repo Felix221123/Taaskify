@@ -103,6 +103,65 @@ describe('Task Column Component', () => {
 
   })
 
-  
+  test('it should display the edit task container when the edit btn is clicked', () => {
+    const tasks = [
+      {
+        title: 'Task 1',
+        description: 'Description 1',
+        status: 'In Progress',
+        subtasks: [{ title: 'Subtask 1', isCompleted: false }],
+      },
+    ];
+    customRender(<TaskColumn name="Column 1" tasks={tasks}/>);
+
+    // Click on the task
+    fireEvent.click(screen.getByText('Task 1'));
+
+    // Check if the view container is displayed
+    expect(screen.getByTestId('viewTaskContainer')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId("editBtn"))
+
+    expect(screen.getByTestId("editDeleteCon")).toBeInTheDocument()
+
+    fireEvent.click(screen.getByTestId("btn1"))
+
+    expect(screen.getByTestId("editTaskContainer")).toBeInTheDocument();
+
+    fireEvent.mouseDown(document.body);
+
+    expect(screen.getByTestId("editTaskContainer")).not.toBeVisible();
+  });
+
+  test('it should display the delete container when the delete task btn is clicked', () => {
+    const tasks = [
+      {
+        title: 'Task 1',
+        description: 'Description 1',
+        status: 'In Progress',
+        subtasks: [{ title: 'Subtask 1', isCompleted: false }],
+      },
+    ];
+    customRender(<TaskColumn name="Column 1" tasks={tasks}/>);
+
+    // Click on the task
+    fireEvent.click(screen.getByText('Task 1'));
+
+    // Check if the view container is displayed
+    expect(screen.getByTestId('viewTaskContainer')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId("editBtn"))
+
+    expect(screen.getByTestId("editDeleteCon")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId("btn2"))
+
+    expect(screen.getByTestId("deleteTaskContainer")).toBeInTheDocument();
+
+    fireEvent.mouseDown(document.body);
+
+    expect(screen.getByTestId("deleteTaskContainer")).not.toBeVisible();
+  })
+
 
 });

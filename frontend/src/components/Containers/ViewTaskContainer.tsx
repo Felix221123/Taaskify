@@ -46,26 +46,6 @@ export const ViewTaskContainer: React.FC<Task & OnClickEditDeleteProps> = ({
     backgroundColor: theme === 'light' ? '#FFFFFF' : '#3E3F4E',
   };
 
-  // hook to handle edit task container
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (
-  //       EditBtnContainer &&
-  //       editTaskContainer.current &&
-  //       !editTaskContainer.current.contains(event.target as Node)
-  //     ) {
-  //       setEditBtnContainer(false);
-  //       // onEditToggle(false);
-  //     }
-  //   };
-
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-
-  // }, [EditBtnContainer]);
-
   // title theme colors
   const TitleColorOnChange: React.CSSProperties = {
     color: theme === 'light' ? '#000112' : '#FFFFFF',
