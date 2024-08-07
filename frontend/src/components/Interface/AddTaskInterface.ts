@@ -4,42 +4,40 @@ export interface Subtask {
 }
 
 export interface Task {
-  title: string;
-  description: string;
-  status: string;
+  title: string | undefined;
+  description: string | undefined;
+  status: string | undefined;
   subtasks: Subtask[];
 }
 
-export interface onClickPropsEditBtnProps{
+export interface onClickPropsEditBtnProps {
   onClickEditBtn?: () => void;
   className?: string;
 }
 
-export interface onClickPropsForEdit{
-    onClickEditProp?: () => void;
+export interface onClickPropsForEdit {
+  onClickEditProp?: () => void;
 }
-export interface onClickPropsForDelete{
-    onClickDeleteProp?: () => void;
-}
-
-export interface EditDeleteContainerProps{
-    containerName: string;
+export interface onClickPropsForDelete {
+  onClickDeleteProp?: () => void;
 }
 
+export interface EditDeleteContainerProps {
+  containerName: string;
+}
 
-export interface iconCheck{
+export interface iconCheck {
   index: number;
   onToggle: (isCompleted: boolean) => void;
 }
 
-export interface TaskStatusContainerName{
+export interface TaskStatusContainerName {
   taskContainerName: string;
   status: string;
   setStatus: (status: string) => void;
 }
 
-
 export interface SubTaskEditTaskColumnContainerProps {
   subtasks: Subtask[];
-  setSubtasks: (subtask:Subtask[]) => void;
+  setSubtasks: (subtask: Subtask[]) => void;
 }

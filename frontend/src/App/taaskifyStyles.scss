@@ -1,34 +1,22 @@
-@import "../static/base";
+@import '../static/base';
 
 // Mixins here
 @mixin TaskColumnStyles() {
-    display: flex;
-    overflow-x: auto;
-    white-space: nowrap;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none;
+  overflow-x: auto;
+  // white-space: nowrap;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
 
-    ::-webkit-scrollbar{
-        display: none;
-    }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
-
-    > .taskColumnContainer {
-        flex: 0 0 auto;
-    }
+  > .taskColumnContainer {
+    flex: 0 0 auto;
+  }
 }
-
-
-
-
-
-
-
-
-
-
 
 // Including the mixins here
 .taskColumnContainerWrap {
-    @include TaskColumnStyles();
+  @include TaskColumnStyles();
 }

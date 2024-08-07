@@ -1,14 +1,13 @@
-import "./App.css";
-import { TaaskifyApp } from "./App/TaaskifyApp";
-import { ThemeProvider } from "./Context/ThemeContext";
-
+import './App.css';
+import { ThemeProvider } from './Context/ThemeContext';
+import { AppRoute } from './Routes/AppRoute';
 
 function App() {
   return (
     <>
-    <ThemeProvider>
-    <TaaskifyApp />
-    </ThemeProvider>
+      <ThemeProvider>
+        <AppRoute />
+      </ThemeProvider>
     </>
   );
 }

@@ -1,1 +1,1 @@
-{"version":3,"sources":["../static/_base.scss","taaskifyStyles.scss","taaskifyStyles.css"],"names":[],"mappings":"AAAQ,sHAAA;AC+BR;EA3BI,aAAA;EACA,gBAAA;EACA,mBAAA;EACA,wBAAA,EAAA,gBAAA;EACA,qBAAA;ACDJ;ADGI;EACI,aAAA;ACDR;ADKI;EACI,cAAA;ACHR","file":"taaskifyStyles.css"}
+{"version":3,"sources":["../static/_base.scss","taaskifyStyles.scss","taaskifyStyles.css"],"names":[],"mappings":"AAAQ,sHAAA;ACmBR;EAfE,gBAAA;EAEA,wBAAA,EAAA,gBAAA;EACA,qBAAA;ACFF;ADIE;EACE,aAAA;ACFJ;ADKE;EACE,cAAA;ACHJ","file":"taaskifyStyles.css"}

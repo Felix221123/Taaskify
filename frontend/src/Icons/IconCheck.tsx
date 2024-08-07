@@ -1,18 +1,15 @@
-import { useState } from "react";
-import "./iconsStyles.css";
-import { iconCheck } from "../components/Interface/AddTaskInterface";
-
-
-
+import { useState } from 'react';
+import './iconsStyles.css';
+import { iconCheck } from '../components/Interface/AddTaskInterface';
 
 export const IconCheck = ({ index, onToggle }: iconCheck) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const handleCheckboxChange = () => {
-      setIsChecked(!isChecked);
-      onToggle(isChecked);
+    setIsChecked(!isChecked);
+    onToggle(isChecked);
   };
-    
+
   return (
     <>
       <div className="iconContainer" data-testid="iconCheckBtn">

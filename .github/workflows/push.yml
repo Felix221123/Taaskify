@@ -1,10 +1,10 @@
-name: Pull Request
+name: Node.js CI
 
 on: [push]
 
 jobs:
   build:
-    name: Run type checking & tests(Vitest for testing)
+    name: Run Code formatting , type checking & tests, Project Build
     runs-on: ubuntu-latest
 
     steps:
@@ -19,10 +19,31 @@ jobs:
         run: npm ci
         working-directory: ./frontend
 
+      - name: Format code
+        run: npm run format:style
+        working-directory: ./frontend
+
+      - name: Run unit tests
+        run: npm run test
+        working-directory: ./frontend
+
       - name: Build the project
         run: npm run build --if-present
         working-directory: ./frontend
 
-      - name: Run unit tests
-        run: npm test
-        working-directory: ./frontend
+
+      - name: Install dependencies for backend
+        run:  npm install
+        working-directory: ./backend
+
+      - name: Format code
+        run: npm run format:style
+        working-directory: ./backend
+
+      - name: Run unit tests using jest framwework
+        run: npm run test
+        working-directory: ./backend
+
+      - name: Build the project
+        run: npm run build
+        working-directory: ./backend

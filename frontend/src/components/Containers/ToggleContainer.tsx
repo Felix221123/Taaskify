@@ -1,16 +1,16 @@
-import LightThemeImg from "/src/assets/icon-light-theme.svg";
-import DarkThemeImg from "/src/assets/icon-dark-theme.svg";
-import { useTheme } from "../../Context/UseTheme";
-import "./ContainersStyles.css"
+import LightThemeImg from '/src/assets/icon-light-theme.svg';
+import DarkThemeImg from '/src/assets/icon-dark-theme.svg';
+import { useTheme } from '../../Context/UseTheme';
+import './ContainersStyles.css';
 
 export const ToggleContainer = () => {
-    // toggle onclick
-    const { theme,toggleTheme } = useTheme();
-    // toggle container bgColor
+  // toggle onclick
+  const { theme, toggleTheme } = useTheme();
+  // toggle container bgColor
   const toggleBgTheme: React.CSSProperties = {
-    backgroundColor: theme === "light" ? "#F4F7FD" : "#20212C",
+    backgroundColor: theme === 'light' ? '#F4F7FD' : '#20212C',
   };
-  
+
   return (
     <div className="toggleContainer" style={toggleBgTheme}>
       <img src={LightThemeImg} alt="light theme" />

@@ -1,20 +1,27 @@
-import React, { useRef, useState, useEffect } from "react";
-import { ColumnProps } from "../Interface/Column";
-import { generateRandomColor } from "../../utils/ColorGeneration";
-import { Task } from "../Interface/AddTaskInterface";
-import "./taskColumnStyles.css"
-import { useTheme } from "../../Context/UseTheme";
-import { ViewTaskContainer } from "../Containers/ViewTaskContainer";
-import { countIncompleteSubtasks } from "../../utils/CountSubtask";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useRef, useState, useEffect } from 'react';
+import { ColumnProps } from '../Interface/Column';
+import { generateRandomColor } from '../../utils/ColorGeneration';
+import './taskColumnStyles.css';
+import { useTheme } from '../../Context/UseTheme';
+import { ViewTaskContainer } from '../Containers/ViewTaskContainer';
+import { countIncompleteSubtasks } from '../../utils/CountSubtask';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Task } from '../Interface/AddTaskInterface';
+import { EditTaskContainer } from '../Containers/EditTaskContainer';
+import { DeleteContainer } from '../Containers/DeleteContainer';
 
 
 
 export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
   const [isHoveredTask, setIsHoveredTask] = useState<number | null>(null);
-  const [selectedTaskIndex, setSelectedTaskIndex] = useState<number | null>(null);
   const [selectedViewTask, setSelectedViewTask] = useState<Task | null>(null);
+  const [viewTaskVisibiity, setViewTaskVisibiity] = useState<boolean>(false)
+  const [editTaskBtnContainer, setEditTaskBtnContainer] = useState<boolean>(false);
+  const [deleteTaskBtnContainer, setDeleteTaskBtnContainer] = useState<boolean>(false);
   const viewTaskContainer = useRef<HTMLDivElement>(null);
+  const editTaskContainer = useRef<HTMLDivElement>(null);
+  const deleteContainer = useRef<HTMLDivElement>(null);
+
 
   // using the theme from context
   const { theme } = useTheme();
@@ -25,20 +32,20 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
   // hook to handle clicks outside the container
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        selectedViewTask &&
-        viewTaskContainer.current &&
-        !viewTaskContainer.current.contains(event.target as Node)
-      ) {
+      if (viewTaskVisibiity && viewTaskContainer.current && !viewTaskContainer.current.contains(event.target as Node)) {
         setSelectedViewTask(null);
+      } else if (editTaskBtnContainer && editTaskContainer.current && !editTaskContainer.current.contains(event.target as Node)) {
+        setEditTaskBtnContainer(false)
+      } else if (deleteTaskBtnContainer && deleteContainer.current && !deleteContainer.current.contains(event.target as Node)) {
+        setDeleteTaskBtnContainer(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [selectedViewTask]);
+  }, [viewTaskVisibiity, editTaskBtnContainer, deleteTaskBtnContainer]);
 
   // animations for the view container
   const getMenuAnimationVariantsForViewTask = () => ({
@@ -49,18 +56,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
 
   useEffect(() => {
     console.log(selectedViewTask, 'is the value of viewTask now');
-    console.log(isHoveredTask , " is the valuse for hovered");
-
-
-  }, [selectedViewTask, isHoveredTask]);
-
-
-  useEffect(() => {
-    if (selectedTaskIndex !== null) {
-      setSelectedViewTask(tasks[selectedTaskIndex]);
-    }
-  }, [selectedTaskIndex, tasks]);
-
+  }, [selectedViewTask]);
 
   // function to handle the hovering of a board
   const handleHoveredTask = (index: number) => {
@@ -75,62 +71,93 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
   };
 
   // handles the onclick function of a task
-  const handleOnClickTask = (index: number) => {
-    setSelectedTaskIndex(index);
-    console.log(`Task clicked: ${tasks[index].title}`);
+  const handleOnClickTask = (task: Task) => {
+    setViewTaskVisibiity(true)
+    setSelectedViewTask(task);
+    console.log(`Task clicked: ${task}`);
   };
 
   // styles to match the task board container when theme changes
   const handleBgTheme: React.CSSProperties = {
-    backgroundColor: theme === "light" ? "#FFFFFF" : "#3E3F4E",
+    backgroundColor: theme === 'light' ? '#FFFFFF' : '#3E3F4E',
   };
 
   // styles for the task board title when theme changes
   const TitleColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#000112" : "#FFFFFF",
+    color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
+
+
+  const handleEditDeleteTaskBtn = (prop: string) => {
+    if (prop === "edit") {
+      setEditTaskBtnContainer(true);
+      setViewTaskVisibiity(false);
+
+    } else if (prop === "delete") {
+      setDeleteTaskBtnContainer(true);
+      setViewTaskVisibiity(false);
+    }
+  };
+
+  const handleOnCancel = () => {
+    setDeleteTaskBtnContainer(false);
+  }
 
 
   return (
     <>
       <div className="taskColumnContainer">
         <div className="taskColumnNameCount font-bold">
-          <div className="colorCircle" style={{ background: backgroundColor }} data-testid="colorCircle"></div>
-          <p className="taskColumnName uppercase" data-testid="taskName">{name}</p>
-          <p className="taskCount" data-testid="taskCount">({tasks?.length})</p>
+          <div
+            className="colorCircle"
+            style={{ background: backgroundColor }}
+            data-testid="colorCircle"
+          >
+          </div>
+          <p className="taskColumnName uppercase" data-testid="taskName">
+            {name}
+          </p>
+          <p className="taskCount" data-testid="taskCount">
+            ({tasks?.length})
+          </p>
         </div>
         <div className="mainTaskContainer">
-          {tasks.map((task, index) =>
-          (
+          {tasks.map((task, index) => (
             <div
               className="columnTaskContainer cursor-pointer"
               key={index}
               style={handleBgTheme}
               onMouseEnter={() => handleHoveredTask(index)}
               onMouseLeave={() => handleUnHoveredTask()}
-              onClick={() => handleOnClickTask(index)}
+              onClick={() => handleOnClickTask(task)}
             >
-              <article className="taskTitle cursor-pointer font-bold" data-testid="taskTitle"
+              <article
+                className="taskTitle cursor-pointer font-bold"
+                data-testid="taskTitle"
                 style={{
                   ...TitleColorOnChange,
-                  color: isHoveredTask === index ? "#635FC7" : TitleColorOnChange.color,
+                  color:
+                    isHoveredTask === index
+                      ? '#635FC7'
+                      : TitleColorOnChange.color,
                 }}
               >
                 {task.title}
               </article>
-              <div className="subtaskCount font-bold" data-testid="subTaskCount">
-                {countIncompleteSubtasks(task.subtasks, "completed")}
+              <div
+                className="subtaskCount font-bold"
+                data-testid="subTaskCount"
+              >
+                {countIncompleteSubtasks(task.subtasks, 'completed')}
               </div>
             </div>
-          )
-          )}
+          ))}
         </div>
       </div>
 
-
       {/* container to view task when they are pressed */}
       <AnimatePresence>
-        {selectedViewTask && (
+        {selectedViewTask && viewTaskVisibiity && (
           <>
             <motion.div
               className="containerOpen"
@@ -146,17 +173,66 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
                 description={selectedViewTask.description}
                 status={selectedViewTask.status}
                 subtasks={selectedViewTask.subtasks}
+                ontoggleEdit={() => handleEditDeleteTaskBtn("edit")}
+                ontoggleDelete={() => handleEditDeleteTaskBtn("delete")}
               />
             </motion.div>
           </>
         )}
       </AnimatePresence>
 
+      {/* container to handle on edit task */}
+      <AnimatePresence>
+        {editTaskBtnContainer && selectedViewTask && (
+          <>
+            <motion.div
+              className="containerOpen"
+              initial={getMenuAnimationVariantsForViewTask().hidden}
+              animate={getMenuAnimationVariantsForViewTask().visible}
+              exit={getMenuAnimationVariantsForViewTask().exit}
+              data-testid="editTaskContainer"
+              transition={{ duration: 0.5 }}
+              ref={editTaskContainer}
+            >
+              <EditTaskContainer
+                title={selectedViewTask?.title}
+                description={selectedViewTask?.description}
+                subtasks={selectedViewTask?.subtasks ?? []}
+                status={selectedViewTask?.status}
+              />
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
-      {selectedViewTask && (<div id="overLayEffect"></div>)}
+      {/* container to handle on delete task */}
+      <AnimatePresence>
+        {deleteTaskBtnContainer && selectedViewTask && (
+          <>
+            <motion.div
+              className="containerOpen"
+              initial={getMenuAnimationVariantsForViewTask().hidden}
+              animate={getMenuAnimationVariantsForViewTask().visible}
+              exit={getMenuAnimationVariantsForViewTask().exit}
+              data-testid="deleteTaskContainer"
+              transition={{ duration: 0.5 }}
+              ref={deleteContainer}
+            >
+              <DeleteContainer
+                deleteContainerName='task'
+                deleteContainerItemName={selectedViewTask?.title}
+                setEditDelBoardCon={handleOnCancel} />
+            </motion.div>
+          </>
+        )}
+
+      </AnimatePresence>
+
+
+      {/* condition of overlay effect */}
+      {selectedViewTask && editTaskBtnContainer && (<div id="overLayEffect"></div>)}
+      {selectedViewTask && viewTaskVisibiity && (<div id="overLayEffect"></div>)}
+      {selectedViewTask && deleteTaskBtnContainer && (<div id="overLayEffect"></div>)}
     </>
-  )
-}
-
-
-
+  );
+};

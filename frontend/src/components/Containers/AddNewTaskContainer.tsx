@@ -1,21 +1,24 @@
-import { useTheme } from "../../Context/UseTheme";
-import React, { useState } from "react";
-import { SubTaskEditTaskColumnContainerProps, Task, TaskStatusContainerName } from "../Interface/AddTaskInterface";
-import "./ContainersStyles.css";
-import { SecondaryBtn } from "../Buttons/SecondaryBtn";
-import { CrossIcon } from "../../Icons/Cross";
-import { ChevronIconDown } from "../../Icons/ChevronIconDown";
-import { PrimaryBtnSmall } from "../Buttons/PrimaryBtnSmall";
-
+import { useTheme } from '../../Context/UseTheme';
+import React, { useState } from 'react';
+import {
+  SubTaskEditTaskColumnContainerProps,
+  Task,
+  TaskStatusContainerName,
+} from '../Interface/AddTaskInterface';
+import './ContainersStyles.css';
+import { SecondaryBtn } from '../Buttons/SecondaryBtn';
+import { CrossIcon } from '../../Icons/Cross';
+import { ChevronIconDown } from '../../Icons/ChevronIconDown';
+import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
 
 export const AddNewTaskContainer: React.FC = () => {
   const [task, setTask] = useState<Task>({
-    title: "",
-    description: "",
-    status: "Todo",
+    title: '',
+    description: '',
+    status: 'Todo',
     subtasks: [
-      { title: "", isCompleted: false },
-      { title: "", isCompleted: false }
+      { title: '', isCompleted: false },
+      { title: '', isCompleted: false },
     ],
   });
 
@@ -35,17 +38,17 @@ export const AddNewTaskContainer: React.FC = () => {
 
   // background theme colors
   const boardContainerTheme: React.CSSProperties = {
-    backgroundColor: theme === "light" ? "#FFFFFF" : "#3E3F4E",
+    backgroundColor: theme === 'light' ? '#FFFFFF' : '#3E3F4E',
   };
 
   // title theme colors
   const TitleColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#000112" : "#FFFFFF",
+    color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
   // input color theme
   const TextColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#828FA3" : "#FFFFFF",
+    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
 
   return (
@@ -92,9 +95,17 @@ a little."
             ></textarea>
           </label>
         </div>
-        <SubTaskAddNewTaskColumnContainer subtasks={task.subtasks} setSubtasks={(newSubtasks) => setTask({ ...task, subtasks: newSubtasks })} />
-        <TaskStatus taskContainerName="Status" status={task.status}
-          setStatus={(newStatus) => setTask({ ...task, status: newStatus })} />
+        <SubTaskAddNewTaskColumnContainer
+          subtasks={task.subtasks}
+          setSubtasks={(newSubtasks) =>
+            setTask({ ...task, subtasks: newSubtasks })
+          }
+        />
+        <TaskStatus
+          taskContainerName="Status"
+          status={task.status ?? ""}
+          setStatus={(newStatus) => setTask({ ...task, status: newStatus })}
+        />
         <PrimaryBtnSmall buttonName="Create Task" />
       </div>
     </>
@@ -102,20 +113,22 @@ a little."
 };
 
 // sub component used to get the subtask from the user for the main component
-export const SubTaskAddNewTaskColumnContainer: React.FC<SubTaskEditTaskColumnContainerProps> = ({ subtasks, setSubtasks }) => {
+export const SubTaskAddNewTaskColumnContainer: React.FC<
+  SubTaskEditTaskColumnContainerProps
+> = ({ subtasks, setSubtasks }) => {
   // const to keep track of the columns available
 
   const { theme } = useTheme();
   const TitleColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#000112" : "#FFFFFF",
+    color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
   const TextColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#828FA3" : "#FFFFFF",
+    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
 
   const addNewColumn = () => {
-    setSubtasks([...subtasks, { title: "", isCompleted: false }]);
+    setSubtasks([...subtasks, { title: '', isCompleted: false }]);
     // console.log("Add new column clicked. Current columns:", subtask);
   };
 
@@ -153,10 +166,10 @@ export const SubTaskAddNewTaskColumnContainer: React.FC<SubTaskEditTaskColumnCon
                     onChange={(e) => handleColumnChange(index, e.target.value)}
                     placeholder={
                       index === 0
-                        ? "e.g. Make coffee"
+                        ? 'e.g. Make coffee'
                         : index === 1
-                          ? "e.g. Drink coffee & smile"
-                          : "e.g. Sample Text"
+                          ? 'e.g. Drink coffee & smile'
+                          : 'e.g. Sample Text'
                     }
                   />
                 </label>
@@ -172,18 +185,21 @@ export const SubTaskAddNewTaskColumnContainer: React.FC<SubTaskEditTaskColumnCon
   );
 };
 
-
 // sub component for choosing the status of the a task
-export const TaskStatus = ({ taskContainerName, status, setStatus }: TaskStatusContainerName) => {
-  const [statuses] = useState<string[]>(["Todo", "Doing", "Done"]);
+export const TaskStatus = ({
+  taskContainerName,
+  status,
+  setStatus,
+}: TaskStatusContainerName) => {
+  const [statuses] = useState<string[]>(['Todo', 'Doing', 'Done']);
   const { theme } = useTheme();
   // input color theme
   const TextColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#828FA3" : "#FFFFFF",
+    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
   // title theme colors
   const TitleColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#000112" : "#FFFFFF",
+    color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

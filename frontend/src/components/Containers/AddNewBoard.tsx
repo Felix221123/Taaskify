@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { PrimaryBtnSmall } from "../Buttons/PrimaryBtnSmall";
-import { SecondaryBtn } from "../Buttons/SecondaryBtn";
-import "./ContainersStyles.css";
-import { useTheme } from "../../Context/UseTheme";
-import { CrossIcon } from "../../Icons/Cross";
-
-
+import React, { useState } from 'react';
+import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
+import { SecondaryBtn } from '../Buttons/SecondaryBtn';
+import './ContainersStyles.css';
+import { useTheme } from '../../Context/UseTheme';
+import { CrossIcon } from '../../Icons/Cross';
 
 export const AddNewBoard = () => {
-  const [boardName, setBoardName] = useState<string>("");
+  const [boardName, setBoardName] = useState<string>('');
 
   // handling the onchange of the input
   const handleAddBoardOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,21 +18,25 @@ export const AddNewBoard = () => {
 
   // background theme colors
   const boardContainerTheme: React.CSSProperties = {
-    backgroundColor: theme === "light" ? "#FFFFFF" : "#3E3F4E",
+    backgroundColor: theme === 'light' ? '#FFFFFF' : '#3E3F4E',
   };
 
   // title theme colors
   const TitleColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#000112" : "#FFFFFF",
+    color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
   // input color theme
   const TextColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#828FA3" : "#FFFFFF",
+    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
   return (
     <>
-      <div className="editBoardContainer" style={boardContainerTheme} data-testid="addNewBoardContainer">
+      <div
+        className="editBoardContainer"
+        style={boardContainerTheme}
+        data-testid="addNewBoardContainer"
+      >
         <article className="editBoardText font-bold" style={TitleColorOnChange}>
           Add New Board
         </article>
@@ -63,22 +65,22 @@ export const AddNewBoard = () => {
   );
 };
 
-export const BoardColumnContainerForNewBoards:React.FC = () => {
+export const BoardColumnContainerForNewBoards: React.FC = () => {
   // const to keep track of the columns available
-  const [boardColumns, setBoardColumns] = useState<string[]>(["Todo","Doing"]);
+  const [boardColumns, setBoardColumns] = useState<string[]>(['Todo', 'Doing']);
 
   const { theme } = useTheme();
   const TitleColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#000112" : "#FFFFFF",
+    color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
   const TextColorOnChange: React.CSSProperties = {
-    color: theme === "light" ? "#828FA3" : "#FFFFFF",
+    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
 
   const addNewColumn = () => {
-    setBoardColumns((prevColumns) => [...prevColumns, ""]);
-    console.log("Add new column clicked. Current columns:", boardColumns);
+    setBoardColumns((prevColumns) => [...prevColumns, '']);
+    console.log('Add new column clicked. Current columns:', boardColumns);
   };
 
   const handleColumnChange = (index: number, value: string) => {
@@ -111,7 +113,7 @@ export const BoardColumnContainerForNewBoards:React.FC = () => {
                   onChange={(e) => handleColumnChange(index, e.target.value)}
                 />
               </label>
-              <CrossIcon onClick={() => removeColumn(index)}/>
+              <CrossIcon onClick={() => removeColumn(index)} />
             </div>
           ))}
         </div>
