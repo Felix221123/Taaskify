@@ -27,6 +27,7 @@ export const SignUp = () => {
         <article className="font-bold text-center text-4xl text-blue-500">Sign Up to Taaskify</article>
         <p className="text text-center font-medium text-lg">Please fill the info to sign up</p>
       </div>
+      
       <div className="formContainer" data-testid="signUpContainer">
         <form action="" className="LogInform flex flex-col gap-y-2">
           {/* user name */}

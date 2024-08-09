@@ -1,18 +1,25 @@
-import 'dotenv/config'
-import express from 'express'
-import cors from 'cors'
+import "dotenv/config"
+import env from "./utils/validateEnv"
+import mongoose from "mongoose"
+import app from "./server"
 
-// defining the express app
-const app = express()
-
-// using cors in app
-app.use(cors())
 
 // defining the port
-// const port = process.env.PORT || "5500";
-const port = process.env.PORT
+const port = env.PORT;
 
-// using the listen callback func to log out port definition
-app.listen(port, () => {
-  console.log(`app is running at ${port}`)
-})
+
+// using mongoose to connect to mongodb
+mongoose
+  .connect(env.MONGO_CONNECTION_STRING)
+  .then(() => {
+    console.log(`You successfully connected to mongodb`);
+    app.listen(port, () => {
+      console.log(`Your app is listening at port ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.log(`there was an error ${error}`);
+  });
+
+
+
