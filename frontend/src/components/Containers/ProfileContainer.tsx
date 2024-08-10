@@ -4,6 +4,9 @@ import { GetUsersFirstLetterOfNames } from '../../utils/GetFirstLetterOfName';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
 import './ContainersStyles.css';
 import { useTheme } from '../../Context/UseTheme';
+import LogoutIcon from '../../Icons/LogoutIcon';
+
+
 
 export const ProfileContainer: React.FC<SettingsProfileProps> = ({
   firstName,
@@ -55,6 +58,10 @@ export const ProfileContainer: React.FC<SettingsProfileProps> = ({
         >
           email : {emailAddress.toUpperCase()}
         </div>
+        <button className='logoutBtn uppercase font-bold'>
+          <LogoutIcon />
+          <span style={TextColorOnChange}>logout</span>
+        </button>
         <PrimaryBtnSmall buttonName="reset password" onClick={onClickProp} />
       </div>
     </>

@@ -50,7 +50,7 @@
 
    ```sh
    cd backend
-   npm install eslint@8.56.0 
+   npm install eslint@8.56.0
    ```
 
    Install peer dependency using the run script:
@@ -91,9 +91,12 @@
 Create a `.env` file in the `server` directory and add the following environment variables:
 
 ```
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-PORT=5000
+MONGO_CONNECTION_STRING=your_mongodb_connection_string
+PORT=DEFINE YOUR PORT
+SERVER_HOSTNAME=localhost
+SERVER_TOKEN_EXPIRETIME=3600
+SERVER_TOKEN_ISSUER=coolIssuer
+SERVER_TOKEN_SECRET=superencryptedsecret
 ```
 
 ## Contributing
@@ -120,3 +123,6 @@ This project is licensed under the MIT License.
 ---
 
 Thank you for using Taaskify! If you have any questions or need further assistance, please feel free to reach out.
+
+
+

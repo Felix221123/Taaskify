@@ -4,6 +4,7 @@ import Google from "/src/assets/google.svg"
 import Apple from "/src/assets/apple.svg"
 import { useNavigate } from "react-router-dom"
 import "./formsStyles.css"
+import { useEffect } from "react"
 
 
 export const LogIn = () => {
@@ -15,7 +16,12 @@ export const LogIn = () => {
   const handleNavigation = (route:string) => {
     const routeFormat = route.replace(/\s+/g, '-').toLowerCase()
     navigate(`/${routeFormat}/`)
-  }
+  };
+
+  // changing the bg of the body element in the App
+  useEffect(() => {
+    document.body.style.backgroundColor = "#F4F7FD"
+  }, []);
 
 
 

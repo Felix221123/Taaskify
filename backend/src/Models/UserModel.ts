@@ -1,10 +1,8 @@
 import { model, Schema } from 'mongoose';
 import BoardSchema from './BoardModel';
-import { IUser } from 'Interface/UserProps';
-
+import { IUser } from '../Interface/UserProps';
 
 const UserBoardSchema: Schema = new Schema<IUser>({
-  userID: { type: Schema.Types.ObjectId, required: true, unique: true, auto: true },
   emailAddress: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   firstName: { type: String, required: true },

@@ -8,7 +8,7 @@ import app from "./server"
 const port = env.PORT;
 
 
-// using mongoose to connect to mongodb
+// using mongoose to connect to mongodb database (NO_SQL DATABASE)
 mongoose
   .connect(env.MONGO_CONNECTION_STRING)
   .then(() => {

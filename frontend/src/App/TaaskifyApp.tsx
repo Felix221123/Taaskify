@@ -3,7 +3,7 @@ import { TaskColumn } from '../components/TaskColumn/TaskColumn';
 import { Navbar } from '../components/Navbar/Navbar';
 import './taaskifyStyles.css';
 import { useTheme } from '../Context/UseTheme';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const TaaskifyApp = () => {
   const [activeBoardIndex, setActiveBoardIndex] = useState(0);
@@ -114,11 +114,16 @@ export const TaaskifyApp = () => {
       theme === 'light' ? '#F4F7FD' : '#2B2C37';
   }, [theme]);
 
+  // theme to handle the new column container
+  const handleBgTheme:React.CSSProperties = {
+    background: theme === "dark" ? "linear-gradient(to bottom,rgba(43, 44, 55, 0.9) 0%,rgba(43, 44, 55, 0.5) 100%)" : "linear-gradient(to bottom,rgba(233, 239, 250, 1) 0%,rgba(233, 239, 250, 0.5) 100%)"
+  }
+
   return (
     <>
       <Navbar boards={boards} onBoardChange={handleBoardChange} />
       <div
-        className="taskColumnContainerWrap flex flex-row items-center gap-x-4"
+        className="taskColumnContainerWrap"
         data-testid="taskColumn"
       >
         {(boards.length > 0 &&
@@ -129,6 +134,12 @@ export const TaaskifyApp = () => {
               tasks={column?.tasks}
             />
           ))) || <EmptyColumn />}
+        {boards.length > 0 && (
+          <div className="newColumnContainer rounded-lg cursor-pointer" style={handleBgTheme}>
+            <button className='font-bold'>+ New Column</button>
+          </div>
+        )}
+
       </div>
     </>
   );

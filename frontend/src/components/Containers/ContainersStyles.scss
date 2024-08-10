@@ -339,6 +339,13 @@
   > .emailAddress {
     @include fontSize18px();
   }
+
+  > .logoutBtn{
+    @include fontSize18px();
+    @include flexComp(row);
+    column-gap: 1rem;
+    color: $mediumGrey;
+  }
 }
 
 

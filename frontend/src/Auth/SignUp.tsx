@@ -4,6 +4,7 @@ import Google from "/src/assets/google.svg"
 import Apple from "/src/assets/apple.svg"
 import { useNavigate } from "react-router-dom"
 import "./formsStyles.css"
+import { useEffect } from "react"
 
 
 export const SignUp = () => {
@@ -16,7 +17,13 @@ export const SignUp = () => {
   const handleNavigation = (route:string) => {
     const routeFormat = route.replace(/\s+/g, '-').toLowerCase()
     navigate(`/${routeFormat}/`)
-  }
+  };
+
+
+  // changing the bg of the body element in the App
+  useEffect(() => {
+    document.body.style.backgroundColor = "#F4F7FD"
+  }, []);
 
 
 
@@ -27,8 +34,8 @@ export const SignUp = () => {
         <article className="font-bold text-center text-4xl text-blue-500">Sign Up to Taaskify</article>
         <p className="text text-center font-medium text-lg">Please fill the info to sign up</p>
       </div>
-      
-      <div className="formContainer" data-testid="signUpContainer">
+
+      <div className="formContainer mb-8" data-testid="signUpContainer">
         <form action="" className="LogInform flex flex-col gap-y-2">
           {/* user name */}
           <div className="UserName flex flex-row gap-x-4">
