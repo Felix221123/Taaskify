@@ -52,7 +52,6 @@ const SignUpUserController:RequestHandler = async(req: Request, res: Response, n
         error
       })
     });
-
   })
 }
 

@@ -1,5 +1,6 @@
+import _mongoose, { Schema } from 'mongoose';
 import { BoardProps, ColumnProps, Subtask, Task } from '../Interface/BoardProps';
-import { Schema } from 'mongoose';
+
 
 
 // Subtask Schema

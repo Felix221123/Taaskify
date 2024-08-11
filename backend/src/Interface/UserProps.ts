@@ -1,13 +1,11 @@
-import BoardSchema from 'Models/BoardModel';
-import { Document } from 'mongoose';
-
+import mongoose, { Document } from 'mongoose';
 
 export interface IUser extends Document {
   emailAddress: string;
   password: string;
   firstName: string;
   lastName: string;
-  boards: typeof BoardSchema[];
+  boards: mongoose.Types.DocumentArray<mongoose.Document>;
 }
 
 
