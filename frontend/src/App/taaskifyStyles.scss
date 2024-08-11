@@ -2,8 +2,10 @@
 
 // Mixins here
 @mixin TaskColumnStyles() {
+  @include flex(row);
+  align-items: flex-start;
+  gap: .5rem;
   overflow-x: auto;
-  // white-space: nowrap;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
 
@@ -11,8 +13,19 @@
     display: none;
   }
 
-  > .taskColumnContainer {
+  > .taskColumnContainer, > .newColumnContainer {
     flex: 0 0 auto;
+  }
+  > .newColumnContainer{
+    width: 17.5rem;
+    height:35rem;
+    @include flexComp(column);
+    margin-top: 2.85rem;
+    margin-left: .5rem;
+    margin-right: 1rem;
+    @include fontSize24px();
+    color: $mediumGrey;
+
   }
 }
 

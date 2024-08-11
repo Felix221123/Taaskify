@@ -4,12 +4,18 @@ import { GetUsersFirstLetterOfNames } from '../../utils/GetFirstLetterOfName';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
 import './ContainersStyles.css';
 import { useTheme } from '../../Context/UseTheme';
+import LogoutIcon from '../../Icons/LogoutIcon';
+import { useNavigate } from 'react-router-dom';
+import LogOutUserApi from '../../packages/Api/UserApi/LogOutUserApi';
+
+
 
 export const ProfileContainer: React.FC<SettingsProfileProps> = ({
   firstName,
   lastName,
   emailAddress,
   onClickProp,
+  isLoggingOut
 }) => {
   // useContext theme
   const { theme } = useTheme();
@@ -33,6 +39,36 @@ export const ProfileContainer: React.FC<SettingsProfileProps> = ({
     color: theme === 'light' ? '#635fc7' : '#e4ebfa',
   };
 
+  // calling the useNavigate component
+  const navigate = useNavigate();
+
+  // function to handle logout function
+  const handleLogout = async () => {
+    try {
+      // Call the logout API function
+      await LogOutUserApi();
+
+      // Clear session-related data, such as the token
+      sessionStorage.removeItem('token');
+
+      isLoggingOut('loggingOutUser');
+
+      // Redirect to the login page
+      setTimeout(() => {
+        navigate("/login");
+      }, 5000);
+
+
+      // navigate("/login");
+
+      console.log(`user has been logged out`);
+
+    } catch (error) {
+      console.error('Failed to log out:', error);
+    }
+  };
+
+
   return (
     <>
       <div
@@ -55,6 +91,10 @@ export const ProfileContainer: React.FC<SettingsProfileProps> = ({
         >
           email : {emailAddress.toUpperCase()}
         </div>
+        <button className='logoutBtn uppercase font-bold' onClick={handleLogout}>
+          <LogoutIcon />
+          <span style={TextColorOnChange}>logout</span>
+        </button>
         <PrimaryBtnSmall buttonName="reset password" onClick={onClickProp} />
       </div>
     </>

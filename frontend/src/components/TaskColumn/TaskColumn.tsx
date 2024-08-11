@@ -87,7 +87,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
     color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
-
+  // function to handle the edit and delete task components
   const handleEditDeleteTaskBtn = (prop: string) => {
     if (prop === "edit") {
       setEditTaskBtnContainer(true);
@@ -154,6 +154,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
           ))}
         </div>
       </div>
+
 
       {/* container to view task when they are pressed */}
       <AnimatePresence>

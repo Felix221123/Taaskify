@@ -31,7 +31,6 @@ jobs:
         run: npm run build --if-present
         working-directory: ./frontend
 
-
       - name: Install dependencies for backend
         run:  npm install
         working-directory: ./backend
@@ -40,7 +39,16 @@ jobs:
         run: npm run format:style
         working-directory: ./backend
 
-      - name: Run unit tests using jest framwework
+      - name: Set up environment variables
+        run: |
+          echo "MONGO_CONNECTION_STRING=mockConnectionString" >> $GITHUB_ENV
+          echo "PORT=3000" >> $GITHUB_ENV
+          echo "SERVER_TOKEN_EXPIRETIME=3600" >> $GITHUB_ENV
+          echo "SERVER_TOKEN_ISSUER=mockIssuer" >> $GITHUB_ENV
+          echo "SERVER_TOKEN_SECRET=mockSecret" >> $GITHUB_ENV
+          echo "SERVER_HOSTNAME=mockHostname" >> $GITHUB_ENV
+
+      - name: Run backend unit tests using jest framework
         run: npm run test
         working-directory: ./backend
 

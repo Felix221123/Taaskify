@@ -11,10 +11,10 @@ export const AppRoute:React.FC = () => {
     <>
     <Router>
         <Routes>
-          <Route index element={<LogIn />} />
+          <Route index element={<LogIn onLogInSuccessful={() => {}}/>} />
           <Route path="/taaskify/" index element={<TaaskifyApp />} />
-          <Route path="/login/" index element={<LogIn />} />
-          <Route path="/signup/" index element={<SignUp />} />
+          <Route path="/login/" index element={<LogIn onLogInSuccessful={() => {}}/>} />
+          <Route path="/signup/" index element={<SignUp onSignUpSuccessful={() => {}}/>} />
         </Routes>
       </Router>
     </>

@@ -2,11 +2,12 @@ import { LogIn } from "../Auth/LogIn";
 import { SignUp } from "../Auth/SignUp";
 import { customRender } from "../utils/testingUtils";
 import { fireEvent, screen } from "@testing-library/react";
+import { describe, it, } from 'vitest';
 
 
 describe('SignUp Component', () => {
   it('renders the sign up form correctly', () => {
-    customRender(<SignUp />);
+    customRender(<SignUp onSignUpSuccessful={() => {}}/>);
 
     // Check if the main title is rendered
     expect(screen.getByText('Sign Up to Taaskify')).toBeInTheDocument();
@@ -37,13 +38,6 @@ describe('SignUp Component', () => {
     // Check if the sign-up button is rendered
     expect(screen.getByText('Sign Up')).toBeInTheDocument();
 
-    // Check if the "Or With" text is rendered
-    expect(screen.getByText('Or With')).toBeInTheDocument();
-
-    // Check if the Google and Apple buttons are rendered
-    expect(screen.getByText('Google')).toBeInTheDocument();
-    expect(screen.getByText('Apple')).toBeInTheDocument();
-
     // Check if the log-in prompt is rendered
     expect(screen.getByText('Already have an account?')).toBeInTheDocument();
     expect(screen.getByText('Log In')).toBeInTheDocument();
@@ -53,14 +47,17 @@ describe('SignUp Component', () => {
 
 describe('Renders login component', () => {
   test('it should render the login component when the login  btn clicked', () => {
-    customRender(<SignUp />)
-    customRender(<LogIn />)
+    customRender(<SignUp onSignUpSuccessful={() => {}}/>)
+    customRender(<LogIn onLogInSuccessful={() => {}}/>)
 
     const loginBtn = screen.getByTestId("loginBtn")
     fireEvent.click(loginBtn);
 
     expect(screen.getByTestId("loginContainer")).toBeInTheDocument()
   })
-
-
 })
+
+
+
+// testing the sign up functionality
+

@@ -7,7 +7,7 @@ import { fireEvent, screen } from "@testing-library/react";
 
 describe('LogIn Component', () => {
   it('renders the login form correctly', () => {
-    customRender(<LogIn />);
+    customRender(<LogIn onLogInSuccessful={() => {}}/>);
 
     // Check if the main title is rendered
     expect(screen.getByText('Log In to Taaskify')).toBeInTheDocument();
@@ -33,13 +33,6 @@ describe('LogIn Component', () => {
     // Check if the sign-in button is rendered
     expect(screen.getByText('Sign In')).toBeInTheDocument();
 
-    // Check if the "Or With" text is rendered
-    expect(screen.getByText('Or With')).toBeInTheDocument();
-
-    // Check if the Google and Apple buttons are rendered
-    expect(screen.getByText('Google')).toBeInTheDocument();
-    expect(screen.getByText('Apple')).toBeInTheDocument();
-
     // Check if the sign-up prompt is rendered
     expect(screen.getByText("Don't have an account?")).toBeInTheDocument();
     expect(screen.getByText('Sign Up')).toBeInTheDocument();
@@ -49,8 +42,8 @@ describe('LogIn Component', () => {
 
 describe('It should render the sign up component when the sign up is clicked', () => {
   test('render the login component', () => {
-    customRender(<LogIn />);
-    customRender(<SignUp />);
+    customRender(<LogIn onLogInSuccessful={() => {}}/>);
+    customRender(<SignUp onSignUpSuccessful={() => {}}/>);
 
     const signUpBtn = screen.getByTestId("signUpBtn");
     fireEvent.click(signUpBtn);
