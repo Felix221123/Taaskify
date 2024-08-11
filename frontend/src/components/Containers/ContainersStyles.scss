@@ -426,3 +426,8 @@
 #overlayEffect{
   @include OverlayEffect();
 }
+
+
+.preloader-container{
+  @include SpinAnimation();
+}

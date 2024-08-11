@@ -18,6 +18,7 @@ import { DeleteContainer } from '../Containers/DeleteContainer';
 import { EditBoardContainer } from '../Containers/EditBoardContainer';
 import { SettingsContainer } from '../Containers/SettingsContainer';
 import { ProfileContainer } from '../Containers/ProfileContainer';
+import { Loading } from '../Containers/Loading';
 
 export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   const [menuVisibility, setMenuVisibility] = useState<boolean>(false);
@@ -30,6 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   const [addBoardBtn, setAddBoardBtn] = useState(false);
   const [editDelBoardCon, setEditDelBoardCon] = useState<string>('');
   const [profileVisibility, setProfileVisibility] = useState<boolean>(false);
+  const [isLoggingOut, setLoggingOut] = useState<string>("")
   const menuBarContainer = useRef<HTMLDivElement>(null);
   const editDeleteContainer = useRef<HTMLDivElement>(null);
   const TaskContainers = useRef<HTMLDivElement>(null);
@@ -221,6 +223,16 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
     setProfileVisibility(true);
     setMenuVisibility(false);
   };
+
+  // handle the profile visibility when users press on logout
+  const handleLoggingOut = (logout: string) => {
+    setProfileVisibility(false);
+    setLoggingOut(logout); // Immediately set the logging out state
+    setTimeout(() => {
+      // Perform any additional cleanup or navigation if needed
+      setLoggingOut(''); // Optionally clear the logging out state after the delay
+    }, 5000);
+}
 
   return (
     <>
@@ -529,8 +541,25 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
               firstName="felix"
               lastName="baah"
               emailAddress="felixbaah47@gmail.com"
-              onClickProp={() => {}}
+              onClickProp={() => { }}
+              isLoggingOut={handleLoggingOut}
             />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* calling the loading section */}
+      <AnimatePresence>
+        {isLoggingOut !== "" && (
+          <motion.div
+            className="containerOpenForProfile"
+            initial={getMenuAnimationOnMobile().hidden}
+            animate={getMenuAnimationOnMobile().visible}
+            exit={getMenuAnimationOnMobile().exit}
+            transition={{ duration: 0.5 }}
+            data-testid="loadingSpin"
+          >
+            <Loading />
           </motion.div>
         )}
       </AnimatePresence>
@@ -541,6 +570,8 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
       {addBoardBtn && <div id="overLayEffect"></div>}
       {editDelBoardCon !== '' && <div id="overLayEffect"></div>}
       {profileVisibility && <div id="overLayEffect"></div>}
+      {isLoggingOut !== "" && <div id="overLayEffect"></div>}
+
     </>
   );
 };

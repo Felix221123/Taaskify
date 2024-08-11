@@ -17,9 +17,7 @@ const SignUpUserController:RequestHandler = async(req: Request, res: Response, n
   }).exec();
 
   if (existingEmail) {
-    next(Error(
-      `A user with this email already exist`
-    ))
+    return res.status(409).json({ error: "A user with this email already exists" });
   }
 
   // using the bcryptjs to has passwords
