@@ -564,6 +564,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
         )}
       </AnimatePresence>
 
+
       {menuVisibility && <div id="overLayEffect"></div>}
       {delEditVisible && <div id="overLayEffect"></div>}
       {addTaskBtn && <div id="overLayEffect"></div>}
@@ -571,7 +572,6 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
       {editDelBoardCon !== '' && <div id="overLayEffect"></div>}
       {profileVisibility && <div id="overLayEffect"></div>}
       {isLoggingOut !== "" && <div id="overLayEffect"></div>}
-
     </>
   );
 };
