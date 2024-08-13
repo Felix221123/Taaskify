@@ -10,6 +10,10 @@ import { AnimatePresence, motion } from "framer-motion"
 import { Loading } from "../components/Containers/Loading"
 import "../components/Containers/ContainersStyles.css"
 
+
+
+
+
 export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
   const [successfulLogIn, setSuccessfulLogIn] = useState<boolean>(false);
   const [logInError, setLogInError] = useState<boolean>(false);
@@ -54,18 +58,12 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
     }
   }
 
-
-
-
   // animations for navbar container on mobile
   const getMenuAnimationForSpin = () => ({
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
     exit: { opacity: 0 },
   });
-
-
-
 
   return (
     <>

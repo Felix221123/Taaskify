@@ -541,7 +541,6 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
               firstName="felix"
               lastName="baah"
               emailAddress="felixbaah47@gmail.com"
-              onClickProp={() => { }}
               isLoggingOut={handleLoggingOut}
             />
           </motion.div>

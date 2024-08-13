@@ -181,8 +181,6 @@ export const SignUp: React.FC<SignUpModalProps> = ({ onSignUpSuccessful }) => {
         )}
       </AnimatePresence>
 
-
-
       {successfulSignUp && <div id="overLayEffect"></div>}
     </>
   );

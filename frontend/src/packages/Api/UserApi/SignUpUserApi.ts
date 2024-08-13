@@ -6,13 +6,18 @@ const SignUpUserApi = async (signUpCredentials:SignUpUserProps):Promise<UserSign
   const Port = `http://localhost:5500`;     //defining the backend port
   const signUpPort = `${Port}/api/user/signup`;            // defining the route for sign up
 
+
+  // passing in the fields required in the server side
+  const {firstName , lastName, emailAddress, password }  = signUpCredentials
+
+
   // making an options header for correct data posting
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(signUpCredentials),
+    body: JSON.stringify({firstName, lastName, emailAddress, password}),
   };
 
   const response = await FetchData(signUpPort, options);

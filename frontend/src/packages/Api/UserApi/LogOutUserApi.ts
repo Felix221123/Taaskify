@@ -11,7 +11,6 @@ const LogOutUserApi = async():Promise<void> => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      // Include your authentication token here
       Authorization: `Bearer ${sessionStorage.getItem('token')}`,
     },
   };

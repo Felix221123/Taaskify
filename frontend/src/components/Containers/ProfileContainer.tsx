@@ -14,7 +14,6 @@ export const ProfileContainer: React.FC<SettingsProfileProps> = ({
   firstName,
   lastName,
   emailAddress,
-  onClickProp,
   isLoggingOut
 }) => {
   // useContext theme
@@ -58,7 +57,6 @@ export const ProfileContainer: React.FC<SettingsProfileProps> = ({
         navigate("/login");
       }, 5000);
 
-
       // navigate("/login");
 
       console.log(`user has been logged out`);
@@ -67,6 +65,12 @@ export const ProfileContainer: React.FC<SettingsProfileProps> = ({
       console.error('Failed to log out:', error);
     }
   };
+
+  // function to handle the reset password
+  const handleResetPassword = () => {
+    console.log(`here is running`);
+    navigate("/update-password");
+  }
 
 
   return (
@@ -95,7 +99,8 @@ export const ProfileContainer: React.FC<SettingsProfileProps> = ({
           <LogoutIcon />
           <span style={TextColorOnChange}>logout</span>
         </button>
-        <PrimaryBtnSmall buttonName="reset password" onClick={onClickProp} />
+
+        <PrimaryBtnSmall buttonName="update password" onClickProp={handleResetPassword} />
       </div>
     </>
   );

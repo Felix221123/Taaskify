@@ -179,7 +179,7 @@ export const SubTaskAddNewTaskColumnContainer: React.FC<
           </div>
         </div>
 
-        <SecondaryBtn buttonName="+ Add New Column" onClick={addNewColumn} />
+        <SecondaryBtn buttonName="+ Add New Column" onClickProp={addNewColumn} />
       </div>
     </>
   );
