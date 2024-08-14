@@ -1,6 +1,7 @@
 import { useTheme } from '../../Context/UseTheme';
 import React, { useState } from 'react';
 import {
+  onCloseContainerProp,
   SubTaskEditTaskColumnContainerProps,
   Task,
   TaskStatusContainerName,
@@ -10,8 +11,9 @@ import { SecondaryBtn } from '../Buttons/SecondaryBtn';
 import { CrossIcon } from '../../Icons/Cross';
 import { ChevronIconDown } from '../../Icons/ChevronIconDown';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
+import { CloseIcon } from '../../Icons/CloseIcon';
 
-export const AddNewTaskContainer: React.FC = () => {
+export const AddNewTaskContainer: React.FC<onCloseContainerProp> = ({ onCloseProp }) => {
   const [task, setTask] = useState<Task>({
     title: '',
     description: '',
@@ -54,9 +56,15 @@ export const AddNewTaskContainer: React.FC = () => {
   return (
     <>
       <div className="addTaskContainer" style={boardContainerTheme}>
-        <article className="editBoardText font-bold" style={TitleColorOnChange}>
-          Add New Task
-        </article>
+        <div className="headerBtnContainer flex flex-row items-center justify-between">
+          <article className="editBoardText font-bold" style={TitleColorOnChange}>
+            Add New Task
+          </article>
+          <div onClick={onCloseProp} data-testid="closeBtn">
+            <CloseIcon />
+          </div>
+        </div>
+
         <div className="boardNameContainer">
           <label
             htmlFor="title"

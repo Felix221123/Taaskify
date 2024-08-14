@@ -4,7 +4,7 @@ import { ButtonProps } from '../Interface/ButtonInterface';
 import React from 'react';
 import './button-styles.css';
 
-export const SecondaryBtn = ({ buttonName, onClick }: ButtonProps) => {
+export const SecondaryBtn = ({ buttonName, onClickProp }: ButtonProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   // Event handlers to toggle hover state
@@ -41,7 +41,7 @@ export const SecondaryBtn = ({ buttonName, onClick }: ButtonProps) => {
       style={combinedStyles}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
-      onClick={onClick}
+      onClick={onClickProp}
       data-testid="custom-secondary-button"
     >
       {buttonName}

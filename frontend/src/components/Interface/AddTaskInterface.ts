@@ -41,3 +41,8 @@ export interface SubTaskEditTaskColumnContainerProps {
   subtasks: Subtask[];
   setSubtasks: (subtask: Subtask[]) => void;
 }
+
+
+export interface onCloseContainerProp{
+  onCloseProp:() => void;
+}

@@ -95,8 +95,20 @@
   @include TaskContainer();
 }
 
-.containerOpen {
-  @include ContainerPosition("small");
+.containerOpenForViewTask {
+  @include ContainerPositionNormal();
+}
+
+
+.containerOpenForEditTask{
+  @include ContainerPositionNormal();
+  @media (max-width:767px) {
+    margin-top: 7rem;
+  }
+}
+
+.containerOpenForEditDeleteTask{
+  @include ContainerPositionNormal();
 }
 
 #overLayEffect {

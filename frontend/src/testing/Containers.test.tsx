@@ -170,7 +170,7 @@ describe('Add New Board Container Component', () => {
 // testing the add new task container component
 describe('Add New Task Container Component', () => {
   it('It should display the header, title, description', () => {
-    customRender(<AddNewTaskContainer />);
+    customRender(<AddNewTaskContainer onCloseProp={() => {}}/>);
     const header = screen.getByText(/Add New Task/i);
     expect(header).toBeVisible();
     expect(header).toBeInTheDocument();
@@ -181,7 +181,7 @@ describe('Add New Task Container Component', () => {
   });
 
   it('it should display the users input on the task title', () => {
-    customRender(<AddNewTaskContainer />);
+    customRender(<AddNewTaskContainer onCloseProp={() => {}}/>);
     const inputElement = screen.getByRole('textbox', { name: /Title/i });
     fireEvent.change(inputElement, { target: { value: 'New Board Name' } });
     expect(inputElement).toHaveValue('New Board Name');

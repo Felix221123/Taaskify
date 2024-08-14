@@ -47,17 +47,12 @@ export const ProfileContainer: React.FC<SettingsProfileProps> = ({
       // Call the logout API function
       await LogOutUserApi();
 
-      // Clear session-related data, such as the token
-      sessionStorage.removeItem('token');
-
       isLoggingOut('loggingOutUser');
 
       // Redirect to the login page
       setTimeout(() => {
         navigate("/login");
       }, 5000);
-
-      // navigate("/login");
 
       console.log(`user has been logged out`);
 

@@ -12,6 +12,7 @@ const LogInUserApi = async (logInCredentials:LogInUserProps):Promise<UserLogInDa
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: 'include',
     body: JSON.stringify(logInCredentials),
   };
 

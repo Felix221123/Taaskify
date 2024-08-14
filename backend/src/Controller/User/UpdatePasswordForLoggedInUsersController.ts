@@ -1,6 +1,6 @@
 import { RequestHandler,NextFunction, Request, Response } from "express"
 import bcryptjs from "bcryptjs"
-
+import signJWT from "../../Functions/signJWT";
 
 const UpdatePasswordForLoggedInUsersController:RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
 
@@ -40,12 +40,27 @@ const UpdatePasswordForLoggedInUsersController:RequestHandler = async (req: Requ
     user.password = hashedPassword;
     await user.save();
 
-    // return a successful message indicating the users password has been updated
-    return res.status(200).json(
-      { message: "Password updated successfully",
-        user
-      },
-    );
+    // Issue a new JWT after password update
+    signJWT(user, (error, token) => {
+      if (error) {
+        return res.status(500).json({
+          message: "Unable to sign token",
+          error: error,
+        });
+      } else if (token) {
+        res.cookie("authToken", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "strict",
+          maxAge: 1000 * 60 * 60, // 1 hour
+        });
+
+        return res.status(200).json({
+          message: "Password updated successfully",
+          user,
+        });
+      }
+    });
 
 
   } catch (error) {

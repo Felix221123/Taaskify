@@ -40,8 +40,7 @@ export interface UserSignUpData{
 
 export interface UserLogInData{
   message:string;
-  token:string;
-  user:UserSignUpData
+  user:UserSignUpProps
 }
 
 export interface SignUpModalProps{

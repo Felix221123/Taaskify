@@ -17,6 +17,7 @@ const SignUpUserApi = async (signUpCredentials:SignUpUserProps):Promise<UserSign
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: 'include',
     body: JSON.stringify({firstName, lastName, emailAddress, password}),
   };
 

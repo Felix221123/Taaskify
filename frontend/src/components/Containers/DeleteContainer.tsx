@@ -67,7 +67,7 @@ export const DeleteContainer = ({
         </p>
         <div className="btnContainer">
           <DestructiveBtn buttonName="Delete" />
-          <CancelBtn buttonName="Cancel" onClick={handleCancel} />
+          <CancelBtn buttonName="Cancel" onClickProp={handleCancel} />
         </div>
       </div>
     </>

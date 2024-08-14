@@ -1,25 +1,37 @@
 import 'dotenv/config'
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors'
-import { logInRoute, logOutRoute, signUpRoute, updatePasswordRoute } from './Routes/User/UsersRoutes';
+import cookieParser from 'cookie-parser';
+import { logInRoute, logOutRoute, signUpRoute, updatePasswordRoute, validateTokenRoute } from './Routes/User/UsersRoutes';
 import { createBoardRoute } from './Routes/Board/BoardRoutes';
 
 
 // defining the express app
 const app = express()
 
+// using the cookie parser in express
+app.use(cookieParser());
 
 // using cors in app
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:5173', // Replace with your frontend URL
+  credentials: true,               // Allow credentials (cookies, authorization headers, etc.)
+}));
 
 
 // making the app use json formatting data
 app.use(express.json());
 
 
+
 // Endpoint to create all routes to server
+
+// endpoint to check authenticated users
+app.use("/api/user/", validateTokenRoute)
+
 // endpoint routes for users to sign up
 app.use("/api/user/" , signUpRoute);
+
 
 // endpoint routes for users to log in
 app.use("/api/user/" , logInRoute);

@@ -55,10 +55,9 @@ export const UpdatePassword: React.FC = () => {
       const user = await UpdateLoggedInUserPasswordApi(data);
 
       if (user) {
-        alert("Password updated successfully.");
         setPasswordResetSuccess(true);
         console.log(user);
-        
+
         // setting a time out for the screen to load
         setTimeout(() => {
           setPasswordResetSuccess(false);
@@ -76,10 +75,6 @@ export const UpdatePassword: React.FC = () => {
       console.log(`throwing an error here cos the response wasn't okk`);
     }
   }
-
-
-
-
 
 
 
@@ -160,6 +155,9 @@ export const UpdatePassword: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+
+      {passwordResetSuccess && <div id="overLayEffect"></div>}
     </>
   )
 }

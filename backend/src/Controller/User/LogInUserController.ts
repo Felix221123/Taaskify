@@ -50,10 +50,17 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
           error: error
         });
       } else if (token) {
+        // Store JWT in an HttpOnly cookie
+        res.cookie("authToken", token, {
+          httpOnly: true, // Cannot be accessed via JavaScript
+          secure: true,   // Ensures the cookie is sent only over HTTPS
+          sameSite: "strict", // Helps prevent CSRF attacks
+          maxAge: 1000 * 60 * 60, // 1 hour
+        });
+
         return res.status(200).json({
           message: "Auth Successful",
-          token,
-          user
+          user,
         });
       }
     });

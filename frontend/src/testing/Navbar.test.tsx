@@ -139,6 +139,8 @@ describe('Renders the containers ', () => {
     fireEvent.mouseDown(document.body);
     expect(screen.getByTestId('addNewBoardContainer')).not.toBeVisible();
   });
+
+
   it('it should display the edit container when edit btn is pressed', () => {
     customRender(<EditBtn />);
     const button = screen.getByTestId('editBtn');
@@ -176,5 +178,19 @@ describe('Renders the containers ', () => {
     expect(screen.getByTestId('deleteCon')).toBeInTheDocument();
   });
 
-  
+  test('it should remove the task container from the document when the close button is pressed', () => {
+    customRender(<NavbarTestWrapper />);
+    fireEvent.click(screen.getByAltText('plus sign for add new task'));
+    expect(screen.getByTestId('addTaskContainer')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('desktopAddNewTask'));
+    expect(screen.getByTestId('addTaskContainer')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId("closeBtn"))
+
+    expect(screen.getByTestId('addTaskContainer')).not.toBeVisible();
+  })
+
+
+
 });

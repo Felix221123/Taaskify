@@ -31,7 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   const [addBoardBtn, setAddBoardBtn] = useState(false);
   const [editDelBoardCon, setEditDelBoardCon] = useState<string>('');
   const [profileVisibility, setProfileVisibility] = useState<boolean>(false);
-  const [isLoggingOut, setLoggingOut] = useState<string>("")
+  const [isLoggingOut, setLoggingOut] = useState<string>("");
   const menuBarContainer = useRef<HTMLDivElement>(null);
   const editDeleteContainer = useRef<HTMLDivElement>(null);
   const TaskContainers = useRef<HTMLDivElement>(null);
@@ -61,6 +61,11 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   const handlesSideBarClose = () => {
     setShowSideBar(false);
   };
+
+  // handles the close of the add to task container
+  const handleCloseAddToTaskContainer = () => {
+    setAddTaskBtn(false);
+  }
 
   // handles the open of adding a new board
   const handlesAddBoardOnOpen = () => {
@@ -473,7 +478,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
             data-testid="addTaskContainer"
             ref={TaskContainers}
           >
-            <AddNewTaskContainer />
+            <AddNewTaskContainer onCloseProp={handleCloseAddToTaskContainer}/>
           </motion.div>
         )}
       </AnimatePresence>

@@ -44,12 +44,17 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
         setSuccessfulLogIn(true);
         setLogInError(false);
         onLogInSuccessful(user);
+
+        
         // Delay navigation by 10 seconds
         setTimeout(() => {
           setSuccessfulLogIn(false);
           navigate("/taaskify");
         }, 5000);
       }
+
+      console.log(`user has been successfully logged in`);
+
 
     } catch (error) {
       const errorMessage = "An unexpected error occurred. Please try again.";
