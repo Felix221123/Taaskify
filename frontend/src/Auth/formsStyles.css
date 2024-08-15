@@ -99,7 +99,7 @@
 
 .button-submit {
   margin: 20px 0 10px 0;
-  background-color: #151717;
+  background-color: #3b82f6;
   border: none;
   color: white;
   font-size: 15px;
@@ -147,4 +147,28 @@
   transform: translate(-50%, -50%);
 }
 
+.textClr{
+  color:#e7e6e6;
+}
 
+.textClr1{
+  color:#000e24;
+}
+
+
+.forgotPasswordMainContainer{
+  width: 21.4375rem;
+  height: auto;
+  border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding: 2rem 1.5rem;
+  background-color: #ffffff;
+}
+
+@media (min-width:767px) {
+  .forgotPasswordMainContainer{
+    width: 30rem;
+  }
+}

@@ -20,6 +20,9 @@ import { SettingsContainer } from '../Containers/SettingsContainer';
 import { ProfileContainer } from '../Containers/ProfileContainer';
 import { Loading } from '../Containers/Loading';
 
+
+
+
 export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   const [menuVisibility, setMenuVisibility] = useState<boolean>(false);
   const [delEditVisible, setDelEditVisible] = useState<boolean>(false);

@@ -114,6 +114,12 @@ export const TaaskifyApp = () => {
       theme === 'light' ? '#F4F7FD' : '#2B2C37';
   }, [theme]);
 
+  // handles the bg color
+  useEffect(() => {
+    document.body.style.background = "rgb(0,14,36)";
+    document.body.style.background = "linear-gradient(90deg, rgba(0,14,36,1) 4%, rgba(166,17,180,0.013064600840336116) 100%, rgba(0,212,255,1) 100%)";
+  }, []);
+
   // theme to handle the new column container
   const handleBgTheme:React.CSSProperties = {
     background: theme === "dark" ? "linear-gradient(to bottom,rgba(43, 44, 55, 0.9) 0%,rgba(43, 44, 55, 0.5) 100%)" : "linear-gradient(to bottom,rgba(233, 239, 250, 1) 0%,rgba(233, 239, 250, 0.5) 100%)"

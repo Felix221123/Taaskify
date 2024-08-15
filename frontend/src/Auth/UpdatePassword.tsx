@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import "./formsStyles.css"
 import { useForm } from "react-hook-form";
@@ -14,16 +14,11 @@ import { Loading } from "../components/Containers/Loading";
 
 export const UpdatePassword: React.FC = () => {
   const [passwordResetSuccess, setPasswordResetSuccess] = useState<boolean>(false);
-  const [passwordError ,setPasswordError] = useState<string>("")
+  const [passwordError, setPasswordError] = useState<string>("")
 
 
   // calling the useNavigate component
   const navigate = useNavigate();
-
-  // changing the bg of the body element in the App
-  useEffect(() => {
-    document.body.style.backgroundColor = "#F4F7FD"
-  }, []);
 
 
   // animations for navbar container on mobile
@@ -44,7 +39,7 @@ export const UpdatePassword: React.FC = () => {
 
 
   // async function to allow users to reset their password if they are already logged in
-  async function onPasswordReset(data:UpdateLoggedInUsersPasswordProps) {
+  async function onPasswordReset(data: UpdateLoggedInUsersPasswordProps) {
     if (currentPassword === newPassword) {
       setPasswordError("Current and New Password must be different")
       return;
@@ -76,13 +71,19 @@ export const UpdatePassword: React.FC = () => {
     }
   }
 
+  // handles the bg color
+  useEffect(() => {
+    document.body.style.background = "rgb(0,14,36)";
+    document.body.style.background = "linear-gradient(90deg, rgba(0,14,36,1) 4%, rgba(166,17,180,0.013064600840336116) 100%, rgba(0,212,255,1) 100%)";
+  }, []);
+
 
 
   return (
     <>
       <div className="Intro flex flex-col gap-y-3 mt-10">
-        <article className="font-bold text-center text-3xl text-blue-500">Update Your Password</article>
-        <p className="text text-center font-medium text-lg px-3">Please enter your current password and your new password</p>
+        <article className="textClr font-bold text-center text-3xl">Update Your Password</article>
+        <p className="textClr text text-center font-medium text-lg px-3">Please enter your current password and your new password</p>
       </div>
       <div className="formContainer" data-testid="loginContainer">
         <form className="LogInform" action="" method="post" onSubmit={handleSubmit(onPasswordReset)}>

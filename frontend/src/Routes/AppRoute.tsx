@@ -24,7 +24,6 @@ export const AppRoute: React.FC = () => {
 
   console.log(user);
 
-
   return (
     <>
       <Router>

@@ -12,7 +12,7 @@ export const CloseIcon = () => {
   return (
     <>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" onMouseOver={handleHovered}
-        onMouseLeave={handleNotHovered} height="24" viewBox="0 0 24 24" fill="none" stroke={isHovered ? '#EA5555' : '#828FA3'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="cursor-pointer feather feather-x">
+        onMouseLeave={handleNotHovered} height="24" viewBox="0 0 24 24" fill="none" stroke={isHovered ? '#EA5555' : '#828FA3'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-pointer feather feather-x">
         <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
       </svg>
     </>
