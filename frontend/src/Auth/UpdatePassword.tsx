@@ -4,7 +4,7 @@ import "./formsStyles.css"
 import { useForm } from "react-hook-form";
 import { UpdateLoggedInUsersPasswordProps } from "../components/Interface/UserApiInterface";
 import Password from "/src/assets/password.svg"
-import UpdateLoggedInUserPasswordApi from "../packages/Api/UserApi/UpdateLoggedInUserPassword";
+import UpdateLoggedInUserPasswordApi from "../packages/Api/UserApi/UpdateLoggedInUserPasswordApi";
 import { AnimatePresence, motion } from "framer-motion";
 import { Loading } from "../components/Containers/Loading";
 
@@ -19,7 +19,6 @@ export const UpdatePassword: React.FC = () => {
 
   // calling the useNavigate component
   const navigate = useNavigate();
-
 
   // animations for navbar container on mobile
   const getMenuAnimationForSpin = () => ({

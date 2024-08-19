@@ -50,3 +50,13 @@ export interface SignUpModalProps{
 export interface LogInModalProps{
   onLogInSuccessful:(user:UserLogInData) => void
 }
+
+
+export interface ForgotPasswordProps{
+  emailAddress:string;
+}
+
+
+export interface onForgotPasswordLinkSuccess{
+  onLinkSuccess:(success:boolean) => void;
+}

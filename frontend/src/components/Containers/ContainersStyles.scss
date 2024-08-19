@@ -431,3 +431,22 @@
 .preloader-container{
   @include SpinAnimation();
 }
+
+.emailConfirmationContainer{
+  width: 21.4375rem;
+  height: auto;
+  border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 1.5rem;
+  padding: 2rem 1.5rem;
+  background-color: #ffffff;
+  color: $darkGrey;
+
+
+  @media (min-width:767px) {
+    width: 30rem;
+  }
+}
