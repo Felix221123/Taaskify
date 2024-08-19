@@ -11,12 +11,12 @@ const LogOutUserApi = async():Promise<void> => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      // Include your authentication token here
-      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
     },
+    credentials: 'include',
   };
 
   const response = await FetchData(logOutPort, options);
+
 
   if (!response.ok) {
     const errorData = await response.json();
@@ -25,7 +25,10 @@ const LogOutUserApi = async():Promise<void> => {
   }
   console.log(`user has been logged out successfully`);
 
-  return response.json();
+  // return response.json();
 }
+
+
+
 
 export default LogOutUserApi

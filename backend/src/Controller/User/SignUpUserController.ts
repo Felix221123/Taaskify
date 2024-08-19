@@ -1,6 +1,9 @@
 import { RequestHandler, NextFunction, Request, Response } from "express"
 import bcryptjs from "bcryptjs"
 import UserBoardModel from "../../Models/UserModel";
+import signJWT from "../../Functions/signJWT";
+import config from "../../Config/config";
+
 
 
 
@@ -38,12 +41,31 @@ const SignUpUserController:RequestHandler = async(req: Request, res: Response, n
       boards: []
     });
 
-    return user.save()
-    .then(user => {
-      return res.status(201).json({
-        user
+    return user
+      .save()
+      .then((user) => {
+        // Automatically log the user in by signing a JWT and setting it in a cookie
+        signJWT(user, (error, token) => {
+          if (error) {
+            return res.status(500).json({
+              message: "Unable to sign token",
+              error: error,
+            });
+          } else if (token) {
+            res.cookie("authToken", token, {
+              httpOnly: true,
+              secure: config.server.node_env === "production",    // Ensures the cookie is sent only over HTTPS, make this true during production
+              sameSite: "lax",   // Ensure its turned to strict during production
+              maxAge: 1000 * 60 * 60, // 1 hour
+            });
+
+            return res.status(201).json({
+              message: "User registered and logged in successfully",
+              user,
+            });
+          }
+        });
       })
-    })
     .catch(error => {
       return res.status(500).json({
         message : error.message,

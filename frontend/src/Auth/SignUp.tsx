@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState, useEffect } from "react"
 import Email from "/src/assets/email.svg"
 import Password from "/src/assets/password.svg"
 import { useNavigate } from "react-router-dom"
@@ -24,12 +24,6 @@ export const SignUp: React.FC<SignUpModalProps> = ({ onSignUpSuccessful }) => {
     const routeFormat = route.replace(/\s+/g, '-').toLowerCase()
     navigate(`/${routeFormat}/`)
   };
-
-  // changing the bg of the body element in the App
-  useEffect(() => {
-    document.body.style.backgroundColor = "#F4F7FD"
-  }, []);
-
   // using the react hook forms to define the signup for users
   const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<SignUpUserProps>();
 
@@ -68,15 +62,21 @@ export const SignUp: React.FC<SignUpModalProps> = ({ onSignUpSuccessful }) => {
     exit: { opacity: 0 },
   });
 
+    // handles the bg color
+    useEffect(() => {
+      document.body.style.background = "rgb(0,14,36)";
+      document.body.style.background = "linear-gradient(90deg, rgba(0,14,36,1) 4%, rgba(166,17,180,0.013064600840336116) 100%, rgba(0,212,255,1) 100%)";
+    }, []);
+
 
   return (
     <>
-      <div className="Intro flex flex-col gap-y-3 mt-10">
-        <article className="font-bold text-center text-4xl text-blue-500">Sign Up to Taaskify</article>
-        <p className="text text-center font-medium text-lg">Please fill the info to sign up</p>
+      <div className="Intro flex flex-col gap-y-3 mt-14">
+        <article className="textClr font-bold text-center text-4xl">Sign Up to Taaskify</article>
+        <p className="textClr text text-center font-medium text-lg">Please fill the info to sign up</p>
       </div>
 
-      <div className="formContainer mb-8" data-testid="signUpContainer">
+      <div className="formContainer mb-10" data-testid="signUpContainer">
         {/* forms submission here */}
         <form action="" method="post" onSubmit={handleSubmit(onSignUpSubmit)} className="LogInform flex flex-col gap-y-2">
           {/* user name */}
@@ -180,8 +180,6 @@ export const SignUp: React.FC<SignUpModalProps> = ({ onSignUpSuccessful }) => {
           </motion.div>
         )}
       </AnimatePresence>
-
-
 
       {successfulSignUp && <div id="overLayEffect"></div>}
     </>

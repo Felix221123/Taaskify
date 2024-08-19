@@ -124,7 +124,7 @@ export const BoardColumnContainer = () => {
           ))}
         </div>
 
-        <SecondaryBtn buttonName="+ Add New Column" onClick={addNewColumn} />
+        <SecondaryBtn buttonName="+ Add New Column" onClickProp={addNewColumn} />
       </div>
     </>
   );

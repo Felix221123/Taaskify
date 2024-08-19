@@ -101,7 +101,15 @@
   color: #828fa3;
 }
 
-.containerOpen {
+.containerOpenForViewTask {
+  z-index: 9999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.containerOpenForEditTask {
   z-index: 9999;
   position: absolute;
   top: 50%;
@@ -109,15 +117,17 @@
   transform: translate(-50%, -50%);
 }
 @media (max-width: 767px) {
-  .containerOpen {
-    margin-top: 0rem;
+  .containerOpenForEditTask {
+    margin-top: 7rem;
   }
 }
-@media (min-width: 768px) {
-  .containerOpen {
-    margin-top: 1rem;
-    margin-bottom: 5rem;
-  }
+
+.containerOpenForEditDeleteTask {
+  z-index: 9999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #overLayEffect {

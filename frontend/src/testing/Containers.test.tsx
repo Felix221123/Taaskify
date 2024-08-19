@@ -51,6 +51,8 @@ export const SubtaskWrapper: React.FC<{ container: string }> = ({
   );
 };
 
+
+
 // testing the delete container component
 describe('Delete Component', () => {
   it('it should display the heading in the document', () => {
@@ -94,6 +96,8 @@ describe('Delete Component', () => {
     expect(button[1]).toHaveTextContent('Cancel');
   });
 });
+
+
 
 // testing the edit container component
 describe('Edit Board Component', () => {
@@ -145,6 +149,8 @@ describe('Edit Board Component', () => {
   });
 });
 
+
+
 // testing the add new board container component
 describe('Add New Board Container Component', () => {
   it('it should display the heading of the container', () => {
@@ -170,7 +176,7 @@ describe('Add New Board Container Component', () => {
 // testing the add new task container component
 describe('Add New Task Container Component', () => {
   it('It should display the header, title, description', () => {
-    customRender(<AddNewTaskContainer />);
+    customRender(<AddNewTaskContainer onCloseProp={() => {}}/>);
     const header = screen.getByText(/Add New Task/i);
     expect(header).toBeVisible();
     expect(header).toBeInTheDocument();
@@ -181,7 +187,7 @@ describe('Add New Task Container Component', () => {
   });
 
   it('it should display the users input on the task title', () => {
-    customRender(<AddNewTaskContainer />);
+    customRender(<AddNewTaskContainer onCloseProp={() => {}}/>);
     const inputElement = screen.getByRole('textbox', { name: /Title/i });
     fireEvent.change(inputElement, { target: { value: 'New Board Name' } });
     expect(inputElement).toHaveValue('New Board Name');
@@ -206,6 +212,8 @@ describe('Add New Task Container Component', () => {
     expect(paragraph).toBeInTheDocument();
   });
 });
+
+
 
 describe('SubTaskColumnContainer task component', () => {
   test('renders the initial columns', () => {
@@ -335,6 +343,11 @@ describe('Task Container Component', () => {
     expect(screen.getByTestId('subtaskContainer')).toBeVisible();
   });
 });
+
+
+
+
+
 
 // testing the profile container
 describe('Profile Container', () => {

@@ -8,10 +8,12 @@ export interface SignUpUserProps {
 }
 
 
+
 export interface LogInUserProps {
   emailAddress: string;
   password: string;
 }
+
 
 export interface UserSignUpProps{
   _id: string;
@@ -25,6 +27,11 @@ export interface UserSignUpProps{
   __v: number;
 }
 
+export interface UpdateLoggedInUsersPasswordProps{
+  currentPassword:string;
+  newPassword:string;
+  confirmNewPassword:string;
+}
 
 
 export interface UserSignUpData{
@@ -33,8 +40,7 @@ export interface UserSignUpData{
 
 export interface UserLogInData{
   message:string;
-  token:string;
-  user:UserSignUpData
+  user:UserSignUpProps
 }
 
 export interface SignUpModalProps{

@@ -1,9 +1,12 @@
+import express from "express"
 import LogOutUserController from "../../Controller/User/LogOutUserController";
 import LogInUserController from "../../Controller/User/LogInUserController";
 import SignUpUserController from "../../Controller/User/SignUpUserController";
 import ValidateToken from "../../Functions/UserValidToken";
 import extractJWT from "../../Middleware/extractJWT";
-import express from "express"
+import UpdatePasswordForLoggedInUsersController from "../../Controller/User/UpdatePasswordForLoggedInUsersController";
+import ForgotPasswordController from "../../Controller/User/ForgotPasswordController";
+
 
 
 // defining the router
@@ -22,9 +25,14 @@ export const logInRoute = router.post("/login" , LogInUserController)
 
 
 // router for logging out users
-export const logOutRoute = router.post("/logout", LogOutUserController)
+export const logOutRoute = router.post("/logout",extractJWT, LogOutUserController)
 
 
+// router for user to update their password
+export const updatePasswordRoute = router.post("/update-password", extractJWT , UpdatePasswordForLoggedInUsersController)
 
+
+// router for forgot password (No JWT required)
+export const forgotPasswordRoute = router.post("/forgot-password", ForgotPasswordController);
 
 

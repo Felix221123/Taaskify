@@ -8,6 +8,5 @@ export interface SettingsProfileProps {
   firstName: string;
   lastName: string;
   emailAddress: string;
-  onClickProp?: () => void;
   isLoggingOut:(loggedOut:string) => void
 }

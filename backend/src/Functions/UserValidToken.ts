@@ -5,15 +5,13 @@ import logging from "../Config/logging"
 const NAMESPACE = "user"
 
 
-const ValidateToken = (req: Request, res: Response, next:NextFunction) => {
-  logging.info(NAMESPACE, "Token Validated, user authorised");
+const ValidateToken = (req: Request, res: Response, _next:NextFunction) => {
+  logging.info(NAMESPACE, "Token Validated, user authorized");
 
-  if (!req.headers.authorization) {
-    return next(new Error("User Unauthorized"));
-  }
-
+  // Since extractJWT middleware already validated the token, we can just confirm the authorization
   return res.status(200).json({
-    message : "User Authorised"
+    message: "User Authorized",
+    user: req.user, // Optionally, return the user information
   });
 };
 

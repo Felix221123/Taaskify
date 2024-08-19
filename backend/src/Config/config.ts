@@ -11,6 +11,8 @@ const SERVER_PORT = env.PORT;
 const SERVER_TOKEN_EXPIRETIME = env.SERVER_TOKEN_EXPIRETIME;
 const SERVER_TOKEN_ISSUER = env.SERVER_TOKEN_ISSUER;
 const SERVER_TOKEN_SECRET = env.SERVER_TOKEN_SECRET;
+const RESEND_EMAIL_API_KEY = env.RESEND_EMAIL_API_KEY;
+const NODE_ENV = env.NODE_ENV
 
 // defining the server
 const SERVER = {
@@ -20,7 +22,9 @@ const SERVER = {
         expireTime: SERVER_TOKEN_EXPIRETIME,
         issuer: SERVER_TOKEN_ISSUER,
         secret: SERVER_TOKEN_SECRET
-    }
+    },
+    resend_email_api_key: RESEND_EMAIL_API_KEY,
+    node_env:NODE_ENV
 };
 
 

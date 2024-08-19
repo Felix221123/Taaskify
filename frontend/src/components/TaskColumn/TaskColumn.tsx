@@ -54,27 +54,25 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
     exit: { opacity: 0 },
   });
 
-  useEffect(() => {
-    console.log(selectedViewTask, 'is the value of viewTask now');
-  }, [selectedViewTask]);
-
   // function to handle the hovering of a board
   const handleHoveredTask = (index: number) => {
     setIsHoveredTask(index);
-    console.log(`Hovering task: ${index}`);
   };
 
   // function to handle un hovered boards
   const handleUnHoveredTask = () => {
     setIsHoveredTask(null);
-    console.log(`Hovering task: set to false`);
   };
+
+  // function to handle the closing of the edit task container
+  const handleOnCloseEditTaskContainer = () => {
+    setEditTaskBtnContainer(false);
+  }
 
   // handles the onclick function of a task
   const handleOnClickTask = (task: Task) => {
     setViewTaskVisibiity(true)
     setSelectedViewTask(task);
-    console.log(`Task clicked: ${task}`);
   };
 
   // styles to match the task board container when theme changes
@@ -161,7 +159,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
         {selectedViewTask && viewTaskVisibiity && (
           <>
             <motion.div
-              className="containerOpen"
+              className="containerOpenForViewTask"
               initial={getMenuAnimationVariantsForViewTask().hidden}
               animate={getMenuAnimationVariantsForViewTask().visible}
               exit={getMenuAnimationVariantsForViewTask().exit}
@@ -187,7 +185,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
         {editTaskBtnContainer && selectedViewTask && (
           <>
             <motion.div
-              className="containerOpen"
+              className="containerOpenForEditTask"
               initial={getMenuAnimationVariantsForViewTask().hidden}
               animate={getMenuAnimationVariantsForViewTask().visible}
               exit={getMenuAnimationVariantsForViewTask().exit}
@@ -200,6 +198,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
                 description={selectedViewTask?.description}
                 subtasks={selectedViewTask?.subtasks ?? []}
                 status={selectedViewTask?.status}
+                onCloseProp={handleOnCloseEditTaskContainer}
               />
             </motion.div>
           </>
@@ -211,7 +210,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
         {deleteTaskBtnContainer && selectedViewTask && (
           <>
             <motion.div
-              className="containerOpen"
+              className="containerOpenForEditDeleteTask"
               initial={getMenuAnimationVariantsForViewTask().hidden}
               animate={getMenuAnimationVariantsForViewTask().visible}
               exit={getMenuAnimationVariantsForViewTask().exit}

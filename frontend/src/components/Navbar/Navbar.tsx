@@ -20,6 +20,9 @@ import { SettingsContainer } from '../Containers/SettingsContainer';
 import { ProfileContainer } from '../Containers/ProfileContainer';
 import { Loading } from '../Containers/Loading';
 
+
+
+
 export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   const [menuVisibility, setMenuVisibility] = useState<boolean>(false);
   const [delEditVisible, setDelEditVisible] = useState<boolean>(false);
@@ -31,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   const [addBoardBtn, setAddBoardBtn] = useState(false);
   const [editDelBoardCon, setEditDelBoardCon] = useState<string>('');
   const [profileVisibility, setProfileVisibility] = useState<boolean>(false);
-  const [isLoggingOut, setLoggingOut] = useState<string>("")
+  const [isLoggingOut, setLoggingOut] = useState<string>("");
   const menuBarContainer = useRef<HTMLDivElement>(null);
   const editDeleteContainer = useRef<HTMLDivElement>(null);
   const TaskContainers = useRef<HTMLDivElement>(null);
@@ -61,6 +64,11 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   const handlesSideBarClose = () => {
     setShowSideBar(false);
   };
+
+  // handles the close of the add to task container
+  const handleCloseAddToTaskContainer = () => {
+    setAddTaskBtn(false);
+  }
 
   // handles the open of adding a new board
   const handlesAddBoardOnOpen = () => {
@@ -473,7 +481,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
             data-testid="addTaskContainer"
             ref={TaskContainers}
           >
-            <AddNewTaskContainer />
+            <AddNewTaskContainer onCloseProp={handleCloseAddToTaskContainer}/>
           </motion.div>
         )}
       </AnimatePresence>
@@ -541,7 +549,6 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
               firstName="felix"
               lastName="baah"
               emailAddress="felixbaah47@gmail.com"
-              onClickProp={() => { }}
               isLoggingOut={handleLoggingOut}
             />
           </motion.div>
@@ -564,6 +571,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
         )}
       </AnimatePresence>
 
+
       {menuVisibility && <div id="overLayEffect"></div>}
       {delEditVisible && <div id="overLayEffect"></div>}
       {addTaskBtn && <div id="overLayEffect"></div>}
@@ -571,7 +579,6 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
       {editDelBoardCon !== '' && <div id="overLayEffect"></div>}
       {profileVisibility && <div id="overLayEffect"></div>}
       {isLoggingOut !== "" && <div id="overLayEffect"></div>}
-
     </>
   );
 };

@@ -7,11 +7,11 @@ const UserBoardSchema: Schema = new Schema({
   password: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  boards: [{ type: BoardSchema, required: true }] // Embedding boards directly within the user
+  boards: [BoardSchema]  // Embedding boards directly within the user
 }, { timestamps: true });
 
 
 // creating the model for users
-const UserBoardModel: Model<IUser> = mongoose.model<IUser>("UserBoard", UserBoardSchema);
+const UserBoardModel: Model<IUser & Document> = mongoose.model<IUser & Document>("UserBoard", UserBoardSchema);
 
 export default UserBoardModel;

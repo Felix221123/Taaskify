@@ -1,15 +1,15 @@
 import { RequestHandler, NextFunction, Request, Response } from "express";
+import config from "../../Config/config";
 
 
-const LogOutUserController: RequestHandler = (req: Request, res: Response, _next: NextFunction) => {
-  // Assuming the token is sent in the Authorization header
-  const authHeader = req.headers.authorization;
-  
-  if (!authHeader) {
-    return res.status(400).json(
-      { message: "No token provided" }
-    );
-  }
+
+const LogOutUserController: RequestHandler = (_req: Request, res: Response, _next: NextFunction) => {
+  // Clear the JWT cookie
+  res.clearCookie("authToken", {
+    httpOnly: true,
+    secure: config.server.node_env === "production",          // Ensures the cookie is sent only over HTTPS, make this true during production
+    sameSite: "lax",
+  });
 
   // The client should remove the token, but here you can still send a response indicating success
   return res.status(200).json(
