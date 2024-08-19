@@ -15,14 +15,14 @@ const UpdateLoggedInUserPasswordApi = async (userPasswordProps:UpdateLoggedInUse
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      credentials: 'include',
     },
+    credentials: 'include',
     body: JSON.stringify({ currentPassword, newPassword }),
   };
 
   const response = await FetchData(updatePasswordPort, options);
 
-  
+
   // if response is not okk, it throws error here
   if (!response.ok) {
     // Throw the entire response object

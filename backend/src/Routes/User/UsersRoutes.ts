@@ -5,6 +5,7 @@ import SignUpUserController from "../../Controller/User/SignUpUserController";
 import ValidateToken from "../../Functions/UserValidToken";
 import extractJWT from "../../Middleware/extractJWT";
 import UpdatePasswordForLoggedInUsersController from "../../Controller/User/UpdatePasswordForLoggedInUsersController";
+import ForgotPasswordController from "../../Controller/User/ForgotPasswordController";
 
 
 
@@ -30,5 +31,8 @@ export const logOutRoute = router.post("/logout",extractJWT, LogOutUserControlle
 // router for user to update their password
 export const updatePasswordRoute = router.post("/update-password", extractJWT , UpdatePasswordForLoggedInUsersController)
 
+
+// router for forgot password (No JWT required)
+export const forgotPasswordRoute = router.post("/forgot-password", ForgotPasswordController);
 
 

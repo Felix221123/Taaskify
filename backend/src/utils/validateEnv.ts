@@ -7,4 +7,6 @@ export default cleanEnv(process.env, {
   SERVER_TOKEN_ISSUER:str(),
   SERVER_TOKEN_SECRET:str(),
   SERVER_HOSTNAME:str(),
+  RESEND_EMAIL_API_KEY:str(),
+  NODE_ENV:str(),
 })

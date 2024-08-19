@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { LogIn } from '../Auth/LogIn'
 import { TaaskifyApp } from '../App/TaaskifyApp'
@@ -12,6 +12,34 @@ import { UserLogInData, UserSignUpData } from '../components/Interface/UserApiIn
 export const AppRoute: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<UserLogInData | UserSignUpData | null>(null);
+
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const response = await fetch('http://localhost:5500/api/user/validate', {
+          method: 'GET',
+          credentials: 'include', // Ensure cookies are included
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data.user);
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch (error) {
+        console.error("Failed to check authentication status", error);
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
 
   const handleLoginSuccess = (user: UserLogInData) => {
     setUser(user);

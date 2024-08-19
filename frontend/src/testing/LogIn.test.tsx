@@ -7,7 +7,7 @@ import { fireEvent, screen } from "@testing-library/react";
 
 describe('LogIn Component', () => {
   it('renders the login form correctly', () => {
-    customRender(<LogIn onLogInSuccessful={() => {}}/>);
+    customRender(<LogIn onLogInSuccessful={() => { }} />);
 
     // Check if the main title is rendered
     expect(screen.getByText('Log In to Taaskify')).toBeInTheDocument();
@@ -42,12 +42,26 @@ describe('LogIn Component', () => {
 
 describe('It should render the sign up component when the sign up is clicked', () => {
   test('render the login component', () => {
-    customRender(<LogIn onLogInSuccessful={() => {}}/>);
-    customRender(<SignUp onSignUpSuccessful={() => {}}/>);
+    customRender(<LogIn onLogInSuccessful={() => { }} />);
+    customRender(<SignUp onSignUpSuccessful={() => { }} />);
 
     const signUpBtn = screen.getByTestId("signUpBtn");
     fireEvent.click(signUpBtn);
 
     expect(screen.getByTestId("signUpContainer")).toBeInTheDocument();
   });
+})
+
+
+describe('Forgot password page', () => {
+
+  test('it should render the forgot password session when clicked', () => {
+    customRender(<LogIn onLogInSuccessful={() => { }} />);
+
+    const forgotPassword = screen.getByText(/Forgot password?/i);
+    fireEvent.click(forgotPassword);
+
+    expect(screen.getByTestId("forgotPasswordContainer")).toBeInTheDocument();
+
+  })
 })

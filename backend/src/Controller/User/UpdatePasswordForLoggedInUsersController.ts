@@ -1,6 +1,9 @@
 import { RequestHandler,NextFunction, Request, Response } from "express"
 import bcryptjs from "bcryptjs"
 import signJWT from "../../Functions/signJWT";
+import config from "../../Config/config";
+
+
 
 const UpdatePasswordForLoggedInUsersController:RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
 
@@ -50,8 +53,8 @@ const UpdatePasswordForLoggedInUsersController:RequestHandler = async (req: Requ
       } else if (token) {
         res.cookie("authToken", token, {
           httpOnly: true,
-          secure: true,
-          sameSite: "strict",
+          secure: config.server.node_env === "production",    // Ensures the cookie is sent only over HTTPS, make this true during production
+          sameSite: "lax",
           maxAge: 1000 * 60 * 60, // 1 hour
         });
 

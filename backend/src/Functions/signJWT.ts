@@ -7,11 +7,6 @@ const NAMESPACE = "Auth"
 
 
 const signJWT = (user:IUser, callback: (error:Error | null , token:string | null) => void):void => {
-  // defining json web token variables
-  const timeSinchEpoch = new Date().getTime();
-  const expirationTime = timeSinchEpoch + Number(config.server.token.expireTime) * 100000;
-  const expirationTimeInSeconds = Math.floor(expirationTime / 1000);
-
   logging.info(NAMESPACE , `Attempting to sign token for ${user.emailAddress}`);
 
   // using the try and catch block to assign a token
@@ -25,7 +20,7 @@ const signJWT = (user:IUser, callback: (error:Error | null , token:string | null
       {
         issuer: config.server.token.secret,
         algorithm: "HS256",
-        expiresIn: expirationTimeInSeconds
+        expiresIn: `${config.server.token.expireTime}s`
       },
       (error , token) => {
         if (error){

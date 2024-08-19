@@ -2,6 +2,9 @@ import { RequestHandler, NextFunction, Request, Response } from "express"
 import bcryptjs from "bcryptjs"
 import UserBoardModel from "../../Models/UserModel";
 import signJWT from "../../Functions/signJWT";
+import config from "../../Config/config";
+
+
 
 
 const SignUpUserController:RequestHandler = async(req: Request, res: Response, next:NextFunction) => {
@@ -51,8 +54,8 @@ const SignUpUserController:RequestHandler = async(req: Request, res: Response, n
           } else if (token) {
             res.cookie("authToken", token, {
               httpOnly: true,
-              secure: true,
-              sameSite: "strict",
+              secure: config.server.node_env === "production",    // Ensures the cookie is sent only over HTTPS, make this true during production
+              sameSite: "lax",   // Ensure its turned to strict during production
               maxAge: 1000 * 60 * 60, // 1 hour
             });
 

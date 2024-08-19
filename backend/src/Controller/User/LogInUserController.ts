@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs"
 import UserBoardModel from "../../Models/UserModel";
 import signJWT from "../../Functions/signJWT";
 import logging from "../../Config/logging";
+import config from "../../Config/config";
 
 
 // defining namespace
@@ -51,10 +52,12 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
         });
       } else if (token) {
         // Store JWT in an HttpOnly cookie
+        const oneHourFromNow = new Date(Date.now() + 1000 * 60 * 60);
         res.cookie("authToken", token, {
           httpOnly: true, // Cannot be accessed via JavaScript
-          secure: true,   // Ensures the cookie is sent only over HTTPS
-          sameSite: "strict", // Helps prevent CSRF attacks
+          secure: config.server.node_env === "production",   // Ensures the cookie is sent only over HTTPS, make this true during production
+          expires: oneHourFromNow,
+          sameSite: "lax", // Helps prevent CSRF attacks
           maxAge: 1000 * 60 * 60, // 1 hour
         });
 

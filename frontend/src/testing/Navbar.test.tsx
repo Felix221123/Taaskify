@@ -8,6 +8,7 @@ import { customRender } from '../utils/testingUtils';
 import { useState } from 'react';
 import { EditBoardContainer } from '../components/Containers/EditBoardContainer';
 import { DeleteContainer } from '../components/Containers/DeleteContainer';
+import { UpdatePassword } from '../Auth/UpdatePassword';
 
 // Mock data for boards
 const boards = [
@@ -81,6 +82,8 @@ describe('Navbar Mobile first Component', () => {
   });
 });
 
+
+
 // testing the side bar component in tablet and desktop design
 describe('Side Bar Component(desktop and mobile)', () => {
   it('It should display the side bar on desktop when the eyeBtn is pressed and when clicked on the hideBtn it disappears', () => {
@@ -104,8 +107,35 @@ describe('Side Bar Component(desktop and mobile)', () => {
     fireEvent.mouseDown(document.body);
     expect(screen.getByTestId('menuMobile')).not.toBeVisible();
   });
+
+  test('it should display the update password from the profile session session when btn is clicked', () => {
+    customRender(<NavbarTestWrapper />);
+    customRender(<UpdatePassword />);
+
+    const eyeBtn = screen.getByTestId('eyeBtn');
+    expect(eyeBtn).toBeVisible();
+    expect(eyeBtn).toBeInTheDocument();
+
+    fireEvent.click(eyeBtn);
+    expect(screen.getByTestId('sideBar')).toBeInTheDocument();
+
+    const settingsIcon = screen.getByTestId("settingsIcon")
+
+    fireEvent.click(settingsIcon);
+
+    expect(screen.getByTestId("profileContainer")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId("custom-primary-button"));
+
+    expect(screen.getByText(/Update Your Password/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please enter your current password and your new password/i)).toBeInTheDocument();
+
+  })
+
 });
 
+
+// testing the rendering of the containers
 describe('Renders the containers ', () => {
   it('it should display the add task container', () => {
     customRender(<NavbarTestWrapper />);
@@ -190,7 +220,5 @@ describe('Renders the containers ', () => {
 
     expect(screen.getByTestId('addTaskContainer')).not.toBeVisible();
   })
-
-
 
 });

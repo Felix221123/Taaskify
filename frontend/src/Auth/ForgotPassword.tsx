@@ -6,6 +6,9 @@ import Email from "/src/assets/email.svg"
 
 
 export const ForgotPassword: React.FC = () => {
+
+
+
   return (
     <>
       <div className="forgotPasswordMainContainer">
@@ -28,10 +31,8 @@ export const ForgotPassword: React.FC = () => {
             // style={errors.emailAddress || logInError ? { border: "2px solid red", outline: "none" } : {}}
             />
           </div>
-          <button className="button-submit" type="submit">Send Link</button>
+          <button className="button-submit" data-testid='sendEmailBtn' type="submit">Send Link</button>
         </form>
-
-
       </div>
     </>
   )

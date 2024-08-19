@@ -2,7 +2,7 @@ import 'dotenv/config'
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
-import { logInRoute, logOutRoute, signUpRoute, updatePasswordRoute, validateTokenRoute } from './Routes/User/UsersRoutes';
+import { forgotPasswordRoute, logInRoute, logOutRoute, signUpRoute, updatePasswordRoute, validateTokenRoute } from './Routes/User/UsersRoutes';
 import { createBoardRoute } from './Routes/Board/BoardRoutes';
 
 
@@ -32,7 +32,6 @@ app.use("/api/user/", validateTokenRoute)
 // endpoint routes for users to sign up
 app.use("/api/user/" , signUpRoute);
 
-
 // endpoint routes for users to log in
 app.use("/api/user/" , logInRoute);
 
@@ -42,6 +41,8 @@ app.use("/api/user/" , logOutRoute);
 // end point for logged in users to update their password
 app.use("/api/user/" , updatePasswordRoute)
 
+// endpoint for users to request  a password reset where they are sent a reset link which will expire in an hour
+app.use("/api/user/" , forgotPasswordRoute)
 
 
 

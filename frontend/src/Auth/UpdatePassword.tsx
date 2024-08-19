@@ -82,7 +82,7 @@ export const UpdatePassword: React.FC = () => {
   return (
     <>
       <div className="Intro flex flex-col gap-y-3 mt-10">
-        <article className="textClr font-bold text-center text-3xl">Update Your Password</article>
+        <article data-testid="updatePasswordText" className="textClr font-bold text-center text-3xl">Update Your Password</article>
         <p className="textClr text text-center font-medium text-lg px-3">Please enter your current password and your new password</p>
       </div>
       <div className="formContainer" data-testid="loginContainer">
@@ -136,7 +136,7 @@ export const UpdatePassword: React.FC = () => {
           {errors.confirmNewPassword && <span className="error-text text-xs text-red-500">{errors.confirmNewPassword.message}</span>}
 
           {/* btn here */}
-          <button className="button-submit" type="submit" disabled={isSubmitting}>Update Password</button>
+          <button className="button-submit" data-testid="updateBtn" type="submit" disabled={isSubmitting}>Update Password</button>
         </form>
       </div>
 

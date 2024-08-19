@@ -51,6 +51,8 @@ export const SubtaskWrapper: React.FC<{ container: string }> = ({
   );
 };
 
+
+
 // testing the delete container component
 describe('Delete Component', () => {
   it('it should display the heading in the document', () => {
@@ -94,6 +96,8 @@ describe('Delete Component', () => {
     expect(button[1]).toHaveTextContent('Cancel');
   });
 });
+
+
 
 // testing the edit container component
 describe('Edit Board Component', () => {
@@ -144,6 +148,8 @@ describe('Edit Board Component', () => {
     // Add a new column works as usual
   });
 });
+
+
 
 // testing the add new board container component
 describe('Add New Board Container Component', () => {
@@ -206,6 +212,8 @@ describe('Add New Task Container Component', () => {
     expect(paragraph).toBeInTheDocument();
   });
 });
+
+
 
 describe('SubTaskColumnContainer task component', () => {
   test('renders the initial columns', () => {
@@ -335,6 +343,11 @@ describe('Task Container Component', () => {
     expect(screen.getByTestId('subtaskContainer')).toBeVisible();
   });
 });
+
+
+
+
+
 
 // testing the profile container
 describe('Profile Container', () => {
