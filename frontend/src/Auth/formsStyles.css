@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.LogInform {
+.LogInform, .ResetForm {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -19,9 +19,9 @@
 }
 
 @media (max-width:767px) {
-  .LogInform{
+  .LogInform, .ResetForm{
     margin-top: 1.5rem;
-    width: 22rem;
+    width: 21rem;
   }
 }
 

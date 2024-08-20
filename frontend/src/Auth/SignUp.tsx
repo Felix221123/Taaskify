@@ -24,6 +24,8 @@ export const SignUp: React.FC<SignUpModalProps> = ({ onSignUpSuccessful }) => {
     const routeFormat = route.replace(/\s+/g, '-').toLowerCase()
     navigate(`/${routeFormat}/`)
   };
+
+
   // using the react hook forms to define the signup for users
   const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<SignUpUserProps>();
 
@@ -83,7 +85,7 @@ export const SignUp: React.FC<SignUpModalProps> = ({ onSignUpSuccessful }) => {
           <div className="UserName flex flex-row gap-x-4">
             {/* first name section */}
             <div className="flex flex-col gap-y-2">
-              <label className="font-bold" htmlFor="firstName">First Name</label>
+              <label  htmlFor="firstName">First Name</label>
               <input
                 placeholder="First Name"
                 id="firstName"
@@ -95,7 +97,7 @@ export const SignUp: React.FC<SignUpModalProps> = ({ onSignUpSuccessful }) => {
             </div>
             {/* last name section */}
             <div className="flex flex-col gap-y-2">
-              <label className="font-bold" htmlFor="lastName">Last Name</label>
+              <label  htmlFor="lastName">Last Name</label>
               <input
                 placeholder="Last Name"
                 id="lastName"

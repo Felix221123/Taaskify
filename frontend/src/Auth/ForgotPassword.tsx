@@ -20,6 +20,7 @@ export const ForgotPassword: React.FC<onForgotPasswordLinkSuccess> = ({onLinkSuc
       // passing in the credentials
       const user = await ForgotPasswordUserApi(userEmailProps);
 
+      // pass a boolean argument to the onLinkSuccess props when users email password was right
       if (user) {
         onLinkSuccess(true);
       }
@@ -39,7 +40,7 @@ export const ForgotPassword: React.FC<onForgotPasswordLinkSuccess> = ({onLinkSuc
     <>
       <div className="forgotPasswordMainContainer">
         <div className="Intro flex flex-col gap-y-3">
-          <article className="textClr1 font-bold text-left text-2xl">Reset Password</article>
+          <article className="textClr1 font-bold text-left text-2xl">Forgot Your Taaskify Password?</article>
           <p className="textClr1 text text-left font-normal text-base">Please enter your email to receive a verification link to reset your email</p>
         </div>
         <form action="" method='post' onSubmit={handleSubmit(onForgotPassword)}>

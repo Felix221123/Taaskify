@@ -9,4 +9,5 @@ export default cleanEnv(process.env, {
   SERVER_HOSTNAME:str(),
   RESEND_EMAIL_API_KEY:str(),
   NODE_ENV:str(),
+  FRONTEND_BASE_URL:str()
 })

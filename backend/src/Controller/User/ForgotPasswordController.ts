@@ -4,6 +4,7 @@ import UserBoardModel from "../../Models/UserModel";
 import signJWT from "../../Functions/signJWT";
 import { sendEmail } from "../../Services/EmailService";
 import { capitalizeFirstLetter } from "../../utils/CapitaliseFirstLetter";
+import config from "../../Config/config";
 
 
 const NAMESPACE = "Auth";
@@ -38,7 +39,7 @@ const ForgotPasswordController: RequestHandler = async (req: Request, res: Respo
       }
 
       // Send the email with the reset link
-      const resetURL = `https://yourdomain.com/reset-password?token=${resetToken}`;
+      const resetURL = `${config.server.base_url}/reset-password?token=${resetToken}`;
       const emailTemplate = `
         <html>
         <body style="font-family: Arial, sans-serif;">
@@ -66,7 +67,7 @@ const ForgotPasswordController: RequestHandler = async (req: Request, res: Respo
       )
         .then(() => {
           logging.info(NAMESPACE, "Password reset email sent to " + emailAddress);
-          return res.status(200).json({ message: "Password reset email sent" });
+          return res.status(200).json({ message: "Password reset email sent" , resetToken });
         })
         .catch((emailError) => {
           logging.error(NAMESPACE, "Error sending password reset email", emailError);

@@ -60,3 +60,20 @@ export interface ForgotPasswordProps{
 export interface onForgotPasswordLinkSuccess{
   onLinkSuccess:(success:boolean) => void;
 }
+
+
+export interface ResetPasswordProps{
+  token:string;
+  newPassword:string;
+}
+
+
+export interface ResetUserPasswordFormProps{
+  newPassword:string;
+  confirmNewPassword:string;
+}
+
+
+export interface ConfirmationContainerProps{
+  containerName:string;
+}

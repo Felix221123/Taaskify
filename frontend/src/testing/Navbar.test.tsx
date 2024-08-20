@@ -127,7 +127,7 @@ describe('Side Bar Component(desktop and mobile)', () => {
 
     fireEvent.click(screen.getByTestId("custom-primary-button"));
 
-    expect(screen.getByText(/Update Your Password/i)).toBeInTheDocument();
+    expect(screen.getByText(/Update Your Taaskify Password/i)).toBeInTheDocument();
     expect(screen.getByText(/Please enter your current password and your new password/i)).toBeInTheDocument();
 
   })

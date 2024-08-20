@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { Loading } from "../components/Containers/Loading"
 import "../components/Containers/ContainersStyles.css"
 import { ForgotPassword } from "./ForgotPassword"
-import { EmailSentConfirmationContainer } from "../components/Containers/EmailSentConfirmationContainer"
+import { ConfirmationContainer } from "../components/Containers/ConfirmationContainer"
 
 
 
@@ -196,7 +196,7 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
             ref={confirmationEmailContainer}
             data-testid="confirmationEmailContainer"
           >
-            <EmailSentConfirmationContainer />
+            <ConfirmationContainer containerName="forgotpassword"/>
           </motion.div>
         )}
       </AnimatePresence>

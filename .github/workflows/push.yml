@@ -49,6 +49,7 @@ jobs:
           echo "SERVER_HOSTNAME=mockHostname" >> $GITHUB_ENV
           echo "RESEND_EMAIL_API_KEY=resendemailapikey" >> $GITHUB_ENV
           echo "NODE_ENV=nodeenvironment" >> $GITHUB_ENV
+          echo "FRONTEND_BASE_URL=baseurl" >> $GITHUB_ENV
 
       - name: Run backend unit tests using jest framework
         run: npm run test

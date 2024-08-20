@@ -7,13 +7,15 @@ import Password from "/src/assets/password.svg"
 import UpdateLoggedInUserPasswordApi from "../packages/Api/UserApi/UpdateLoggedInUserPasswordApi";
 import { AnimatePresence, motion } from "framer-motion";
 import { Loading } from "../components/Containers/Loading";
+import { ConfirmationContainer } from "../components/Containers/ConfirmationContainer";
 
 
 
 
 
 export const UpdatePassword: React.FC = () => {
-  const [passwordResetSuccess, setPasswordResetSuccess] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [passwordUpdateSuccess, setPasswordUpdateSuccess] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<string>("")
 
 
@@ -49,14 +51,17 @@ export const UpdatePassword: React.FC = () => {
       const user = await UpdateLoggedInUserPasswordApi(data);
 
       if (user) {
-        setPasswordResetSuccess(true);
-        console.log(user);
+        setLoading(true);
 
-        // setting a time out for the screen to load
         setTimeout(() => {
-          setPasswordResetSuccess(false);
-          navigate("/taaskify");
-        }, 5000); // Redirect the user after successful update
+          setLoading(false);
+          setPasswordUpdateSuccess(true);
+
+          setTimeout(() => {
+            setPasswordUpdateSuccess(false);
+            navigate("/taaskify"); // Redirect after 2 second of showing confirmation container
+          }, 4000);
+        }, 5000);
       }
 
     } catch (error) {
@@ -81,7 +86,7 @@ export const UpdatePassword: React.FC = () => {
   return (
     <>
       <div className="Intro flex flex-col gap-y-3 mt-10">
-        <article data-testid="updatePasswordText" className="textClr font-bold text-center text-3xl">Update Your Password</article>
+        <article data-testid="updatePasswordText" className="textClr font-bold text-center text-3xl">Update Your Taaskify Password</article>
         <p className="textClr text text-center font-medium text-lg px-3">Please enter your current password and your new password</p>
       </div>
       <div className="formContainer" data-testid="loginContainer">
@@ -142,7 +147,7 @@ export const UpdatePassword: React.FC = () => {
 
       {/* calling the spin animation here */}
       <AnimatePresence>
-        {passwordResetSuccess && (
+        {loading && (
           <motion.div
             className="spinAnimation"
             initial={getMenuAnimationForSpin().hidden}
@@ -156,8 +161,25 @@ export const UpdatePassword: React.FC = () => {
         )}
       </AnimatePresence>
 
+      {/* when the password has been successfully reset */}
+      <AnimatePresence>
+        {passwordUpdateSuccess && (
+          <motion.div
+            className="spinAnimation"
+            initial={getMenuAnimationForSpin().hidden}
+            animate={getMenuAnimationForSpin().visible}
+            exit={getMenuAnimationForSpin().exit}
+            transition={{ duration: 0.5 }}
+            // ref={confirmationEmailContainer}
+            data-testid="confirmationEmailContainer"
+          >
+            <ConfirmationContainer containerName="updatepassword"/>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {passwordResetSuccess && <div id="overLayEffect"></div>}
+      {loading && <div id="overLayEffect"></div>}
+      {passwordUpdateSuccess && <div id="overLayEffect"></div>}
     </>
   )
 }
