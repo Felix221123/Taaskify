@@ -25,7 +25,6 @@ const LogOutUserApi = async():Promise<void> => {
   }
   console.log(`user has been logged out successfully`);
 
-  // return response.json();
 }
 
 

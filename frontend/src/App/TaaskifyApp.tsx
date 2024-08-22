@@ -3,108 +3,34 @@ import { TaskColumn } from '../components/TaskColumn/TaskColumn';
 import { Navbar } from '../components/Navbar/Navbar';
 import './taaskifyStyles.css';
 import { useTheme } from '../Context/UseTheme';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { AddNewBoard } from '../components/Containers/AddNewBoard';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useUser } from '../Context/useUser';
+
+
+
+
+
 
 export const TaaskifyApp = () => {
-  const [activeBoardIndex, setActiveBoardIndex] = useState(0);
+  const { user } = useUser();       // Get user data from UserContext
+  const [activeBoardIndex, setActiveBoardIndex] = useState<number>(0);
+  const [newColumn , setNewColumn] = useState<boolean>(false);
+  const addNewBoardContainer = useRef<HTMLDivElement>(null);
 
   // useEffect to handle which board is currently active
   const handleBoardChange = (index: number) => {
     setActiveBoardIndex(index);
   };
 
-  const boards = [
-    {
-      name: 'Platform Launch',
-      columns: [
-        {
-          name: 'Todo',
-          tasks: [
-            {
-              title: 'Build settings UI',
-              description: 'here is the description for my first to do list',
-              status: 'Todo',
-              subtasks: [
-                {
-                  title: 'Account page',
-                  isCompleted: false,
-                },
-                {
-                  title: 'Billing page',
-                  isCompleted: false,
-                },
-              ],
-            },
-          ],
-        },
-        {
-          name: 'Doing',
-          tasks: [
-            {
-              title: 'Build settings UI',
-              description: 'here is the description for my first to do list',
-              status: 'Todo',
-              subtasks: [
-                {
-                  title: 'Account page',
-                  isCompleted: true,
-                },
-                {
-                  title: 'Billing page',
-                  isCompleted: false,
-                },
-              ],
-            },
-          ],
-        },
-        {
-          name: 'Doing',
-          tasks: [
-            {
-              title: 'Build settings UI',
-              description: 'here is the description for my first to do list',
-              status: 'Todo',
-              subtasks: [
-                {
-                  title: 'Account page',
-                  isCompleted: true,
-                },
-                {
-                  title: 'Billing page',
-                  isCompleted: false,
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Roadmap',
-      columns: [
-        {
-          name: 'Todo',
-          tasks: [
-            {
-              title: 'Build settings UI',
-              description: 'here is the description for my first to do list',
-              status: 'Todo',
-              subtasks: [
-                {
-                  title: 'Account page',
-                  isCompleted: false,
-                },
-                {
-                  title: 'Billing page',
-                  isCompleted: false,
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  // constructing data for retrieval
+  const boards = user?.user.boards || [];
+  const userData = {
+    firstName: user?.user.firstName || '',
+    lastName: user?.user.lastName || '',
+    emailAddress: user?.user.emailAddress || '',
+  };
 
   const { theme } = useTheme();
 
@@ -125,15 +51,45 @@ export const TaaskifyApp = () => {
     background: theme === "dark" ? "linear-gradient(to bottom,rgba(43, 44, 55, 0.9) 0%,rgba(43, 44, 55, 0.5) 100%)" : "linear-gradient(to bottom,rgba(233, 239, 250, 1) 0%,rgba(233, 239, 250, 0.5) 100%)"
   }
 
+  // handles the new column button
+  const handlesNewColumn = () => {
+    setNewColumn(true);
+  }
+
+
+  // hook to handle clicks outside the container
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (newColumn && addNewBoardContainer.current && !addNewBoardContainer.current.contains(event.target as Node)){
+        setNewColumn(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [newColumn])
+
+
+  // animations for navbar container on mobile
+  const getMenuAnimationOnMobile = () => ({
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+    exit: { opacity: 0 },
+  });
+
+
+
   return (
     <>
-      <Navbar boards={boards} onBoardChange={handleBoardChange} />
+      <Navbar boards={boards} onBoardChange={handleBoardChange} user={userData}/>
       <div
         className="taskColumnContainerWrap"
         data-testid="taskColumn"
       >
         {(boards.length > 0 &&
-          boards[activeBoardIndex]?.columns.map((column, columnIndex) => (
+          boards[activeBoardIndex]?.columns.map((column:any, columnIndex:number) => (
             <TaskColumn
               key={`${activeBoardIndex}-${columnIndex}`}
               name={column?.name}
@@ -141,12 +97,31 @@ export const TaaskifyApp = () => {
             />
           ))) || <EmptyColumn />}
         {boards.length > 0 && (
-          <div className="newColumnContainer rounded-lg cursor-pointer" style={handleBgTheme}>
+          <div className="newColumnContainer rounded-lg cursor-pointer" style={handleBgTheme} onClick={handlesNewColumn}>
             <button className='font-bold'>+ New Column</button>
           </div>
         )}
-
       </div>
+
+      {/* calling the add new board container for new columns to be created */}
+      <AnimatePresence>
+        {newColumn && (
+          <motion.div
+            className="containerOpenForBoard"
+            initial={getMenuAnimationOnMobile().hidden}
+            animate={getMenuAnimationOnMobile().visible}
+            exit={getMenuAnimationOnMobile().exit}
+            transition={{ duration: 0.5 }}
+            ref={addNewBoardContainer}
+          >
+            <AddNewBoard />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+
+
+      {newColumn && <div id="overLayEffect"></div>}
     </>
   );
 };

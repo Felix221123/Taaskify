@@ -6,6 +6,7 @@ import ValidateToken from "../../Functions/UserValidToken";
 import extractJWT from "../../Middleware/extractJWT";
 import UpdatePasswordForLoggedInUsersController from "../../Controller/User/UpdatePasswordForLoggedInUsersController";
 import ForgotPasswordController from "../../Controller/User/ForgotPasswordController";
+import ResetPasswordController from "../../Controller/User/ResetPasswordController";
 
 
 
@@ -35,4 +36,5 @@ export const updatePasswordRoute = router.post("/update-password", extractJWT , 
 // router for forgot password (No JWT required)
 export const forgotPasswordRoute = router.post("/forgot-password", ForgotPasswordController);
 
-
+// router for resetting user password
+export const resetPasswordRoute = router.post("/reset-password", ResetPasswordController)

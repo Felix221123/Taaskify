@@ -13,6 +13,7 @@ const SERVER_TOKEN_ISSUER = env.SERVER_TOKEN_ISSUER;
 const SERVER_TOKEN_SECRET = env.SERVER_TOKEN_SECRET;
 const RESEND_EMAIL_API_KEY = env.RESEND_EMAIL_API_KEY;
 const NODE_ENV = env.NODE_ENV
+const FRONTEND_BASE_URL = env.FRONTEND_BASE_URL
 
 // defining the server
 const SERVER = {
@@ -24,7 +25,8 @@ const SERVER = {
         secret: SERVER_TOKEN_SECRET
     },
     resend_email_api_key: RESEND_EMAIL_API_KEY,
-    node_env:NODE_ENV
+    node_env:NODE_ENV,
+    base_url:FRONTEND_BASE_URL
 };
 
 

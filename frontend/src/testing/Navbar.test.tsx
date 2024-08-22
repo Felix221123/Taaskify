@@ -48,8 +48,15 @@ const NavbarTestWrapper = () => {
     setActiveBoardIndex(index);
   };
 
-  return <Navbar boards={boards} onBoardChange={handleBoardChange} />;
+  const userData = {
+    firstName : "felix",
+    lastName: "baah",
+    emailAddress:"felixbaah@gmail.com"
+  }
+
+  return <Navbar boards={boards} onBoardChange={handleBoardChange} user={userData}/>;
 };
+
 
 // testing the mobile first navbar design
 describe('Navbar Mobile first Component', () => {
@@ -127,7 +134,7 @@ describe('Side Bar Component(desktop and mobile)', () => {
 
     fireEvent.click(screen.getByTestId("custom-primary-button"));
 
-    expect(screen.getByText(/Update Your Password/i)).toBeInTheDocument();
+    expect(screen.getByText(/Update Your Taaskify Password/i)).toBeInTheDocument();
     expect(screen.getByText(/Please enter your current password and your new password/i)).toBeInTheDocument();
 
   })

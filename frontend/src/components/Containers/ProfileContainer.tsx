@@ -7,6 +7,7 @@ import { useTheme } from '../../Context/UseTheme';
 import LogoutIcon from '../../Icons/LogoutIcon';
 import { useNavigate } from 'react-router-dom';
 import LogOutUserApi from '../../packages/Api/UserApi/LogOutUserApi';
+import { useUser } from '../../Context/useUser';
 
 
 
@@ -16,8 +17,9 @@ export const ProfileContainer: React.FC<SettingsProfileProps> = ({
   emailAddress,
   isLoggingOut
 }) => {
-  // useContext theme
+  // useContext for theme and user
   const { theme } = useTheme();
+  const { setUser } = useUser();
 
   // background theme colors
   const ContainerBgTheme: React.CSSProperties = {
@@ -52,9 +54,9 @@ export const ProfileContainer: React.FC<SettingsProfileProps> = ({
       // Redirect to the login page
       setTimeout(() => {
         navigate("/login");
-      }, 5000);
+        setUser(null);         // set users data to null after redirecting them
+      }, 4000);
 
-      console.log(`user has been logged out`);
 
     } catch (error) {
       console.error('Failed to log out:', error);
@@ -63,7 +65,6 @@ export const ProfileContainer: React.FC<SettingsProfileProps> = ({
 
   // function to handle the reset password
   const handleResetPassword = () => {
-    console.log(`here is running`);
     navigate("/update-password");
   }
 

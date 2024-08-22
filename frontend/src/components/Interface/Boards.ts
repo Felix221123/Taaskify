@@ -12,4 +12,11 @@ export interface BoardProps {
 export interface NavbarProps {
   boards: BoardProps[];
   onBoardChange: (index: number) => void;
+  user:UserNavbarProps
+}
+
+export interface UserNavbarProps{
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
 }

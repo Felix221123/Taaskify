@@ -1,13 +1,16 @@
 import './App.css';
 import { ThemeProvider } from './Context/ThemeContext';
+import { UserProvider } from './Context/UserContext';
 import { AppRoute } from './Routes/AppRoute';
 
 function App() {
   return (
     <>
-      <ThemeProvider>
-        <AppRoute />
-      </ThemeProvider>
+      <UserProvider>
+        <ThemeProvider>
+          <AppRoute />
+        </ThemeProvider>
+      </UserProvider>
     </>
   );
 }

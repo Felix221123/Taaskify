@@ -63,7 +63,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-@media (max-width: 500px) {
+@media (max-width: 550px) {
   .mobileNavbarContainer > .leftHandSide > .currentBoardContainer > span {
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -269,8 +269,18 @@
 .sideBarContainer > .upperSide > .allBoardsContainer > .boardCon {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  max-height: 12.5rem;
 }
-.sideBarContainer > .upperSide > .allBoardsContainer > .boardCon > .boardStyle {
+.sideBarContainer > .upperSide > .allBoardsContainer > .boardCon > .scrollableContainer {
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+.sideBarContainer > .upperSide > .allBoardsContainer > .boardCon > .scrollableContainer ::-webkit-scrollbar {
+  display: none;
+}
+.sideBarContainer > .upperSide > .allBoardsContainer > .boardCon > .scrollableContainer > .boardStyle {
   padding: 0rem 0rem 0rem 1.625rem;
   display: flex;
   flex-direction: row;
@@ -281,8 +291,11 @@
   font-size: clamp(0.9375rem, 0.94vw, 0.94rem);
   height: 3rem;
   overflow: hidden;
+  width: 92%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.sideBarContainer > .upperSide > .allBoardsContainer > .boardCon > .boardStyle:hover {
+.sideBarContainer > .upperSide > .allBoardsContainer > .boardCon > .scrollableContainer > .boardStyle:hover {
   width: 92%;
   background-color: #a8a4ff;
   border-radius: 0rem 1.5rem 1.5rem 0rem;
@@ -380,9 +393,19 @@
 .mobileContainerBar > .boardCon {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  max-height: 10rem;
 }
-.mobileContainerBar > .boardCon > .boardStyle {
-  padding: 0rem 0rem 0rem 1.625rem;
+.mobileContainerBar > .boardCon > .scrollableContainer {
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+.mobileContainerBar > .boardCon > .scrollableContainer ::-webkit-scrollbar {
+  display: none;
+}
+.mobileContainerBar > .boardCon > .scrollableContainer > .boardStyle {
+  padding: 0rem 1.5rem 0rem 1.625rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -392,8 +415,11 @@
   font-size: clamp(0.9375rem, 0.94vw, 0.94rem);
   height: 3rem;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 92%;
 }
-.mobileContainerBar > .boardCon > .boardStyle:hover {
+.mobileContainerBar > .boardCon > .scrollableContainer > .boardStyle:hover {
   width: 92%;
   background-color: #a8a4ff;
   border-radius: 0rem 1.5rem 1.5rem 0rem;

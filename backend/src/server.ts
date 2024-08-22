@@ -2,8 +2,9 @@ import 'dotenv/config'
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
-import { forgotPasswordRoute, logInRoute, logOutRoute, signUpRoute, updatePasswordRoute, validateTokenRoute } from './Routes/User/UsersRoutes';
-import { createBoardRoute } from './Routes/Board/BoardRoutes';
+import { forgotPasswordRoute, logInRoute, logOutRoute, resetPasswordRoute, signUpRoute, updatePasswordRoute, validateTokenRoute } from './Routes/User/UsersRoutes';
+import { createBoardRoute, createTaskRoute } from './Routes/Board/BoardRoutes';
+import config from './Config/config';
 
 
 // defining the express app
@@ -14,7 +15,7 @@ app.use(cookieParser());
 
 // using cors in app
 app.use(cors({
-  origin: 'http://localhost:5173', // Replace with your frontend URL
+  origin: config.server.base_url, // Replace with your frontend URL
   credentials: true,               // Allow credentials (cookies, authorization headers, etc.)
 }));
 
@@ -44,15 +45,21 @@ app.use("/api/user/" , updatePasswordRoute)
 // endpoint for users to request  a password reset where they are sent a reset link which will expire in an hour
 app.use("/api/user/" , forgotPasswordRoute)
 
+// endpoint for users to reset their password
+app.use("/api/user/" , resetPasswordRoute)
 
 
 
 
 
 
-
-// endpoint routes for users board routes
+// Endpoint routes for users board routes
+// endpoint for users to create boards
 app.use("/api/board/" , createBoardRoute);
+
+// endpoint for users to create new task
+app.use("/api/board/" , createTaskRoute)
+
 
 
 

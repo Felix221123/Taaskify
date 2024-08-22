@@ -10,26 +10,34 @@ import { AnimatePresence, motion } from "framer-motion"
 import { Loading } from "../components/Containers/Loading"
 import "../components/Containers/ContainersStyles.css"
 import { ForgotPassword } from "./ForgotPassword"
+import { ConfirmationContainer } from "../components/Containers/ConfirmationContainer"
+import { useUser } from "../Context/useUser"
 
 
 
 export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
   const [successfulLogIn, setSuccessfulLogIn] = useState<boolean>(false);
   const [logInError, setLogInError] = useState<boolean>(false);
-  const [forgotPassword, setForgotPassword] = useState<boolean>(false);
+  const [forgotPasswordContainer, setForgotPasswordContainer] = useState<boolean>(false);
+  const [emailLinkSuccess, setEmailLinkSuccess] = useState<boolean>(false);
+  // using the react hook forms to define the login for users
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LogInUserProps>();
+
+  // useRef containers
   const forgotPassContainer = useRef<HTMLDivElement>(null);
+  const confirmationEmailContainer = useRef<HTMLDivElement>(null);
 
   // calling the useNavigate component
   const navigate = useNavigate();
+
+  // useContext themes for users
+  const { setUser } = useUser();
 
   // function to handle routing
   const handleNavigation = (route: string) => {
     const routeFormat = route.replace(/\s+/g, '-').toLowerCase()
     navigate(`/${routeFormat}/`)
   };
-
-  // using the react hook forms to define the login for users
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LogInUserProps>();
 
   // async function to allow users to login to the application
   async function onLogInSubmit(logInCredentials:LogInUserProps) {
@@ -40,6 +48,7 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
         setSuccessfulLogIn(true);
         setLogInError(false);
         onLogInSuccessful(user);
+        setUser(user);
 
         // Delay navigation by 10 seconds
         setTimeout(() => {
@@ -64,8 +73,13 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
 
   // function to handle forgot password container
   const handleForgotPassword = () => {
-    setForgotPassword(true);
+    setForgotPasswordContainer(true);
   }
+
+  const handleLinkSuccess = () => {
+    setForgotPasswordContainer(false);  // Hide ForgotPassword
+    setEmailLinkSuccess(true);
+  };
 
   // handles the bg color
   useEffect(() => {
@@ -77,8 +91,10 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
   // useEffect hook to handle clicks outside container
   useEffect(() => {
     const handleClickOutside = (event:MouseEvent) => {
-      if (forgotPassword && forgotPassContainer.current && !forgotPassContainer.current.contains(event.target as Node)){
-        setForgotPassword(false);
+      if (forgotPasswordContainer && forgotPassContainer.current && !forgotPassContainer.current.contains(event.target as Node)){
+        setForgotPasswordContainer(false);
+      } else if (emailLinkSuccess && confirmationEmailContainer.current && !confirmationEmailContainer.current.contains(event.target as Node)){
+        setEmailLinkSuccess(false);
       }
     }
 
@@ -87,7 +103,7 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
 
-  }, [forgotPassword])
+  }, [forgotPasswordContainer,emailLinkSuccess])
 
   return (
     <>
@@ -159,7 +175,7 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
 
 
       <AnimatePresence>
-        {forgotPassword && (
+        {forgotPasswordContainer && (
           <motion.div
             className="spinAnimation"
             initial={getMenuAnimationForSpin().hidden}
@@ -169,14 +185,33 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
             ref={forgotPassContainer}
             data-testid="forgotPasswordContainer"
           >
-            <ForgotPassword />
+            <ForgotPassword onLinkSuccess={() => handleLinkSuccess()}/>
           </motion.div>
         )}
       </AnimatePresence>
 
 
+      <AnimatePresence>
+        {emailLinkSuccess && (
+          <motion.div
+            className="spinAnimation"
+            initial={getMenuAnimationForSpin().hidden}
+            animate={getMenuAnimationForSpin().visible}
+            exit={getMenuAnimationForSpin().exit}
+            transition={{ duration: 0.5 }}
+            ref={confirmationEmailContainer}
+            data-testid="confirmationEmailContainer"
+          >
+            <ConfirmationContainer containerName="forgotpassword"/>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+
+
       {successfulLogIn && <div id="overLayEffect"></div>}
-      {forgotPassword && <div id="overLayEffect"></div>}
+      {forgotPasswordContainer && <div id="overLayEffect"></div>}
+      {emailLinkSuccess && <div id="overLayEffect"></div>}
     </>
   );
 };

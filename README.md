@@ -10,7 +10,7 @@
 - **Customizable Tasks**: Tailor tasks to fit your workflow with a variety of options and settings.
 - **Notifications**: Stay updated with real-time notifications for task changes and updates.
 - **Responsive Design**: Access your tasks on any device with a responsive interface.
-- **Secure Authentication**: Secure user authentication and authorization using JWT.
+- **Secure Authentication**: Secure user authentication and authorization using JWT(HTTP Only Cookie).
 - **Password Resets**: Users can reset their passwords whether they are logged in or not as long as they have access to their email address.
 
 
@@ -48,11 +48,6 @@
 
    Navigate to the `backend` folder and run to install the typescript compatible with the typescript:
 
-   ```sh
-   cd backend
-   npm install eslint@8.56.0
-   ```
-
    Install peer dependency using the run script:
    ```sh
     npm install --legacy-peer-deps
@@ -82,7 +77,7 @@
     npm run dev
     ```
 
-3. Open your browser and navigate to `http://localhost:3000` to view the application.
+3. Open your browser and navigate to `http://localhost:5173` to view the application.
 
 ## Configuration
 
@@ -97,6 +92,9 @@ SERVER_HOSTNAME=DEFINE YOUR HOSTNAME
 SERVER_TOKEN_EXPIRETIME=DEFINE YOUR TOKEN EXPIRATION TIME
 SERVER_TOKEN_ISSUER=DEFINE YOUR ISSUER
 SERVER_TOKEN_SECRET=DEFINE YOUR SECRET
+RESEND_EMAIL_API_KEY=DEFINE YOUR API KEY FOR RESEND
+NODE_ENV=DEFINE YOUR NODE ENV
+FRONTEND_BASE_URL=DEFINE YOUR FRONTEND BASE URL
 ```
 
 ## Contributing

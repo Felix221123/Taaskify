@@ -172,6 +172,11 @@ $borderClr: #979797;
   row-gap: 1.75rem;
   padding: 2rem 1.5rem;
 
+  @media (max-width:1000px) {
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
   @media (min-width: 768px) {
     width: 30rem;
   }
@@ -180,6 +185,9 @@ $borderClr: #979797;
     @include fontSize18px();
   }
 }
+
+
+
 
 // container opening Effect
 @mixin ContainerPosition($con) {

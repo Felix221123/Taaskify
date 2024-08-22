@@ -108,20 +108,22 @@ export const BoardColumnContainer = () => {
         </p>
         {/* TODO:CREATE A EDIT FOR THE COLUMNS BOARD */}
         <div className="containerForColumn">
-          {boardColumns.map((column, index) => (
-            <div className="eachColumnContainer" key={index}>
-              <label htmlFor={`eachColumnBoard-${index}`}>
-                <input
-                  type="text"
-                  id={`eachColumnBoard-${index}`}
-                  value={column}
-                  style={TitleColorOnChange}
-                  onChange={(e) => handleColumnChange(index, e.target.value)}
-                />
-              </label>
-              <CrossIcon onClick={() => removeColumn(index)} />
-            </div>
-          ))}
+          <div className="scrollableContainer">
+            {boardColumns.map((column, index) => (
+              <div className="eachColumnContainer" key={index}>
+                <label htmlFor={`eachColumnBoard-${index}`}>
+                  <input
+                    type="text"
+                    id={`eachColumnBoard-${index}`}
+                    value={column}
+                    style={TitleColorOnChange}
+                    onChange={(e) => handleColumnChange(index, e.target.value)}
+                  />
+                </label>
+                <CrossIcon onClick={() => removeColumn(index)} />
+              </div>
+            ))}
+          </div>
         </div>
 
         <SecondaryBtn buttonName="+ Add New Column" onClickProp={addNewColumn} />
