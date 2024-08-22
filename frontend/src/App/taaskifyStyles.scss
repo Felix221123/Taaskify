@@ -29,7 +29,23 @@
   }
 }
 
+
+
+
+
+
+
 // Including the mixins here
 .taskColumnContainerWrap {
   @include TaskColumnStyles();
+}
+
+
+.containerOpenForBoard {
+  @include ContainerPosition('small');
+}
+
+
+#overLayEffect {
+  @include OverlayEffect();
 }

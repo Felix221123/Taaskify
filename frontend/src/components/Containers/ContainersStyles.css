@@ -73,6 +73,12 @@
   row-gap: 1.75rem;
   padding: 2rem 1.5rem;
 }
+@media (max-width: 1000px) {
+  .editBoardContainer {
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+  }
+}
 @media (min-width: 768px) {
   .editBoardContainer {
     width: 30rem;
@@ -112,15 +118,27 @@
 .editBoardContainer > .boardColumnsContainer > .containerForColumn {
   display: flex;
   flex-direction: column;
-  row-gap: 0.25rem;
+  overflow: hidden;
+  max-height: 7rem;
 }
-.editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer {
+.editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+.editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer ::-webkit-scrollbar {
+  display: none;
+}
+.editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
-.editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer > label > input {
+.editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input {
   width: 16.5rem;
   height: 2.5rem;
   border-radius: 0.25rem;
@@ -130,12 +148,12 @@
   outline: none;
   padding: 0rem 0rem 0rem 1rem;
 }
-.editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer > label > input:hover {
+.editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input:hover {
   border-color: #635fc7;
   cursor: pointer;
 }
 @media (min-width: 768px) {
-  .editBoardContainer > .boardColumnsContainer > .containerForColumn > .eachColumnContainer > label > input {
+  .editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input {
     width: 24.0625rem;
   }
 }
@@ -148,6 +166,12 @@
   flex-direction: column;
   row-gap: 1.75rem;
   padding: 2rem 1.5rem;
+}
+@media (max-width: 1000px) {
+  .addTaskContainer {
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+  }
 }
 @media (min-width: 768px) {
   .addTaskContainer {
@@ -202,7 +226,7 @@
 .addTaskContainer > .boardColumnsContainer > .containerForColumn {
   display: flex;
   flex-direction: column;
-  height: 7rem;
+  max-height: 7rem;
   overflow: hidden;
 }
 .addTaskContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer {
@@ -317,6 +341,12 @@
   flex-direction: column;
   row-gap: 1.75rem;
   padding: 2rem 1.5rem;
+}
+@media (max-width: 1000px) {
+  .ViewTaskContainer {
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+  }
 }
 @media (min-width: 768px) {
   .ViewTaskContainer {
@@ -510,6 +540,12 @@
   justify-content: center;
   align-items: center;
   row-gap: 1rem;
+}
+@media (max-width: 1000px) {
+  .profileContainer {
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+  }
 }
 @media (min-width: 768px) {
   .profileContainer {

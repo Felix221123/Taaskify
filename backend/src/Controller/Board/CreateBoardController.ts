@@ -8,7 +8,7 @@ const CreateBoardController:RequestHandler = async (req:Request, res:Response, _
     const { userID, name, columns } = req.body;
 
     // Validate the input
-    if (!userID || !name || !columns || !Array.isArray(columns) || columns.length === 0) {
+    if (!userID || !name) {
       return res.status(400).json({ message: 'Invalid input' });
     }
 
@@ -23,7 +23,7 @@ const CreateBoardController:RequestHandler = async (req:Request, res:Response, _
     // Create a new board object
     const newBoard = {
       name,
-      columns
+      columns: columns || []
     };
 
     // Add the new board to the user's boards array

@@ -10,7 +10,7 @@
 - **Customizable Tasks**: Tailor tasks to fit your workflow with a variety of options and settings.
 - **Notifications**: Stay updated with real-time notifications for task changes and updates.
 - **Responsive Design**: Access your tasks on any device with a responsive interface.
-- **Secure Authentication**: Secure user authentication and authorization using JWT.
+- **Secure Authentication**: Secure user authentication and authorization using JWT(HTTP Only Cookie).
 - **Password Resets**: Users can reset their passwords whether they are logged in or not as long as they have access to their email address.
 
 

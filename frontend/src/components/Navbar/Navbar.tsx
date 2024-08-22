@@ -19,11 +19,12 @@ import { EditBoardContainer } from '../Containers/EditBoardContainer';
 import { SettingsContainer } from '../Containers/SettingsContainer';
 import { ProfileContainer } from '../Containers/ProfileContainer';
 import { Loading } from '../Containers/Loading';
+import { CapitaliseAfterSpace } from '../../utils/CapitaliseAfterSpace';
 
 
 
 
-export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
+export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) => {
   const [menuVisibility, setMenuVisibility] = useState<boolean>(false);
   const [delEditVisible, setDelEditVisible] = useState<boolean>(false);
   const [showSideBar, setShowSideBar] = useState<boolean>(false);
@@ -41,6 +42,8 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
   const addNewBoardContainer = useRef<HTMLDivElement>(null);
   const EditDelContainer = useRef<HTMLDivElement>(null);
   const UserContainer = useRef<HTMLDivElement>(null);
+
+
 
   // useEffect to handle the active board
   useEffect(() => {
@@ -240,7 +243,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
       // Perform any additional cleanup or navigation if needed
       setLoggingOut(''); // Optionally clear the logging out state after the delay
     }, 5000);
-}
+  }
 
   return (
     <>
@@ -260,7 +263,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
               style={TitleColorOnChange}
               data-testid="nameOfBoard"
             >
-              <span className="title">{boards[activeBoard]?.name} </span>
+              <span className="title">{CapitaliseAfterSpace(boards[activeBoard]?.name)} </span>
               <img
                 src={menuVisibility ? ChevronUp : ChevronDown}
                 alt="arrow down and up"
@@ -314,7 +317,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
               }
               style={TitleColorOnChange}
             >
-              {boards[activeBoard]?.name}{' '}
+              {CapitaliseAfterSpace(boards[activeBoard]?.name)}
             </article>
           </div>
           <div className="desktopRightHandSide">
@@ -367,25 +370,27 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
                   ALL BOARDS <span>({boards.length})</span>
                 </article>
                 <div className="boardCon">
-                  {boards.map((board, index) => (
-                    <div
-                      className={`boardStyle font-bold cursor-pointer`}
-                      key={index}
-                      onClick={() => handleBoardClick(index)}
-                      onMouseOver={() => handleHovered(index)}
-                      onMouseLeave={handleUnHovered}
-                      style={
-                        activeBoard === index
-                          ? ActiveBoard
-                          : isHovered === index
-                            ? HoveredStyle
-                            : {}
-                      }
-                    >
-                      <img src={BoardImg} alt="board image" />
-                      {board.name}
-                    </div>
-                  ))}
+                  <div className="scrollableContainer">
+                    {boards.map((board, index) => (
+                      <div
+                        className={`boardStyle font-bold cursor-pointer`}
+                        key={index}
+                        onClick={() => handleBoardClick(index)}
+                        onMouseOver={() => handleHovered(index)}
+                        onMouseLeave={handleUnHovered}
+                        style={
+                          activeBoard === index
+                            ? ActiveBoard
+                            : isHovered === index
+                              ? HoveredStyle
+                              : {}
+                        }
+                      >
+                        <img src={BoardImg} alt="board image" />
+                        {CapitaliseAfterSpace(board.name)}
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <button
                   className="createMoreBoard cursor-pointer font-bold"
@@ -402,8 +407,8 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
             <div className="toggleHideContainer">
               <ToggleContainer />
               <SettingsContainer
-                firstName="felix"
-                lastName="baah"
+                firstName={user.firstName}
+                lastName={user.lastName}
                 onClickProps={handleOnOpenProfile}
               />
               <div
@@ -439,17 +444,19 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
               ALL BOARDS ({boards.length})
             </article>
             <div className="boardCon">
-              {boards.map((board, index) => (
-                <div
-                  className={`boardStyle font-bold cursor-pointer`}
-                  key={index}
-                  onClick={() => handleBoardClickOnMobile(index)}
-                  style={activeBoard === index ? ActiveBoard : {}}
-                >
-                  <img src={BoardImg} alt="board image" />
-                  {board.name}
-                </div>
-              ))}
+              <div className="scrollableContainer">
+                {boards.map((board, index) => (
+                  <div
+                    className={`boardStyle font-bold cursor-pointer`}
+                    key={index}
+                    onClick={() => handleBoardClickOnMobile(index)}
+                    style={activeBoard === index ? ActiveBoard : {}}
+                  >
+                    <img src={BoardImg} alt="board image" />
+                    {CapitaliseAfterSpace(board.name)}
+                  </div>
+                ))}
+              </div>
             </div>
             <button
               className="createMoreBoard cursor-pointer font-bold"
@@ -461,8 +468,8 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
             </button>
             <ToggleContainer />
             <SettingsContainer
-              firstName="felix"
-              lastName="baah"
+              firstName={user.firstName}
+              lastName={user.lastName}
               onClickProps={handleOnOpenProfile}
             />
           </motion.div>
@@ -481,7 +488,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
             data-testid="addTaskContainer"
             ref={TaskContainers}
           >
-            <AddNewTaskContainer onCloseProp={handleCloseAddToTaskContainer}/>
+            <AddNewTaskContainer onCloseProp={handleCloseAddToTaskContainer} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -520,6 +527,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
             />
           </motion.div>
         )}
+
         {editDelBoardCon === 'edit' && (
           <motion.div
             className="containerOpenForBoard"
@@ -546,9 +554,9 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange }) => {
             ref={UserContainer}
           >
             <ProfileContainer
-              firstName="felix"
-              lastName="baah"
-              emailAddress="felixbaah47@gmail.com"
+              firstName={user.firstName}
+              lastName={user.lastName}
+              emailAddress={user.emailAddress}
               isLoggingOut={handleLoggingOut}
             />
           </motion.div>

@@ -3,7 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import { forgotPasswordRoute, logInRoute, logOutRoute, resetPasswordRoute, signUpRoute, updatePasswordRoute, validateTokenRoute } from './Routes/User/UsersRoutes';
-import { createBoardRoute } from './Routes/Board/BoardRoutes';
+import { createBoardRoute, createTaskRoute } from './Routes/Board/BoardRoutes';
 import config from './Config/config';
 
 
@@ -53,8 +53,13 @@ app.use("/api/user/" , resetPasswordRoute)
 
 
 
-// endpoint routes for users board routes
+// Endpoint routes for users board routes
+// endpoint for users to create boards
 app.use("/api/board/" , createBoardRoute);
+
+// endpoint for users to create new task
+app.use("/api/board/" , createTaskRoute)
+
 
 
 

@@ -74,38 +74,54 @@
 
     > .containerForColumn {
       @include flex(column);
-      row-gap: 0.25rem;
+      overflow: hidden;
+      max-height: 7rem;
 
-      > .eachColumnContainer {
-        @include flex(row);
-        align-items: center;
-        justify-content: space-between;
+      > .scrollableContainer{
+        @include flex(column);
+        row-gap: 0.25rem;
+        overflow: auto;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none;
 
-        > label {
-          > input {
-            width: 16.5rem;
-            height: 2.5rem;
-            border-radius: 0.25rem;
-            @include fontSize13px();
-            background-color: transparent;
-            border: 1px solid $mediumGrey;
-            outline: none;
-            padding: 0rem 0rem 0rem 1rem;
+        ::-webkit-scrollbar {
+          display: none;
+        }
 
-            &:hover {
-              border-color: $deepPurpleclr;
-              cursor: pointer;
-            }
+        > .eachColumnContainer {
+          @include flex(row);
+          align-items: center;
+          justify-content: space-between;
 
-            @media (min-width: 768px) {
-              width: 24.0625rem;
+          > label {
+            > input {
+              width: 16.5rem;
+              height: 2.5rem;
+              border-radius: 0.25rem;
+              @include fontSize13px();
+              background-color: transparent;
+              border: 1px solid $mediumGrey;
+              outline: none;
+              padding: 0rem 0rem 0rem 1rem;
+
+              &:hover {
+                border-color: $deepPurpleclr;
+                cursor: pointer;
+              }
+
+              @media (min-width: 768px) {
+                width: 24.0625rem;
+              }
             }
           }
         }
+
       }
+
     }
   }
 }
+
 
 @mixin AddTaskContainer() {
   @include ContainerSize();
@@ -160,7 +176,7 @@
 
     > .containerForColumn {
       @include flex(column);
-      height: 7rem;
+      max-height: 7rem;
       overflow: hidden;
 
       > .scrollableContainer {

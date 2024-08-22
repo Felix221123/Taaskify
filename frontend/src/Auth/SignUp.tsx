@@ -9,15 +9,24 @@ import SignUpUserApi from "../packages/Api/UserApi/SignUpUserApi"
 import { AnimatePresence, motion } from "framer-motion"
 import { Loading } from "../components/Containers/Loading"
 import "../components/Containers/ContainersStyles.css"
+import { useUser } from "../Context/useUser"
 
 
 export const SignUp: React.FC<SignUpModalProps> = ({ onSignUpSuccessful }) => {
   // state to track email error messages
   const [emailApiError, setEmailApiError] = useState<string | null>(null);
-  const [successfulSignUp, setSuccessfulSignUp] = useState(false)
+  const [successfulSignUp, setSuccessfulSignUp] = useState(false);
+
+  // using the react hook forms to define the signup for users
+  const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<SignUpUserProps>();
 
   // calling the useNavigate component
   const navigate = useNavigate();
+
+  // useContext for users
+  const { setUser } = useUser()
+
+
 
   // function to handle routing
   const handleNavigation = (route: string) => {
@@ -25,9 +34,6 @@ export const SignUp: React.FC<SignUpModalProps> = ({ onSignUpSuccessful }) => {
     navigate(`/${routeFormat}/`)
   };
 
-
-  // using the react hook forms to define the signup for users
-  const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<SignUpUserProps>();
 
   // async function function to allow users to sign up
   async function onSignUpSubmit(signUpCredentials: SignUpUserProps) {
@@ -37,6 +43,8 @@ export const SignUp: React.FC<SignUpModalProps> = ({ onSignUpSuccessful }) => {
       if (newUser) {
         setSuccessfulSignUp(true);
         onSignUpSuccessful(newUser);
+        setUser(newUser);
+
         // Delay navigation by 10 seconds
         setTimeout(() => {
           setSuccessfulSignUp(false);

@@ -8,7 +8,6 @@ export interface SignUpUserProps {
 }
 
 
-
 export interface LogInUserProps {
   emailAddress: string;
   password: string;
@@ -27,6 +26,7 @@ export interface UserSignUpProps{
   __v: number;
 }
 
+
 export interface UpdateLoggedInUsersPasswordProps{
   currentPassword:string;
   newPassword:string;
@@ -42,6 +42,13 @@ export interface UserLogInData{
   message:string;
   user:UserSignUpProps
 }
+
+export interface UserData{
+  message?:string;
+  user:UserSignUpProps
+}
+
+
 
 export interface SignUpModalProps{
   onSignUpSuccessful: (user:UserSignUpData) => void;

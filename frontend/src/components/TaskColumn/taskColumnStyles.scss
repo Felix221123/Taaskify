@@ -39,6 +39,10 @@
       height: 0.9375rem;
       border-radius: 50%;
     }
+
+    > .taskColumnName , .taskCount{
+      color: $hoverPurpleclr;
+    }
   }
 
   > .taskScrollableContainer {

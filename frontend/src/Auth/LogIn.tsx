@@ -11,6 +11,7 @@ import { Loading } from "../components/Containers/Loading"
 import "../components/Containers/ContainersStyles.css"
 import { ForgotPassword } from "./ForgotPassword"
 import { ConfirmationContainer } from "../components/Containers/ConfirmationContainer"
+import { useUser } from "../Context/useUser"
 
 
 
@@ -18,21 +19,25 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
   const [successfulLogIn, setSuccessfulLogIn] = useState<boolean>(false);
   const [logInError, setLogInError] = useState<boolean>(false);
   const [forgotPasswordContainer, setForgotPasswordContainer] = useState<boolean>(false);
-  const [emailLinkSuccess, setEmailLinkSuccess] = useState<boolean>(false)
+  const [emailLinkSuccess, setEmailLinkSuccess] = useState<boolean>(false);
+  // using the react hook forms to define the login for users
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LogInUserProps>();
+
+  // useRef containers
   const forgotPassContainer = useRef<HTMLDivElement>(null);
-  const confirmationEmailContainer = useRef<HTMLDivElement>(null)
+  const confirmationEmailContainer = useRef<HTMLDivElement>(null);
 
   // calling the useNavigate component
   const navigate = useNavigate();
+
+  // useContext themes for users
+  const { setUser } = useUser();
 
   // function to handle routing
   const handleNavigation = (route: string) => {
     const routeFormat = route.replace(/\s+/g, '-').toLowerCase()
     navigate(`/${routeFormat}/`)
   };
-
-  // using the react hook forms to define the login for users
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LogInUserProps>();
 
   // async function to allow users to login to the application
   async function onLogInSubmit(logInCredentials:LogInUserProps) {
@@ -43,6 +48,7 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
         setSuccessfulLogIn(true);
         setLogInError(false);
         onLogInSuccessful(user);
+        setUser(user);
 
         // Delay navigation by 10 seconds
         setTimeout(() => {

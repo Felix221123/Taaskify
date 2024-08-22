@@ -48,8 +48,15 @@ const NavbarTestWrapper = () => {
     setActiveBoardIndex(index);
   };
 
-  return <Navbar boards={boards} onBoardChange={handleBoardChange} />;
+  const userData = {
+    firstName : "felix",
+    lastName: "baah",
+    emailAddress:"felixbaah@gmail.com"
+  }
+
+  return <Navbar boards={boards} onBoardChange={handleBoardChange} user={userData}/>;
 };
+
 
 // testing the mobile first navbar design
 describe('Navbar Mobile first Component', () => {
