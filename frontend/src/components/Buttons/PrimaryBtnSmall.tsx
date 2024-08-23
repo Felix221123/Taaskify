@@ -4,7 +4,7 @@ import { ButtonProps } from '../Interface/ButtonInterface';
 import React from 'react';
 import './button-styles.css';
 
-export const PrimaryBtnSmall = ({ buttonName,onClickProp }: ButtonProps) => {
+export const PrimaryBtnSmall = ({ buttonName,onClickProp, btnType='button' }: ButtonProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   // Event handlers to toggle hover state
@@ -44,6 +44,7 @@ export const PrimaryBtnSmall = ({ buttonName,onClickProp }: ButtonProps) => {
         onMouseOut={handleMouseOut}
         data-testid="custom-primary-button"
         onClick={onClickProp}
+        type={btnType}
       >
         {buttonName}
       </button>

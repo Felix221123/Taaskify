@@ -168,7 +168,7 @@ describe('Add New Board Container Component', () => {
 
   it('it should display the save changes button', () => {
     customRender(<AddNewBoard />);
-    const button = screen.getByRole('button', { name: /Save Changes/i });
+    const button = screen.getByRole('button', { name: /create new board/i });
     expect(button).toBeVisible();
   });
 });

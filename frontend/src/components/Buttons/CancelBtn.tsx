@@ -4,7 +4,7 @@ import { ButtonProps } from '../Interface/ButtonInterface';
 import React from 'react';
 import './button-styles.css';
 
-export const CancelBtn = ({ buttonName, onClickProp }: ButtonProps) => {
+export const CancelBtn = ({ buttonName, onClickProp, btnType='button' }: ButtonProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   // Event handlers to toggle hover state
@@ -44,6 +44,7 @@ export const CancelBtn = ({ buttonName, onClickProp }: ButtonProps) => {
         onMouseOut={handleMouseOut}
         data-testid="custom-cancel-button"
         onClick={onClickProp}
+        type={btnType}
       >
         {buttonName}
       </button>

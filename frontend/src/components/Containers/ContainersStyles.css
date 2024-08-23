@@ -87,14 +87,19 @@
 .editBoardContainer > article {
   font-size: clamp(1.125rem, 1.13vw, 1.13rem);
 }
-.editBoardContainer > .boardNameContainer > label {
+.editBoardContainer > form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+.editBoardContainer > form > .boardNameContainer > label {
   display: flex;
   flex-direction: column;
   font-size: clamp(0.75rem, 0.755vw, 0.76rem);
   row-gap: 0.5rem;
   width: 100%;
 }
-.editBoardContainer > .boardNameContainer > label > input {
+.editBoardContainer > form > .boardNameContainer > label > input {
   height: 2.5rem;
   font-size: clamp(0.8125rem, 0.82vw, 0.825rem);
   background-color: transparent;
@@ -103,25 +108,25 @@
   border-radius: 0.25rem;
   padding: 0rem 0rem 0rem 1rem;
 }
-.editBoardContainer > .boardNameContainer > label > input:hover {
+.editBoardContainer > form > .boardNameContainer > label > input:hover {
   border-color: #635fc7;
   cursor: pointer;
 }
-.editBoardContainer > .boardColumnsContainer {
+.editBoardContainer > form > .boardColumnsContainer {
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
 }
-.editBoardContainer > .boardColumnsContainer > p.boardColumnsText {
+.editBoardContainer > form > .boardColumnsContainer > p.boardColumnsText {
   font-size: clamp(0.75rem, 0.755vw, 0.76rem);
 }
-.editBoardContainer > .boardColumnsContainer > .containerForColumn {
+.editBoardContainer > form > .boardColumnsContainer > .containerForColumn {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   max-height: 7rem;
 }
-.editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer {
+.editBoardContainer > form > .boardColumnsContainer > .containerForColumn > .scrollableContainer {
   display: flex;
   flex-direction: column;
   row-gap: 0.25rem;
@@ -129,16 +134,16 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
 }
-.editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer ::-webkit-scrollbar {
+.editBoardContainer > form > .boardColumnsContainer > .containerForColumn > .scrollableContainer ::-webkit-scrollbar {
   display: none;
 }
-.editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer {
+.editBoardContainer > form > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
-.editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input {
+.editBoardContainer > form > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input {
   width: 16.5rem;
   height: 2.5rem;
   border-radius: 0.25rem;
@@ -148,12 +153,12 @@
   outline: none;
   padding: 0rem 0rem 0rem 1rem;
 }
-.editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input:hover {
+.editBoardContainer > form > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input:hover {
   border-color: #635fc7;
   cursor: pointer;
 }
 @media (min-width: 768px) {
-  .editBoardContainer > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input {
+  .editBoardContainer > form > .boardColumnsContainer > .containerForColumn > .scrollableContainer > .eachColumnContainer > label > input {
     width: 24.0625rem;
   }
 }

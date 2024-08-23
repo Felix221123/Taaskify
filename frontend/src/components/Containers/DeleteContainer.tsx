@@ -4,6 +4,7 @@ import { DestructiveBtn } from '../Buttons/DestructiveBtn';
 import { CancelBtn } from '../Buttons/CancelBtn';
 import './ContainersStyles.css';
 import { useTheme } from '../../Context/UseTheme';
+import { CapitaliseAfterSpace } from '../../utils/CapitaliseAfterSpace';
 
 interface DeleteContainerPropsWithSetter extends DeleteContainerProps {
   setEditDelBoardCon: React.Dispatch<React.SetStateAction<string>>;
@@ -25,7 +26,7 @@ export const DeleteContainer = ({
         if (title.toLowerCase() === 'board') {
           setDeleteContainerTitle('board');
           setDeleteContainerText(
-            `Are you sure you want to delete the '${deleteContainerItemName}' board? This action will remove all columns and tasks and cannot be reversed.`
+            `Are you sure you want to delete the '${ CapitaliseAfterSpace(deleteContainerItemName) }' board? This action will remove all columns and tasks and cannot be reversed.`
           );
         } else if (title.toLowerCase() === 'task') {
           setDeleteContainerTitle('task');

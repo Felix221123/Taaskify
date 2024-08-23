@@ -12,11 +12,10 @@ import { useUser } from '../Context/useUser';
 
 
 
-
 export const TaaskifyApp = () => {
   const { user } = useUser();       // Get user data from UserContext
   const [activeBoardIndex, setActiveBoardIndex] = useState<number>(0);
-  const [newColumn , setNewColumn] = useState<boolean>(false);
+  const [newColumn, setNewColumn] = useState<boolean>(false);
   const addNewBoardContainer = useRef<HTMLDivElement>(null);
 
   // useEffect to handle which board is currently active
@@ -47,7 +46,7 @@ export const TaaskifyApp = () => {
   }, []);
 
   // theme to handle the new column container
-  const handleBgTheme:React.CSSProperties = {
+  const handleBgTheme: React.CSSProperties = {
     background: theme === "dark" ? "linear-gradient(to bottom,rgba(43, 44, 55, 0.9) 0%,rgba(43, 44, 55, 0.5) 100%)" : "linear-gradient(to bottom,rgba(233, 239, 250, 1) 0%,rgba(233, 239, 250, 0.5) 100%)"
   }
 
@@ -60,7 +59,7 @@ export const TaaskifyApp = () => {
   // hook to handle clicks outside the container
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (newColumn && addNewBoardContainer.current && !addNewBoardContainer.current.contains(event.target as Node)){
+      if (newColumn && addNewBoardContainer.current && !addNewBoardContainer.current.contains(event.target as Node)) {
         setNewColumn(false);
       }
     }
@@ -83,19 +82,20 @@ export const TaaskifyApp = () => {
 
   return (
     <>
-      <Navbar boards={boards} onBoardChange={handleBoardChange} user={userData}/>
+      <Navbar boards={boards} onBoardChange={handleBoardChange} user={userData} />
       <div
         className="taskColumnContainerWrap"
         data-testid="taskColumn"
       >
         {(boards.length > 0 &&
-          boards[activeBoardIndex]?.columns.map((column:any, columnIndex:number) => (
+          boards[activeBoardIndex]?.columns.map((column: any, columnIndex: number) => (
             <TaskColumn
               key={`${activeBoardIndex}-${columnIndex}`}
               name={column?.name}
               tasks={column?.tasks}
             />
-          ))) || <EmptyColumn />}
+          ))) || <EmptyColumn />
+        }
         {boards.length > 0 && (
           <div className="newColumnContainer rounded-lg cursor-pointer" style={handleBgTheme} onClick={handlesNewColumn}>
             <button className='font-bold'>+ New Column</button>

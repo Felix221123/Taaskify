@@ -41,6 +41,18 @@ const SignUpUserController:RequestHandler = async(req: Request, res: Response, n
       boards: []
     });
 
+    // Remove the password from the user object before returning it
+  const userWithoutPassword = {
+    _id: user._id,
+    emailAddress: user.emailAddress,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    boards: user.boards,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
+    __v: user.__v,
+  };
+
     return user
       .save()
       .then((user) => {
@@ -61,7 +73,7 @@ const SignUpUserController:RequestHandler = async(req: Request, res: Response, n
 
             return res.status(201).json({
               message: "User registered and logged in successfully",
-              user,
+              user:userWithoutPassword,
             });
           }
         });

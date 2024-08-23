@@ -31,8 +31,8 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
   const [isHovered, setIsHovered] = useState<number | null>(null);
   const [isHideSideBarHovered, setIsHideSideBarHovered] = useState<string>('');
   const [activeBoard, setActiveBoard] = useState<number>(0);
-  const [addTaskBtn, setAddTaskBtn] = useState(false);
-  const [addBoardBtn, setAddBoardBtn] = useState(false);
+  const [addTaskBtn, setAddTaskBtn] = useState<boolean>(false);
+  const [addBoardBtn, setAddBoardBtn] = useState<boolean>(false);
   const [editDelBoardCon, setEditDelBoardCon] = useState<string>('');
   const [profileVisibility, setProfileVisibility] = useState<boolean>(false);
   const [isLoggingOut, setLoggingOut] = useState<string>("");
@@ -77,6 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
   const handlesAddBoardOnOpen = () => {
     setAddBoardBtn(true);
     setMenuVisibility(false);
+    setShowSideBar(false)
   };
 
   // handles the edit / delete button
@@ -168,7 +169,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
         !UserContainer.current.contains(event.target as Node)
       ) {
         setProfileVisibility(false);
-      }
+      } 
     };
 
     document.addEventListener('mousedown', handleClickOutside);

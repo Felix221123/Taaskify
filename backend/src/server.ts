@@ -55,10 +55,10 @@ app.use("/api/user/" , resetPasswordRoute)
 
 // Endpoint routes for users board routes
 // endpoint for users to create boards
-app.use("/api/board/" , createBoardRoute);
+app.use("/api/user/board/" , createBoardRoute);
 
 // endpoint for users to create new task
-app.use("/api/board/" , createTaskRoute)
+app.use("/api/user/board/" , createTaskRoute)
 
 
 

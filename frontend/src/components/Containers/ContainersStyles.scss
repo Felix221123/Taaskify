@@ -1,4 +1,4 @@
-@import '../../static/base';
+@import "../../static/base";
 
 // create your mixins here
 @mixin DeleteContainer() {
@@ -40,88 +40,92 @@
 @mixin EditBoardContainer() {
   @include ContainerSize();
 
-  > .boardNameContainer {
-    > label {
-      @include flex(column);
-      @include fontSize12px();
-      row-gap: 0.5rem;
-      width: 100%;
+  > form {
+    @include flex(column);
+    row-gap: 1rem;
 
-      > input {
-        height: 2.5rem;
-        @include fontSize13px();
-        background-color: transparent;
-        border: 1px solid $mediumGrey;
-        outline: none;
-        border-radius: 0.25rem;
-        padding: 0rem 0rem 0rem 1rem;
 
-        &:hover {
-          border-color: $deepPurpleclr;
-          cursor: pointer;
+
+    > .boardNameContainer {
+      > label {
+        @include flex(column);
+        @include fontSize12px();
+        row-gap: 0.5rem;
+        width: 100%;
+
+        > input {
+          height: 2.5rem;
+          @include fontSize13px();
+          background-color: transparent;
+          border: 1px solid $mediumGrey;
+          outline: none;
+          border-radius: 0.25rem;
+          padding: 0rem 0rem 0rem 1rem;
+
+          &:hover {
+            border-color: $deepPurpleclr;
+            cursor: pointer;
+          }
         }
       }
     }
-  }
 
-  > .boardColumnsContainer {
-    @include flex(column);
-    row-gap: 0.5rem;
-
-    > p.boardColumnsText {
-      @include fontSize12px();
-    }
-
-    > .containerForColumn {
+    > .boardColumnsContainer {
       @include flex(column);
-      overflow: hidden;
-      max-height: 7rem;
+      row-gap: 0.5rem;
 
-      > .scrollableContainer{
+      > p.boardColumnsText {
+        @include fontSize12px();
+      }
+
+      > .containerForColumn {
         @include flex(column);
-        row-gap: 0.25rem;
-        overflow: auto;
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none;
+        overflow: hidden;
+        max-height: 7rem;
 
-        ::-webkit-scrollbar {
-          display: none;
-        }
+        > .scrollableContainer {
+          @include flex(column);
+          row-gap: 0.25rem;
+          overflow: auto;
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none;
 
-        > .eachColumnContainer {
-          @include flex(row);
-          align-items: center;
-          justify-content: space-between;
+          ::-webkit-scrollbar {
+            display: none;
+          }
 
-          > label {
-            > input {
-              width: 16.5rem;
-              height: 2.5rem;
-              border-radius: 0.25rem;
-              @include fontSize13px();
-              background-color: transparent;
-              border: 1px solid $mediumGrey;
-              outline: none;
-              padding: 0rem 0rem 0rem 1rem;
+          > .eachColumnContainer {
+            @include flex(row);
+            align-items: center;
+            justify-content: space-between;
 
-              &:hover {
-                border-color: $deepPurpleclr;
-                cursor: pointer;
-              }
+            > label {
+              > input {
+                width: 16.5rem;
+                height: 2.5rem;
+                border-radius: 0.25rem;
+                @include fontSize13px();
+                background-color: transparent;
+                border: 1px solid $mediumGrey;
+                outline: none;
+                padding: 0rem 0rem 0rem 1rem;
 
-              @media (min-width: 768px) {
-                width: 24.0625rem;
+                &:hover {
+                  border-color: $deepPurpleclr;
+                  cursor: pointer;
+                }
+
+                @media (min-width: 768px) {
+                  width: 24.0625rem;
+                }
               }
             }
           }
         }
-
       }
-
     }
   }
 }
-
 
 @mixin AddTaskContainer() {
   @include ContainerSize();
@@ -356,17 +360,13 @@
     @include fontSize18px();
   }
 
-  > .logoutBtn{
+  > .logoutBtn {
     @include fontSize18px();
     @include flexComp(row);
     column-gap: 1rem;
     color: $mediumGrey;
   }
 }
-
-
-
-
 
 // main selectors
 .deleteContainer {
@@ -434,21 +434,19 @@
   @include ProfileContainer();
 }
 
-
-.containerOpen{
-  @include ContainerPosition("small")
+.containerOpen {
+  @include ContainerPosition("small");
 }
 
-#overlayEffect{
+#overlayEffect {
   @include OverlayEffect();
 }
 
-
-.preloader-container{
+.preloader-container {
   @include SpinAnimation();
 }
 
-.emailConfirmationContainer{
+.emailConfirmationContainer {
   width: 21.4375rem;
   height: auto;
   border-radius: 0.375rem;
@@ -461,8 +459,7 @@
   background-color: #ffffff;
   color: $darkGrey;
 
-
-  @media (min-width:767px) {
+  @media (min-width: 767px) {
     width: 30rem;
   }
 }

@@ -225,7 +225,6 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
             </motion.div>
           </>
         )}
-
       </AnimatePresence>
 
 

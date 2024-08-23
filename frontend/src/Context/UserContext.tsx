@@ -51,6 +51,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     fetchUserData(); // Fetch user data when the app loads
   }, []);
 
+  console.log(user);
+
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}

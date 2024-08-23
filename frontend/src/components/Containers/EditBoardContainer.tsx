@@ -67,6 +67,17 @@ export const EditBoardContainer = ({ boardName }: EditProps) => {
   );
 };
 
+
+
+
+
+
+
+
+
+
+
+
 // container to control the board column container
 export const BoardColumnContainer = () => {
   // const to keep track of the columns available

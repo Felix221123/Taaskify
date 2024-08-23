@@ -38,6 +38,7 @@ export const AppRoute: React.FC = () => {
     setUser(user);
   }
 
+
   // animations for loading state
   const getMenuAnimationForSpin = () => ({
     hidden: { opacity: 0 },
