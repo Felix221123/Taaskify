@@ -1,4 +1,3 @@
-import UserBoardData from "./BoardApiInterface";
 
 export interface SignUpUserProps {
   firstName: string;
