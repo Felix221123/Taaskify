@@ -7,17 +7,23 @@ import { CrossIcon } from '../../Icons/Cross';
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import CreateNewBoardApi from '../../packages/Api/BoardApi/CreateNewBoardApi';
 import { useUser } from '../../Context/useUser';
-
+import { openCustomNotification } from '../../utils/notificationUtil';
+import { SuccessIcon } from '../../Icons/SuccessIcon';
+import { ErrorIcon } from '../../Icons/ErrorIcon';
+import { OnContainerCloseProp } from '../Interface/Boards';
+import { NotificationContainerStyle } from '../../utils/NotificationContainerStyle';
 
 
 interface CreateBoardFormData {
   boardName: string;
-  columns: Array<{ name: string , tasks:[] }>;
+  columns: Array<{ name: string, tasks: [] }>;
 }
 
 
-export const AddNewBoard: React.FC = () => {
-  const { register, handleSubmit, control, formState: { errors } ,reset } = useForm<CreateBoardFormData>({
+
+
+export const AddNewBoard: React.FC<OnContainerCloseProp> = ({ onCloseContainer }) => {
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm<CreateBoardFormData>({
     defaultValues: {
       boardName: '',
       columns: [{ name: 'Todo' }],
@@ -46,17 +52,41 @@ export const AddNewBoard: React.FC = () => {
 
   // Submit handler
   const onSubmit = async (data: CreateBoardFormData) => {
-
     try {
-      const userID = user?.user._id; // Replace this with the actual user ID, possibly from context or props
+      // passing the users id from the useUser context
+      const userID = user?.user._id;
+
+      // calling the create new board api for a user
       await CreateNewBoardApi({ userID, name: data.boardName, columns: data.columns });
+
       reset(); // Reset form after successful submission
+
       console.log(`forms has been submitted here`);
+      // notification for creating boards successfully
+      openCustomNotification(
+        <>
+          <NotificationContainerStyle message="Board Created">
+            <SuccessIcon />
+          </NotificationContainerStyle>
+        </>,
+        <>Your new board has been successfully created.</>
+      );
+
+      // calling the container after a successful board creating
+      onCloseContainer()
 
     } catch (err) {
+      // passing a string and a notification component to a state when there is an error in creating a board
       setBoardError('Failed to create the board. Please try again.');
+      openCustomNotification(
+        <NotificationContainerStyle message='Error'>
+          <ErrorIcon />
+        </NotificationContainerStyle>,
+        <>Failed to create the board. Please try again.</>
+      );
       console.error(err);
     }
+
   };
 
 
@@ -90,10 +120,10 @@ export const AddNewBoard: React.FC = () => {
                 }}
               />
             </label>
-            {boardError && <span className="error-text text-xs text-center text-red-500">{ boardError }</span>}
+            {boardError && <span className="error-text text-xs text-center text-red-500">{boardError}</span>}
           </div>
           <BoardColumnContainerForNewBoards control={control} />
-          <PrimaryBtnSmall buttonName="Create New Board" btnType='submit'/>
+          <PrimaryBtnSmall buttonName="Create New Board" btnType='submit' />
         </form>
       </div>
     </>

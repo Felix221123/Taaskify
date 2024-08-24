@@ -13,6 +13,21 @@ import { ChevronIconDown } from '../../Icons/ChevronIconDown';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
 import { CloseIcon } from '../../Icons/CloseIcon';
 
+
+
+
+export interface CreateTaskFormData {
+  taskTitle: string;
+  description?: string;
+  subtasks: Array<{ title: string }>;
+  status: string;
+}
+
+
+
+
+
+
 export const AddNewTaskContainer: React.FC<onCloseContainerProp> = ({ onCloseProp }) => {
   const [task, setTask] = useState<Task>({
     title: '',
@@ -120,6 +135,8 @@ a little."
   );
 };
 
+
+
 // sub component used to get the subtask from the user for the main component
 export const SubTaskAddNewTaskColumnContainer: React.FC<
   SubTaskEditTaskColumnContainerProps
@@ -192,6 +209,10 @@ export const SubTaskAddNewTaskColumnContainer: React.FC<
     </>
   );
 };
+
+
+
+
 
 // sub component for choosing the status of the a task
 export const TaskStatus = ({

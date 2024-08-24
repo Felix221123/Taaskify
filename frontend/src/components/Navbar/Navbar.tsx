@@ -114,6 +114,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
   // styles to match the headers bgColor when theme changes
   const handleBgTheme: React.CSSProperties = {
     backgroundColor: theme === 'light' ? '#FFFFFF' : '#3E3F4E',
+    zIndex: menuVisibility ? "99999" : "0"
   };
 
   // animation for side bar
@@ -169,7 +170,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
         !UserContainer.current.contains(event.target as Node)
       ) {
         setProfileVisibility(false);
-      } 
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -505,7 +506,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
             transition={{ duration: 0.5 }}
             ref={addNewBoardContainer}
           >
-            <AddNewBoard />
+            <AddNewBoard onCloseContainer={() => setAddBoardBtn(false)}/>
           </motion.div>
         )}
       </AnimatePresence>

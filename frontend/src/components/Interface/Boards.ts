@@ -20,3 +20,8 @@ export interface UserNavbarProps{
   lastName: string;
   emailAddress: string;
 }
+
+
+export interface OnContainerCloseProp{
+  onCloseContainer:() => void;
+}
