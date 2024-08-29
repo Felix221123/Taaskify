@@ -15,9 +15,6 @@ import { customRender } from '../utils/testingUtils';
 import React, { useState } from 'react';
 import { Task } from '../components/Interface/AddTaskInterface';
 import { SettingsContainer } from '../components/Containers/SettingsContainer';
-import { BoardColumnContainer } from '../components/Containers/BoardColumnContainer';
-import { useForm, FormProvider } from 'react-hook-form';
-
 
 
 
