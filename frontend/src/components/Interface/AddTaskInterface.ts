@@ -10,6 +10,16 @@ export interface Task {
   subtasks: Subtask[];
 }
 
+
+export interface TaskProps{
+  title: string | undefined;
+  description: string | undefined;
+  status: string | undefined;
+  subtasks: Subtask[];
+  _id:string;
+}
+
+
 export interface onClickPropsEditBtnProps {
   onClickEditBtn?: () => void;
   className?: string;

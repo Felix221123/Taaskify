@@ -20,11 +20,12 @@ import { SettingsContainer } from '../Containers/SettingsContainer';
 import { ProfileContainer } from '../Containers/ProfileContainer';
 import { Loading } from '../Containers/Loading';
 import { CapitaliseAfterSpace } from '../../utils/CapitaliseAfterSpace';
+import { useBoard } from '../../Context/useBoardContext';
 
 
 
 
-export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) => {
+export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
   const [menuVisibility, setMenuVisibility] = useState<boolean>(false);
   const [delEditVisible, setDelEditVisible] = useState<boolean>(false);
   const [showSideBar, setShowSideBar] = useState<boolean>(false);
@@ -45,10 +46,14 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
 
 
 
+  const { activeBoardIndex, changeBoard } = useBoard(); // Use the context
+
   // useEffect to handle the active board
   useEffect(() => {
-    onBoardChange(activeBoard);
-  }, [activeBoard, onBoardChange]);
+    changeBoard(activeBoardIndex);
+    console.log(`here is the active board`, activeBoardIndex);
+    console.log(boards[activeBoardIndex]);
+  }, [activeBoardIndex, changeBoard, boards]);
 
   // handles the visibility of the menu container
   const handleMenuVisibility = useCallback(() => {
@@ -89,12 +94,14 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
   // function to handle the click on a board
   const handleBoardClick = (index: number) => {
     setActiveBoard(index);
+    changeBoard(index);
     handlesSideBarClose();
   };
 
   // function to handle the click on a board on mobile
   const handleBoardClickOnMobile = (index: number) => {
     setActiveBoard(index);
+    changeBoard(index);
     setMenuVisibility(false);
   };
 
@@ -224,7 +231,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
 
   // handling the click event of opening the addTask container
   const handleOpenAddTaskClick = () => {
-    if (boards.length === 0) {
+    if (boards[activeBoard]?.columns?.length === 0 || boards.length == 0) {
       setAddTaskBtn(false);
     } else {
       setAddTaskBtn(true);
@@ -242,10 +249,21 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
     setProfileVisibility(false);
     setLoggingOut(logout); // Immediately set the logging out state
     setTimeout(() => {
-      // Perform any additional cleanup or navigation if needed
       setLoggingOut(''); // Optionally clear the logging out state after the delay
     }, 5000);
   }
+
+
+  // Pulling the current boards data from here
+  const currentBoardID = boards[activeBoard]?._id || ""
+  const columns = boards[activeBoard]?.columns?.map(column => ({
+    id: column._id,
+    name: column.name,
+    tasks : column.tasks
+  })) || [];
+
+
+
 
   return (
     <>
@@ -490,7 +508,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
             data-testid="addTaskContainer"
             ref={TaskContainers}
           >
-            <AddNewTaskContainer onCloseProp={handleCloseAddToTaskContainer} />
+            <AddNewTaskContainer onCloseProp={handleCloseAddToTaskContainer} boardID={currentBoardID} columns={columns}/>
           </motion.div>
         )}
       </AnimatePresence>
@@ -511,7 +529,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
         )}
       </AnimatePresence>
 
-      {/* calling the delete board container */}
+      {/* calling the delete and edit board container */}
       <AnimatePresence>
         {editDelBoardCon === 'delete' && (
           <motion.div
@@ -526,6 +544,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
               deleteContainerName="board"
               deleteContainerItemName={boards[activeBoard]?.name}
               setEditDelBoardCon={setEditDelBoardCon}
+              boardID={currentBoardID}
             />
           </motion.div>
         )}
@@ -539,7 +558,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
             transition={{ duration: 0.5 }}
             ref={EditDelContainer}
           >
-            <EditBoardContainer boardName={boards[activeBoard]?.name} />
+            <EditBoardContainer name={boards[activeBoard]?.name} boardID={currentBoardID} columns={columns} onCloseProp={() => setEditDelBoardCon('')}/>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,40 +1,41 @@
 import UserBoardData from "../../../components/Interface/BoardApiInterface";
 import { FetchData } from "../../FetchManager/fetchData";
 
-
-interface CreateBoardProps {
+interface EditTaskProps {
   userID: string | undefined;
-  name: string;
-  columns?: Array<{ name: string; tasks: Array<string> }>;
+  boardID: string;
+  columnID: string;
+  taskID: string;
+  taskTitle: string;
+  description: string;
+  status: string;
+  subtasks: Array<{ title: string; isCompleted: boolean }>;
 }
 
-
-
-const CreateNewBoardApi = async (boardData:CreateBoardProps):Promise<UserBoardData> => {
+const EditTaskApi = async (taskData: EditTaskProps): Promise<UserBoardData> => {
   const Port = `http://localhost:5500`; // Define the backend port
-  const createBoardUrl = `${Port}/api/user/board/createboard/`;
+  const editTaskUrl = `${Port}/api/user/board/edittask/`;
 
   // Make an options header for correct data posting
   const options = {
-    method: "POST",
+    method: "PATCH", // Use PATCH for partial updates
     headers: {
       "Content-Type": "application/json",
     },
     credentials: 'include', // Include cookies if needed
-    body: JSON.stringify(boardData),
+    body: JSON.stringify(taskData),
   };
 
-  const response = await FetchData(createBoardUrl, options);
+  const response = await FetchData(editTaskUrl, options);
 
   if (!response.ok) {
     // Handle errors by throwing the error data
     const errorData = await response.json();
-    console.error("Error creating board: ", errorData);
+    console.error("Error editing task:", errorData);
     throw { status: response.status, ...errorData };
   }
 
   return response.json();
+};
 
-}
-
-export default CreateNewBoardApi
+export default EditTaskApi;

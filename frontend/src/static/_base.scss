@@ -114,12 +114,15 @@ $borderClr: #979797;
   cursor: pointer; /* Add a pointer on hover */
 }
 
+
+
+
 @mixin CardComponentStyle {
   .card {
     @include flex(column);
     row-gap: 0.5rem;
 
-    label {
+    > label {
       @include flex(column);
       @include fontSize12px();
       row-gap: 0.5rem;
@@ -132,37 +135,34 @@ $borderClr: #979797;
         align-items: center;
 
         > .dropdownContainer {
-          // background-color: red;
-          display: block;
+          display: block ;
           align-items: center;
-          padding: 0rem 1rem;
+          padding: 0rem 2rem 0rem 1rem; // Adjusted padding to make room for the chevron
           border-radius: 0.25rem;
           @include fontSize13px();
           background-color: transparent;
           border: 1px solid $mediumGrey;
-          -webkit-appearance: none;
-          /* Removes default arrow in some browsers */
-          -moz-appearance: none;
-          /* Removes default arrow in Firefox */
-          appearance: none;
-
-          > option {
-            background-color: inherit;
-            color: inherit;
-          }
+          // -webkit-appearance: none;
+          // -moz-appearance: none;
+          // appearance: none;
         }
-        .chevron-icon {
+
+        > .chevron-icon {
           position: absolute;
           top: 50%;
-          right: 1rem;
+          right: 0.85rem;
           transform: translateY(-50%);
-          pointer-events: none;
           color: inherit;
+          cursor: pointer;
+          z-index: 1;
         }
       }
     }
   }
 }
+
+
+
 
 @mixin ContainerSize {
   width: 21.4375rem;

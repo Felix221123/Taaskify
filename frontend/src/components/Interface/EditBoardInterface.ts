@@ -1,4 +1,6 @@
 export interface EditProps {
-  boardName: string | undefined;
-  // boardColumns: string[];
+  name: string | undefined;
+  boardID: string;
+  columns?: Array<{ name: string; tasks: [] }>;
+  onCloseProp:() => void;
 }

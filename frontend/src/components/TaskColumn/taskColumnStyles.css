@@ -35,7 +35,7 @@
   z-index: -1;
 }
 .emptyBoardContainer > .text {
-  color: #828fa3;
+  color: #e4ebfa;
   font-size: clamp(0.9375rem, 0.94vw, 0.94rem);
   padding: 0rem 0.5rem;
 }

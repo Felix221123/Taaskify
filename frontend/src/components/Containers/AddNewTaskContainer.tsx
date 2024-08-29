@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import {
   onCloseContainerProp,
   SubTaskEditTaskColumnContainerProps,
-  Task,
   TaskStatusContainerName,
 } from '../Interface/AddTaskInterface';
 import './ContainersStyles.css';
@@ -12,46 +11,52 @@ import { CrossIcon } from '../../Icons/Cross';
 import { ChevronIconDown } from '../../Icons/ChevronIconDown';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
 import { CloseIcon } from '../../Icons/CloseIcon';
+import { useForm, Controller } from 'react-hook-form';
+import CreateTaskApi from '../../packages/Api/BoardApi/CreateTaskApi';
+import { SubTaskInputContainer } from './SubTaskColumnContainer';
+import { TaskStatusDropdown } from './TaskStatusContainer';
+import { useUser } from '../../Context/useUser';
+import { openCustomNotification } from '../../utils/notificationUtil';
+import { NotificationContainerStyle } from '../../utils/NotificationContainerStyle';
+import { SuccessIcon } from '../../Icons/SuccessIcon';
+import { ErrorIcon } from '../../Icons/ErrorIcon';
 
 
 
-
-export interface CreateTaskFormData {
+interface CreateTaskFormData {
   taskTitle: string;
-  description?: string;
+  description: string;
   subtasks: Array<{ title: string }>;
   status: string;
 }
 
 
+interface ColumnOption {
+  id: string;
+  name: string;
+}
+
+
+interface AddNewTaskContainerProps extends onCloseContainerProp {
+  columns: ColumnOption[]; // New prop for columns
+  boardID: string;
+}
 
 
 
-
-export const AddNewTaskContainer: React.FC<onCloseContainerProp> = ({ onCloseProp }) => {
-  const [task, setTask] = useState<Task>({
-    title: '',
-    description: '',
-    status: 'Todo',
-    subtasks: [
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-    ],
+export const AddNewTaskContainer: React.FC<AddNewTaskContainerProps> = ({ onCloseProp, columns, boardID }) => {
+  const { control, handleSubmit, register, reset, getValues, setValue } = useForm<CreateTaskFormData>({
+    defaultValues: {
+      taskTitle: '',
+      description: '',
+      subtasks: [{ title: '' }, { title: '' }],
+      status: ''
+    },
   });
 
-  // handling the onchange of the input
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { id, value } = e.target;
-    setTask({
-      ...task,
-      [id]: value,
-    });
-    console.log(task.title);
-    console.log(task.description);
-  };
+  // useTheme and useUser context
   const { theme } = useTheme();
+  const { user } = useUser();
 
   // background theme colors
   const boardContainerTheme: React.CSSProperties = {
@@ -68,6 +73,58 @@ export const AddNewTaskContainer: React.FC<onCloseContainerProp> = ({ onClosePro
     color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
 
+
+  // Handle form submission
+  const onSubmit = async (data: CreateTaskFormData) => {
+    try {
+      const userID = user?.user._id; // Replace with actual user ID
+      const columnID = data.status
+
+      const taskData = {
+        userID,
+        boardID,
+        columnID,
+        taskTitle: data.taskTitle,
+        description: data.description,
+        subtasks: data.subtasks,
+      };
+
+      const response = await CreateTaskApi(taskData);
+
+      // after a successful data submission
+      if (response) {
+        reset();   // reset forms after submission
+        onCloseProp();       //close container after a successful submission
+        console.log(`task has been created successfully ${taskData}`);
+        openCustomNotification(
+          <>
+          <NotificationContainerStyle message='Task Created'>
+            <SuccessIcon />
+          </NotificationContainerStyle>
+          </>,
+          <>
+          Your new Task has been successfully created.
+          </>
+        )
+      }
+      // Reset the form after successful submission
+
+    } catch (error) {
+      console.error('Error creating task:', error);
+      openCustomNotification(
+        <NotificationContainerStyle message='Error'>
+          <ErrorIcon />
+        </NotificationContainerStyle>,
+        <>Failed to create the Task. Please ensure there is a "Title" and at least one "Subtask".</>
+      );
+      onCloseProp();
+    }
+  };
+
+
+
+
+
   return (
     <>
       <div className="addTaskContainer" style={boardContainerTheme}>
@@ -80,60 +137,71 @@ export const AddNewTaskContainer: React.FC<onCloseContainerProp> = ({ onClosePro
           </div>
         </div>
 
-        <div className="boardNameContainer">
-          <label
-            htmlFor="title"
-            className="font-bold"
-            style={TextColorOnChange}
-          >
-            Title
-            <input
-              type="text"
-              id="title"
-              value={task.title}
-              onChange={handleInputChange}
-              className="font-medium leading-6"
-              style={TitleColorOnChange}
-              placeholder="e.g. Take coffee break"
-            />
-          </label>
-        </div>
-        {/* describe the task container */}
-        <div className="boardNameContainer">
-          <label
-            htmlFor="description"
-            className="font-bold"
-            style={TextColorOnChange}
-          >
-            Description
-            <textarea
-              id="description"
-              value={task.description}
-              onChange={handleInputChange}
-              className="descriptionContainer font-medium leading-6"
-              style={TitleColorOnChange}
-              placeholder="e.g.It’s always good to take a break. This
+        {/* form submission area */}
+        <form action="" onSubmit={handleSubmit(onSubmit)}>
+          <div className="boardNameContainer">
+            <label
+              htmlFor="title"
+              className="font-bold"
+              style={TextColorOnChange}
+            >
+              Title
+              <input
+                type="text"
+                id="title"
+                {...register('taskTitle', { required: true })}
+                className="font-medium leading-6"
+                style={TitleColorOnChange}
+                placeholder="e.g. Take coffee break"
+              />
+            </label>
+          </div>
+          {/* describe the task container */}
+          <div className="boardNameContainer">
+            <label
+              htmlFor="description"
+              className="font-bold"
+              style={TextColorOnChange}
+            >
+              Description
+              <textarea
+                id="description"
+                {...register('description')}
+                className="descriptionContainer font-medium leading-6"
+                style={TitleColorOnChange}
+                placeholder="e.g.It’s always good to take a break. This
 15 minute break will  recharge the batteries
 a little."
-            ></textarea>
-          </label>
-        </div>
-        <SubTaskAddNewTaskColumnContainer
-          subtasks={task.subtasks}
-          setSubtasks={(newSubtasks) =>
-            setTask({ ...task, subtasks: newSubtasks })
-          }
-        />
-        <TaskStatus
-          taskContainerName="Status"
-          status={task.status ?? ""}
-          setStatus={(newStatus) => setTask({ ...task, status: newStatus })}
-        />
-        <PrimaryBtnSmall buttonName="Create Task" />
+              ></textarea>
+            </label>
+          </div>
+
+          {/* controller for sub task container */}
+          <Controller
+            control={control}
+            name="subtasks"
+            render={({ field }) => (
+              <SubTaskInputContainer control={control} name={field.name} />
+            )}
+          />
+
+          {/* controller for choosing the task status */}
+          <TaskStatusDropdown
+            status={getValues('status')}
+            setStatus={(newStatus) => setValue('status', newStatus)}
+            columns={columns}
+            containerName='Status'
+          />
+
+          {/* submission button */}
+          <PrimaryBtnSmall buttonName="Create Task" btnType="submit" />
+        </form>
       </div>
     </>
   );
 };
+
+
 
 
 

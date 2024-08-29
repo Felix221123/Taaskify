@@ -6,15 +6,22 @@ import { useTheme } from '../../Context/UseTheme';
 import { ViewTaskContainer } from '../Containers/ViewTaskContainer';
 import { countIncompleteSubtasks } from '../../utils/CountSubtask';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Task } from '../Interface/AddTaskInterface';
+import { TaskProps } from '../Interface/AddTaskInterface';
 import { EditTaskContainer } from '../Containers/EditTaskContainer';
 import { DeleteContainer } from '../Containers/DeleteContainer';
+import { useBoard } from '../../Context/useBoardContext';
 
 
 
-export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
+interface TaskColumnProps extends ColumnProps {
+  columnID: string;
+}
+
+
+
+export const TaskColumn: React.FC<TaskColumnProps> = ({ name, tasks, boards , columnID }) => {
   const [isHoveredTask, setIsHoveredTask] = useState<number | null>(null);
-  const [selectedViewTask, setSelectedViewTask] = useState<Task | null>(null);
+  const [selectedViewTask, setSelectedViewTask] = useState<TaskProps | null>(null);
   const [viewTaskVisibiity, setViewTaskVisibiity] = useState<boolean>(false)
   const [editTaskBtnContainer, setEditTaskBtnContainer] = useState<boolean>(false);
   const [deleteTaskBtnContainer, setDeleteTaskBtnContainer] = useState<boolean>(false);
@@ -25,6 +32,8 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
 
   // using the theme from context
   const { theme } = useTheme();
+  const { activeBoardIndex } = useBoard();
+
 
   // hook to generate and set the circle color of a task column name
   const [backgroundColor] = useState(generateRandomColor());
@@ -70,7 +79,7 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
   }
 
   // handles the onclick function of a task
-  const handleOnClickTask = (task: Task) => {
+  const handleOnClickTask = (task: TaskProps) => {
     setViewTaskVisibiity(true)
     setSelectedViewTask(task);
   };
@@ -100,6 +109,14 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
   const handleOnCancel = () => {
     setDeleteTaskBtnContainer(false);
   }
+
+  // Pulling the current boards data from here
+  const currentBoardID = boards[activeBoardIndex]?._id || ""
+  const columns = boards[activeBoardIndex]?.columns?.map(column => ({
+    id: column._id,
+    name: column.name,
+    tasks : column.tasks
+  })) || [];
 
 
   return (
@@ -194,11 +211,11 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
               ref={editTaskContainer}
             >
               <EditTaskContainer
-                title={selectedViewTask?.title}
-                description={selectedViewTask?.description}
-                subtasks={selectedViewTask?.subtasks ?? []}
-                status={selectedViewTask?.status}
                 onCloseProp={handleOnCloseEditTaskContainer}
+                task={selectedViewTask}
+                taskID={selectedViewTask._id}
+                boardID={currentBoardID}
+                columns={columns}
               />
             </motion.div>
           </>
@@ -221,7 +238,11 @@ export const TaskColumn: React.FC<ColumnProps> = ({ name, tasks }) => {
               <DeleteContainer
                 deleteContainerName='task'
                 deleteContainerItemName={selectedViewTask?.title}
-                setEditDelBoardCon={handleOnCancel} />
+                setEditDelBoardCon={handleOnCancel}
+                boardID={boards[activeBoardIndex]._id}
+                columnID={columnID}
+                taskID={selectedViewTask._id}
+              />
             </motion.div>
           </>
         )}

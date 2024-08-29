@@ -7,8 +7,6 @@
   height: auto;
   border-radius: 0.5rem;
   padding: 2rem 1.5rem;
-  @include flex(column);
-  row-gap: 1.5rem;
 
   @media (min-width: 768px) {
     width: 30rem;
@@ -16,23 +14,28 @@
     padding: 2.5rem 2rem;
   }
 
-  > article {
-    @include fontSize18px();
-    color: $redclr;
-  }
+  > form {
+    @include flex(column);
+    row-gap: 1.5rem;
 
-  > p.deleteText {
-    color: $mediumGrey;
-    @include fontSize13px();
-  }
+    > article {
+      @include fontSize18px();
+      color: $redclr;
+    }
 
-  > .btnContainer {
-    @include flexComp(column);
-    row-gap: 1rem;
+    > p.deleteText {
+      color: $mediumGrey;
+      @include fontSize13px();
+    }
 
-    @media (min-width: 768px) {
-      @include flexComp(row);
-      column-gap: 1rem;
+    > .btnContainer {
+      @include flexComp(column);
+      row-gap: 1rem;
+
+      @media (min-width: 768px) {
+        @include flexComp(row);
+        column-gap: 1rem;
+      }
     }
   }
 }
@@ -43,8 +46,6 @@
   > form {
     @include flex(column);
     row-gap: 1rem;
-
-
 
     > .boardNameContainer {
       > label {
@@ -85,7 +86,7 @@
 
         > .scrollableContainer {
           @include flex(column);
-          row-gap: 0.25rem;
+          row-gap: 0.5rem;
           overflow: auto;
           -ms-overflow-style: none; /* IE and Edge */
           scrollbar-width: none;
@@ -130,102 +131,107 @@
 @mixin AddTaskContainer() {
   @include ContainerSize();
 
-  > .boardNameContainer {
-    > label {
-      @include flex(column);
-      @include fontSize12px();
-      row-gap: 0.5rem;
-      width: 100%;
-
-      > input {
-        height: 2.5rem;
-        @include fontSize13px();
-        background-color: transparent;
-        border: 1px solid $mediumGrey;
-        outline: none;
-        border-radius: 0.25rem;
-        padding: 0rem 0rem 0rem 1rem;
-
-        &:hover {
-          border-color: $deepPurpleclr;
-          cursor: pointer;
-        }
-      }
-
-      > textarea.descriptionContainer {
-        height: 7rem;
-        @include fontSize13px();
-        background-color: transparent;
-        border: 1px solid $mediumGrey;
-        outline: none;
-        border-radius: 0.25rem;
-        padding: 0.5rem 0rem 0rem 1rem;
-        text-align: left;
-
-        &:hover {
-          border-color: $deepPurpleclr;
-          cursor: pointer;
-        }
-      }
-    }
-  }
-
-  > .boardColumnsContainer {
+  > form {
     @include flex(column);
-    row-gap: 0.5rem;
+    row-gap: 1.75rem;
 
-    > p.boardColumnsText {
-      @include fontSize12px();
-    }
-
-    > .containerForColumn {
-      @include flex(column);
-      max-height: 7rem;
-      overflow: hidden;
-
-      > .scrollableContainer {
+    > .boardNameContainer {
+      > label {
         @include flex(column);
-        row-gap: 0.25rem;
-        overflow: auto;
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none;
+        @include fontSize12px();
+        row-gap: 0.5rem;
+        width: 100%;
 
-        ::-webkit-scrollbar {
-          display: none;
+        > input {
+          height: 2.5rem;
+          @include fontSize13px();
+          background-color: transparent;
+          border: 1px solid $mediumGrey;
+          outline: none;
+          border-radius: 0.25rem;
+          padding: 0rem 0rem 0rem 1rem;
+
+          &:hover {
+            border-color: $deepPurpleclr;
+            cursor: pointer;
+          }
         }
 
-        > .eachColumnContainer {
-          @include flex(row);
-          align-items: center;
-          justify-content: space-between;
+        > textarea.descriptionContainer {
+          height: 7rem;
+          @include fontSize13px();
+          background-color: transparent;
+          border: 1px solid $mediumGrey;
+          outline: none;
+          border-radius: 0.25rem;
+          padding: 0.5rem 0rem 0rem 1rem;
+          text-align: left;
 
-          > label {
-            > input {
-              width: 16.5rem;
-              height: 2.5rem;
-              border-radius: 0.25rem;
-              @include fontSize13px();
-              background-color: transparent;
-              border: 1px solid $mediumGrey;
-              outline: none;
-              padding: 0rem 0rem 0rem 1rem;
+          &:hover {
+            border-color: $deepPurpleclr;
+            cursor: pointer;
+          }
+        }
+      }
+    }
 
-              &:hover {
-                border-color: $deepPurpleclr;
-                cursor: pointer;
-              }
+    > .boardColumnsContainer {
+      @include flex(column);
+      row-gap: 0.5rem;
 
-              @media (min-width: 768px) {
-                width: 24.0625rem;
+      > p.boardColumnsText {
+        @include fontSize12px();
+      }
+
+      > .containerForColumn {
+        @include flex(column);
+        max-height: 7rem;
+        overflow: hidden;
+
+        > .scrollableContainer {
+          @include flex(column);
+          row-gap: 0.5rem;
+          overflow: auto;
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none;
+
+          ::-webkit-scrollbar {
+            display: none;
+          }
+
+          > .eachColumnContainer {
+            @include flex(row);
+            align-items: center;
+            justify-content: space-between;
+
+            > label {
+              > input {
+                width: 16.5rem;
+                height: 2.5rem;
+                border-radius: 0.25rem;
+                @include fontSize13px();
+                background-color: transparent;
+                border: 1px solid $mediumGrey;
+                outline: none;
+                padding: 0rem 0rem 0rem 1rem;
+
+                &:hover {
+                  border-color: $deepPurpleclr;
+                  cursor: pointer;
+                }
+
+                @media (min-width: 768px) {
+                  width: 24.0625rem;
+                }
               }
             }
           }
         }
       }
     }
-  }
 
-  @include CardComponentStyle();
+    @include CardComponentStyle();
+  }
 }
 
 @mixin EditDeleteContainer() {

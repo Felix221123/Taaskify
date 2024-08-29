@@ -4,77 +4,75 @@ import { TaskColumn } from '../components/TaskColumn/TaskColumn';
 
 describe('Task Column Component', () => {
   it('it should display the task name and it counts', () => {
-    const columns = [
+    const tasks = [
       {
-        name: 'Todo',
-        tasks: [
-          {
-            title: 'Build settings UI',
-            description: '',
-            status: 'Todo',
-            subtasks: [
-              {
-                title: 'Account page',
-                isCompleted: false,
-              },
-              {
-                title: 'Billing page',
-                isCompleted: false,
-              },
-            ],
-          },
-        ],
+        title: 'Task 1',
+        description: 'Description 1',
+        status: 'In Progress',
+        subtasks: [{ title: 'Subtask 1', isCompleted: false }],
+        _id: "1"
       },
     ];
-    columns.map((column, index) =>
-      customRender(
-        <TaskColumn key={index} name={column.name} tasks={column.tasks} />
-      )
-    );
+
+    const boards = [
+      {
+        name: "firstBoard",
+        columns: [
+          {
+            name: "In Progress",
+            tasks: tasks,  // Reference the tasks array correctly
+            _id: "1"
+          }
+        ],
+        _id: '1'
+      }
+    ];
+
+    customRender(<TaskColumn name="Column 1" tasks={tasks} boards={boards} columnID='1' />);
+
 
     // circle is displayed
     expect(screen.getByTestId('colorCircle')).toBeInTheDocument();
     expect(screen.getByTestId('colorCircle')).toBeVisible();
 
     // taskName here
-    expect(screen.getByTestId('taskName')).toHaveTextContent(/todo/i);
+    expect(screen.getByTestId('taskName')).toHaveTextContent(/Column 1/i);
 
     // task count
     expect(screen.getByTestId('taskCount')).toHaveTextContent(/(1)/i);
   });
 
   it('it should display the task Container Component', () => {
-    const columns = [
+    const tasks = [
       {
-        name: 'Todo',
-        tasks: [
-          {
-            title: 'Build settings UI',
-            description: '',
-            status: 'Todo',
-            subtasks: [
-              {
-                title: 'Account page',
-                isCompleted: false,
-              },
-              {
-                title: 'Billing page',
-                isCompleted: false,
-              },
-            ],
-          },
-        ],
+        title: 'Task 1',
+        description: 'Description 1',
+        status: 'In Progress',
+        subtasks: [{ title: 'Subtask 1', isCompleted: false }],
+        _id: "1"
       },
     ];
-    columns.map((column, index) =>
-      customRender(
-        <TaskColumn key={index} tasks={column.tasks} name={column.name} />
-      )
-    );
+
+    const boards = [
+      {
+        name: "firstBoard",
+        columns: [
+          {
+            name: "platform",
+            tasks: tasks,  // Reference the tasks array correctly
+            _id: "1"
+          }
+        ],
+        _id: '1'
+      }
+    ];
+
+    customRender(<TaskColumn name="Column 1" tasks={tasks} boards={boards} columnID='1' />);
+
 
     // task Title
     expect(screen.getByTestId('taskTitle')).toHaveTextContent(
-      /Build settings UI/i
+      /Task 1/i
     );
     expect(screen.getByTestId('taskTitle')).toBeInTheDocument();
     expect(screen.getByTestId('taskTitle')).toBeVisible();
@@ -90,10 +88,25 @@ describe('Task Column Component', () => {
         description: 'Description 1',
         status: 'In Progress',
         subtasks: [{ title: 'Subtask 1', isCompleted: false }],
+        _id: "1"
       },
     ];
 
-    customRender(<TaskColumn name="Column 1" tasks={tasks} />);
+    const boards = [
+      {
+        name: "firstBoard",
+        columns: [
+          {
+            name: "platform",
+            tasks: tasks,  // Reference the tasks array correctly
+            _id: "1"
+          }
+        ],
+        _id: '1'
+      }
+    ];
+
+    customRender(<TaskColumn name="Column 1" tasks={tasks} boards={boards} columnID='1' />);
 
     // Click on the task
     fireEvent.click(screen.getByText('Task 1'));
@@ -110,9 +123,26 @@ describe('Task Column Component', () => {
         description: 'Description 1',
         status: 'In Progress',
         subtasks: [{ title: 'Subtask 1', isCompleted: false }],
+        _id: "1"
       },
     ];
-    customRender(<TaskColumn name="Column 1" tasks={tasks}/>);
+
+    const boards = [
+      {
+        name: "firstBoard",
+        columns: [
+          {
+            name: "platform",
+            tasks: tasks,  // Reference the tasks array correctly
+            _id: "1"
+          }
+        ],
+        _id: '1'
+      }
+    ];
+
+    customRender(<TaskColumn name="Column 1" tasks={tasks} boards={boards} columnID='1' />);
+
 
     // Click on the task
     fireEvent.click(screen.getByText('Task 1'));
@@ -140,9 +170,26 @@ describe('Task Column Component', () => {
         description: 'Description 1',
         status: 'In Progress',
         subtasks: [{ title: 'Subtask 1', isCompleted: false }],
+        _id: "1"
       },
     ];
-    customRender(<TaskColumn name="Column 1" tasks={tasks}/>);
+
+    const boards = [
+      {
+        name: "firstBoard",
+        columns: [
+          {
+            name: "platform",
+            tasks: tasks,  // Reference the tasks array correctly
+            _id: "1"
+          }
+        ],
+        _id: '1'
+      }
+    ];
+
+    customRender(<TaskColumn name="Column 1" tasks={tasks} boards={boards} columnID='1' />);
+
 
     // Click on the task
     fireEvent.click(screen.getByText('Task 1'));
@@ -170,9 +217,26 @@ describe('Task Column Component', () => {
         description: 'Description 1',
         status: 'In Progress',
         subtasks: [{ title: 'Subtask 1', isCompleted: false }],
+        _id: "1"
       },
     ];
-    customRender(<TaskColumn name="Column 1" tasks={tasks}/>);
+
+    const boards = [
+      {
+        name: "firstBoard",
+        columns: [
+          {
+            name: "platform",
+            tasks: tasks,  // Reference the tasks array correctly
+            _id: "1"
+          }
+        ],
+        _id: '1'
+      }
+    ];
+
+    customRender(<TaskColumn name="Column 1" tasks={tasks} boards={boards} columnID='1' />);
+
 
     // Click on the task
     fireEvent.click(screen.getByText('Task 1'));

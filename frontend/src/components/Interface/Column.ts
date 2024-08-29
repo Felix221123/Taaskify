@@ -1,13 +1,15 @@
-import { Task } from './AddTaskInterface';
+import { TaskProps } from './AddTaskInterface';
+import { BoardProps } from './Boards';
 
 export interface ColumnProps {
   name: string;
-  tasks: Task[];
+  tasks: TaskProps[];
+  boards:BoardProps[]
 }
 
 export interface ColumnDataProps {
   name: string;
-  tasks: Task[];
+  tasks: TaskProps[];
   _id:string;
 }
 

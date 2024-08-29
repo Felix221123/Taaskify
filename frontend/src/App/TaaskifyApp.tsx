@@ -7,21 +7,20 @@ import React, { useEffect, useRef, useState } from 'react';
 import { AddNewBoard } from '../components/Containers/AddNewBoard';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useUser } from '../Context/useUser';
+import { useBoard } from '../Context/useBoardContext';
 
 
 
 
 
 export const TaaskifyApp = () => {
-  const { user } = useUser();       // Get user data from UserContext
-  const [activeBoardIndex, setActiveBoardIndex] = useState<number>(0);
+  // pulling up the active container
+  const { activeBoardIndex } = useBoard();
+  const { user } = useUser();
+
+  // Get user data from UserContext
   const [newColumn, setNewColumn] = useState<boolean>(false);
   const addNewBoardContainer = useRef<HTMLDivElement>(null);
-
-  // useEffect to handle which board is currently active
-  const handleBoardChange = (index: number) => {
-    setActiveBoardIndex(index);
-  };
 
   // constructing data for retrieval
   const boards = user?.user.boards || [];
@@ -82,21 +81,36 @@ export const TaaskifyApp = () => {
 
   return (
     <>
-      <Navbar boards={boards} onBoardChange={handleBoardChange} user={userData} />
+      <Navbar boards={boards} user={userData} />
       <div
         className="taskColumnContainerWrap"
         data-testid="taskColumn"
       >
+        {/* shows the task column component when users has column */}
         {(boards.length > 0 &&
           boards[activeBoardIndex]?.columns.map((column: any, columnIndex: number) => (
             <TaskColumn
               key={`${activeBoardIndex}-${columnIndex}`}
               name={column?.name}
               tasks={column?.tasks}
+              boards={boards}
+              columnID={column?._id}
             />
-          ))) || <EmptyColumn />
+          )))
         }
-        {boards.length > 0 && (
+        {/* shows the empty component when users has no column */}
+        {
+          boards[activeBoardIndex]?.columns?.length === 0 && (
+            <EmptyColumn container='column'/>
+        )}
+        {/* shows the empty component when users has no column */}
+        {
+          boards.length === 0 && (
+            <EmptyColumn container='boards'/>
+          )
+        }
+        {/* shows the component when users has column but still want to create more columns*/}
+        {boards.length > 0 && boards[activeBoardIndex]?.columns?.length > 0 && (
           <div className="newColumnContainer rounded-lg cursor-pointer" style={handleBgTheme} onClick={handlesNewColumn}>
             <button className='font-bold'>+ New Column</button>
           </div>
@@ -114,11 +128,10 @@ export const TaaskifyApp = () => {
             transition={{ duration: 0.5 }}
             ref={addNewBoardContainer}
           >
-            <AddNewBoard />
+            <AddNewBoard onCloseContainer={() => {}}/>
           </motion.div>
         )}
       </AnimatePresence>
-
 
 
       {newColumn && <div id="overLayEffect"></div>}

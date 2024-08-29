@@ -1,22 +1,16 @@
-import { NextFunction, Request, RequestHandler, Response } from "express"
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import UserBoardModel from "../../Models/UserModel";
 
 
 
 
-const CreateTaskController: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
-  const { userID, boardID, columnID, taskTitle, description, subtasks } = req.body;
+const DeleteTaskController: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
+  const { userID, boardID, columnID, taskID } = req.body;
 
   try {
-
     // Validate the input
-    if (!userID || !boardID || !columnID || !taskTitle) {
+    if (!userID || !boardID || !columnID || !taskID) {
       return res.status(400).json({ message: 'Invalid input: Missing required fields' });
-    }
-
-    // Validate that subtasks are provided
-    if (!subtasks || subtasks.length === 0) {
-      return res.status(400).json({ message: 'Invalid input: At least one subtask is required' });
     }
 
     // Find the user by ID
@@ -29,7 +23,6 @@ const CreateTaskController: RequestHandler = async (req: Request, res: Response,
     // Find the board by its ID
     const board = user.boards.id(boardID) as any;
 
-
     if (!board) {
       return res.status(404).json({ message: 'Board not found' });
     }
@@ -41,19 +34,15 @@ const CreateTaskController: RequestHandler = async (req: Request, res: Response,
       return res.status(404).json({ message: 'Column not found' });
     }
 
-    // Create the new task
-    const newTask = {
-      title: taskTitle,
-      description: description || "",
-      status: column.name, // The status is derived from the column name
-      subtasks: subtasks.map((subtask: { title: string }) => ({
-        title: subtask.title,
-        isCompleted: false
-      }))
-    };
+    // Find the task by its ID within the found column
+    const taskIndex = column.tasks.findIndex((task: any) => task._id.toString() === taskID);
 
-    // Add the new task to the column's tasks array
-    column.tasks.push(newTask);
+    if (taskIndex === -1) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    // Remove the task from the column's tasks array
+    column.tasks.splice(taskIndex, 1);
 
     // Save the updated user document
     await user.save();
@@ -71,17 +60,14 @@ const CreateTaskController: RequestHandler = async (req: Request, res: Response,
     };
 
     // Return the updated user document
-    return res.status(201).json({
+    return res.status(200).json({
+      message: 'Task deleted successfully',
       user: userWithoutPassword
     });
 
   } catch (error) {
     return res.status(500).json({ message: 'Server error', error });
   }
-
 }
 
-
-
-
-export default CreateTaskController
+export default DeleteTaskController;

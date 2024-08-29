@@ -1,22 +1,20 @@
 import UserBoardData from "../../../components/Interface/BoardApiInterface";
 import { FetchData } from "../../FetchManager/fetchData";
 
-
-interface CreateBoardProps {
+interface EditBoardProps {
   userID: string | undefined;
+  boardID: string;
   name: string;
   columns?: Array<{ name: string; tasks: Array<string> }>;
 }
 
-
-
-const CreateNewBoardApi = async (boardData:CreateBoardProps):Promise<UserBoardData> => {
+const EditBoardApi = async (boardData: EditBoardProps): Promise<UserBoardData> => {
   const Port = `http://localhost:5500`; // Define the backend port
-  const createBoardUrl = `${Port}/api/user/board/createboard/`;
+  const editBoardUrl = `${Port}/api/user/board/editboard/`;
 
   // Make an options header for correct data posting
   const options = {
-    method: "POST",
+    method: "PATCH", // Use PATCH for partial updates
     headers: {
       "Content-Type": "application/json",
     },
@@ -24,17 +22,16 @@ const CreateNewBoardApi = async (boardData:CreateBoardProps):Promise<UserBoardDa
     body: JSON.stringify(boardData),
   };
 
-  const response = await FetchData(createBoardUrl, options);
+  const response = await FetchData(editBoardUrl, options);
 
   if (!response.ok) {
     // Handle errors by throwing the error data
     const errorData = await response.json();
-    console.error("Error creating board: ", errorData);
+    console.error("Error editing board: ", errorData);
     throw { status: response.status, ...errorData };
   }
 
   return response.json();
+};
 
-}
-
-export default CreateNewBoardApi
+export default EditBoardApi;

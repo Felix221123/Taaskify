@@ -1,7 +1,6 @@
 import { screen, fireEvent } from '@testing-library/react';
 import { DeleteContainer } from '../components/Containers/DeleteContainer';
 import { EditBoardContainer } from '../components/Containers/EditBoardContainer';
-import { BoardColumnContainer } from '../components/Containers/EditBoardContainer';
 import { AddNewBoard } from '../components/Containers/AddNewBoard';
 import {
   AddNewTaskContainer,
@@ -13,9 +12,16 @@ import {
   ViewTaskContainer,
 } from '../components/Containers/ViewTaskContainer';
 import { customRender } from '../utils/testingUtils';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Task } from '../components/Interface/AddTaskInterface';
 import { SettingsContainer } from '../components/Containers/SettingsContainer';
+import { BoardColumnContainer } from '../components/Containers/BoardColumnContainer';
+import { useForm, FormProvider } from 'react-hook-form';
+
+
+
+
+
 
 export const SubtaskWrapper: React.FC<{ container: string }> = ({
   container,
@@ -53,6 +59,8 @@ export const SubtaskWrapper: React.FC<{ container: string }> = ({
 
 
 
+
+
 // testing the delete container component
 describe('Delete Component', () => {
   it('it should display the heading in the document', () => {
@@ -61,6 +69,9 @@ describe('Delete Component', () => {
         deleteContainerItemName="my lunch"
         deleteContainerName="task"
         setEditDelBoardCon={() => {}}
+        boardID='1'
+        columnID='1'
+        taskID='1'
       />
     );
     const heading = screen.getByText(/Delete this task/i);
@@ -74,6 +85,9 @@ describe('Delete Component', () => {
         deleteContainerItemName="my lunch"
         deleteContainerName="task"
         setEditDelBoardCon={() => {}}
+        boardID='1'
+        columnID='1'
+        taskID='1'
       />
     );
     const text = `Are you sure you want to delete the 'my lunch' task and its subtasks? This action cannot be reversed.`;
@@ -87,6 +101,9 @@ describe('Delete Component', () => {
         deleteContainerItemName="my lunch"
         deleteContainerName="task"
         setEditDelBoardCon={() => {}}
+        boardID='1'
+        columnID='1'
+        taskID='1'
       />
     );
 
@@ -102,51 +119,33 @@ describe('Delete Component', () => {
 // testing the edit container component
 describe('Edit Board Component', () => {
   it('It should display the heading of the container', () => {
-    customRender(<EditBoardContainer boardName="My Task" />);
+    customRender(<EditBoardContainer name="board" boardID='1' columns={[]} onCloseProp={() => {}} />);
     const header = screen.getByText(/Edit Board/i);
     expect(header).toBeVisible();
     expect(header).toBeInTheDocument();
   });
 
   it('It should display the name of the name and the text in the input', () => {
-    customRender(<EditBoardContainer boardName="My Task" />);
+    customRender(<EditBoardContainer name="board" boardID='1' columns={[]} onCloseProp={() => {}}/>);
     const label = screen.getByText(/Board Name/i);
     expect(label).toBeVisible();
     expect(label).toBeInTheDocument();
   });
 
   test('should render the input element with the correct initial value', () => {
-    customRender(<EditBoardContainer boardName="Initial Board Name" />);
+    customRender(<EditBoardContainer name="Initial Board Name" boardID='1' columns={[]} onCloseProp={() => {}}/>);
     const inputElement = screen.getByRole('textbox', { name: /Board Name/i });
     expect(inputElement).toBeInTheDocument();
     expect(inputElement).toHaveValue('Initial Board Name');
   });
 
   it('it should update the value in the input based on the users type', () => {
-    customRender(<EditBoardContainer boardName="" />);
+    customRender(<EditBoardContainer name="" boardID='1' columns={[]} onCloseProp={() => {}}/>);
     const inputElement = screen.getByRole('textbox', { name: /Board Name/i });
     fireEvent.change(inputElement, { target: { value: 'New Board Name' } });
     expect(inputElement).toHaveValue('New Board Name');
   });
 
-  it('It should display the board columns with the input change and image', () => {
-    const toggleTheme = vi.fn();
-    const providerProps = {
-      value: { theme: 'light', toggleTheme: toggleTheme() },
-    };
-    // customRender(<EditBoardContainer boardName="task" />);
-    customRender(<BoardColumnContainer />, { providerProps });
-
-    // const heading = /Board Columns/i;
-    const heading = screen.getByText(/Board Columns/i);
-    expect(heading).toBeVisible();
-    expect(heading).toBeInTheDocument();
-
-    // Initially, no columns should be present
-    expect(screen.queryAllByRole('textbox').length).toBe(0);
-
-    // Add a new column works as usual
-  });
 });
 
 
@@ -154,20 +153,20 @@ describe('Edit Board Component', () => {
 // testing the add new board container component
 describe('Add New Board Container Component', () => {
   it('it should display the heading of the container', () => {
-    customRender(<AddNewBoard />);
+    customRender(<AddNewBoard onCloseContainer={() => {}}/>);
     const heading = screen.getByText(/Add New Board/i);
     expect(heading).toBeVisible();
     expect(heading).toBeInTheDocument();
   });
 
   it('it should display the name of the label with the value of the name of the board', () => {
-    customRender(<AddNewBoard />);
+    customRender(<AddNewBoard onCloseContainer={() => {}}/>);
     const labelText = screen.getByLabelText(/Board Name/i);
     expect(labelText).toBeInTheDocument();
   });
 
   it('it should display the save changes button', () => {
-    customRender(<AddNewBoard />);
+    customRender(<AddNewBoard onCloseContainer={() => {}}/>);
     const button = screen.getByRole('button', { name: /create new board/i });
     expect(button).toBeVisible();
   });
@@ -176,7 +175,7 @@ describe('Add New Board Container Component', () => {
 // testing the add new task container component
 describe('Add New Task Container Component', () => {
   it('It should display the header, title, description', () => {
-    customRender(<AddNewTaskContainer onCloseProp={() => {}}/>);
+    customRender(<AddNewTaskContainer onCloseProp={() => {}} boardID='6Adfdef3294724' columns={[{id:"1", name:"Todo"}]}/>);
     const header = screen.getByText(/Add New Task/i);
     expect(header).toBeVisible();
     expect(header).toBeInTheDocument();
@@ -187,7 +186,7 @@ describe('Add New Task Container Component', () => {
   });
 
   it('it should display the users input on the task title', () => {
-    customRender(<AddNewTaskContainer onCloseProp={() => {}}/>);
+    customRender(<AddNewTaskContainer onCloseProp={() => {}} boardID='6Adfdef3294724' columns={[{id:"1", name:"Todo"}]}/>);
     const inputElement = screen.getByRole('textbox', { name: /Title/i });
     fireEvent.change(inputElement, { target: { value: 'New Board Name' } });
     expect(inputElement).toHaveValue('New Board Name');

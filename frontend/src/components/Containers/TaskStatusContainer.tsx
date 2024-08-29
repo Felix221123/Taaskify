@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '../../Context/UseTheme';
 import { ChevronIconDown } from '../../Icons/ChevronIconDown';
+import { CapitaliseAfterSpace } from '../../utils/CapitaliseAfterSpace';
 
 
 
 interface TaskStatusDropdownProps {
-  control: any;
-  name: string;
   status: string;
   setStatus: (status: string) => void;
-  columns: string[];
+  columns: ColumnOption[];
+  containerName: string;
+}
+
+interface ColumnOption {
+  id: string;
+  name: string;
 }
 
 
-
-export const TaskStatusDropdown: React.FC<TaskStatusDropdownProps> = ({ status, setStatus, columns }) => {
+export const TaskStatusDropdown: React.FC<TaskStatusDropdownProps> = ({ status, setStatus, columns, containerName }) => {
   const { theme } = useTheme();
+  // Local state to manage the status
+  const [localStatus, setLocalStatus] = useState(status);
 
   // Input color theme
   const TextColorOnChange: React.CSSProperties = {
@@ -27,27 +33,39 @@ export const TaskStatusDropdown: React.FC<TaskStatusDropdownProps> = ({ status, 
     color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
+  // handles the form submission
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setStatus(e.target.value);
+    const newStatus = e.target.value;
+    setLocalStatus(newStatus);
+    setStatus(newStatus);
+    console.log("Status selected:", newStatus);
   };
+
+
+
+  useEffect(() => {
+    if (!status && columns.length > 0) {
+      setStatus(columns[0].id);
+      console.log("Default status set:", columns[0].id);
+    }
+  }, [status, columns, setStatus]);
+
+
 
   return (
     <div className="card">
       <label htmlFor="taskStatus" className="font-bold" style={TextColorOnChange}>
-        Status
+        {containerName}
         <div className="select-container cursor-pointer">
           <select
-            value={status}
+            value={localStatus}
             onChange={handleStatusChange}
             style={TitleColorOnChange}
-            className="dropdownContainer w-full h-10"
+            className="dropdownContainer w-full h-10 font-medium"
           >
-            <option value="" disabled>
-              Select Status
-            </option>
             {columns.map((column) => (
-              <option key={column} value={column}>
-                {column}
+              <option key={column.id} value={column.id} style={TitleColorOnChange}>
+                {CapitaliseAfterSpace(column.name)}
               </option>
             ))}
           </select>

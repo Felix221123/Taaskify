@@ -3,11 +3,11 @@ import { FetchData } from "../../FetchManager/fetchData";
 
 
 interface CreateTaskProps {
-  userID: string;
+  userID: string | undefined;
   boardID: string;
   columnID: string;
   taskTitle: string;
-  description?: string;
+  description: string;
   subtasks: Array<{ title: string }>;
 }
 
@@ -37,7 +37,6 @@ const CreateTaskApi = async (taskData: CreateTaskProps):Promise<UserBoardData> =
   }
 
   return response.json();
-
 
 }
 
