@@ -41,7 +41,7 @@
     }
 
     > .taskColumnName , .taskCount{
-      color: $hoverPurpleclr;
+      color: $deepPurpleclr;
     }
   }
 
@@ -85,6 +85,9 @@
     }
   }
 }
+
+
+
 
 // Including the right mixins for the right selectors
 .emptyBoardContainer {

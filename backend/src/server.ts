@@ -3,7 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import { forgotPasswordRoute, logInRoute, logOutRoute, resetPasswordRoute, signUpRoute, updatePasswordRoute, validateTokenRoute } from './Routes/User/UsersRoutes';
-import { createBoardRoute, createTaskRoute, deleteBoardRoute, deleteTaskRoute, editBoardRoute, editTaskRoute } from './Routes/Board/BoardRoutes';
+import { createBoardRoute, createTaskRoute, deleteBoardRoute, deleteTaskRoute, editBoardRoute, editTaskRoute, updateSubtaskStatusRoute } from './Routes/Board/BoardRoutes';
 import config from './Config/config';
 
 
@@ -72,6 +72,8 @@ app.use("/api/user/board/", editBoardRoute)
 // endpoint for users to edit task
 app.use("/api/user/board/" , editTaskRoute)
 
+// endpoint for users to update subtask status
+app.use("/api/user/board/" , updateSubtaskStatusRoute)
 
 
 
@@ -94,7 +96,7 @@ app.use((_req: Request, _res: Response, next: NextFunction) => {
 })
 
 
-
+// addition function
 export const Add = (a: number, b: number) => {
   return a + b
 }

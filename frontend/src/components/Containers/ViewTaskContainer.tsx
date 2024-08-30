@@ -6,24 +6,38 @@ import {
   SubTaskEditTaskColumnContainerProps,
   Task,
 } from '../Interface/AddTaskInterface';
-import { TaskStatus } from './AddNewTaskContainer';
 import './ContainersStyles.css';
 import { EditDeleteContainer } from './EditDeleteContainer';
 import { CountCompletedTasks } from '../../utils/CountSubtask';
+import { TaskStatusDropdown } from './TaskStatusContainer';
+import { useUser } from '../../Context/useUser';
+import UpdateSubtaskStatusApi from '../../packages/Api/BoardApi/UpdateSubtaskStatusApi';
 
 
-interface OnClickEditDeleteProps{
-  ontoggleEdit:() => void;
-  ontoggleDelete:() => void;
+interface OnClickEditDeleteProps {
+  ontoggleEdit: () => void;
+  ontoggleDelete: () => void;
 }
 
-export const ViewTaskContainer: React.FC<Task & OnClickEditDeleteProps> = ({
+interface ViewTaskContainerProps extends Task, OnClickEditDeleteProps {
+  columns: { id: string; name: string }[];
+  boardID: string;
+  columnID: string;
+  taskID: string;
+}
+
+
+export const ViewTaskContainer: React.FC<ViewTaskContainerProps> = ({
   title,
   description,
   status,
+  columns,
   subtasks,
   ontoggleEdit,
-  ontoggleDelete
+  ontoggleDelete,
+  boardID,
+  columnID,
+  taskID,
 }) => {
   const [task, setTask] = useState<Task>({
     title,
@@ -71,14 +85,19 @@ export const ViewTaskContainer: React.FC<Task & OnClickEditDeleteProps> = ({
           setSubtasks={(newSubtasks) =>
             setTask({ ...task, subtasks: newSubtasks })
           }
+          boardID={boardID}
+          columnID={columnID}
+          taskID={taskID}
         />
-        <TaskStatus
-          taskContainerName="Current Status"
-          status={task?.status ?? ""}
+        <TaskStatusDropdown
+          status={task.status ?? ""}
           setStatus={(newStatus) => setTask({ ...task, status: newStatus })}
+          columns={columns}
+          containerName="Current Status"
         />
+        {/* button for edit / delete task container */}
         <div className="editDeleteBtn">
-          {deleEditContainer && <EditDeleteContainer containerName="task" onClickEditProp={ontoggleEdit} onClickDeleteProp={ontoggleDelete}/>}
+          {deleEditContainer && <EditDeleteContainer containerName="task" onClickEditProp={ontoggleEdit} onClickDeleteProp={ontoggleDelete} />}
         </div>
       </div>
     </>
@@ -88,26 +107,68 @@ export const ViewTaskContainer: React.FC<Task & OnClickEditDeleteProps> = ({
 
 
 
+interface ViewTaskSubTaskInterfaceProps extends SubTaskEditTaskColumnContainerProps {
+  boardID: string;
+  columnID: string;
+  taskID: string;
+}
+
+
 
 // sub task container for the task Container
 export const SubTaskForTaskContainer = ({
   subtasks,
   setSubtasks,
-}: SubTaskEditTaskColumnContainerProps) => {
+  boardID,
+  columnID,
+  taskID,
+}: ViewTaskSubTaskInterfaceProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [checkedIndices, setCheckedIndices] = useState<boolean[]>(
     subtasks.map((subtask) => subtask.isCompleted)
   );
 
+  // pulling the user's info
+  const { user } = useUser();
+
   // handles the toggle checked on each task
-  const handleCheckToggle = (index: number) => {
-    const updatedCheckedIndices = [...checkedIndices];
-    updatedCheckedIndices[index] = !updatedCheckedIndices[index];
-    setCheckedIndices(updatedCheckedIndices);
-    const updatedSubtasks = [...subtasks];
-    updatedSubtasks[index].isCompleted = !updatedSubtasks[index].isCompleted;
-    setSubtasks(updatedSubtasks);
+  const handleCheckToggle = async (index: number, isChecked: boolean) => {
+    try {
+      const updatedCheckedIndices = [...checkedIndices];
+      updatedCheckedIndices[index] = isChecked;
+      setCheckedIndices(updatedCheckedIndices);
+
+      const updatedSubtasks = [...subtasks];
+      updatedSubtasks[index].isCompleted = isChecked;
+      setSubtasks(updatedSubtasks);
+
+      // getting the users ID
+      const userID = user?.user._id
+
+      // Call the API to update the subtask status
+      await UpdateSubtaskStatusApi({
+        userID,
+        boardID,
+        columnID,
+        taskID,
+        subtaskID: updatedSubtasks[index]._id,
+        isCompleted: isChecked,
+      });
+
+
+    } catch (error) {
+      console.error('Failed to update subtask status:', error);
+      // Optionally, revert the change in case of error
+      const revertedCheckedIndices = [...checkedIndices];
+      revertedCheckedIndices[index] = !isChecked;
+      setCheckedIndices(revertedCheckedIndices);
+
+      const revertedSubtasks = [...subtasks];
+      revertedSubtasks[index].isCompleted = !isChecked;
+      setSubtasks(revertedSubtasks);
+    }
   };
+
 
   // sets the hovered task
   const handleMouseOver = (index: number) => {
@@ -174,7 +235,8 @@ export const SubTaskForTaskContainer = ({
               >
                 <IconCheck
                   index={index}
-                  onToggle={() => handleCheckToggle(index)}
+                  isCompleted={subTask.isCompleted}
+                  onToggle={(isChecked) => handleCheckToggle(index, isChecked)}
                 />
                 <p
                   className="titleText font-bold text-left"

@@ -63,7 +63,7 @@
   border-radius: 50%;
 }
 .taskColumnContainer > .taskColumnNameCount > .taskColumnName, .taskColumnContainer > .taskColumnNameCount .taskCount {
-  color: #a8a4ff;
+  color: #635fc7;
 }
 .taskColumnContainer > .taskScrollableContainer {
   display: flex;

@@ -4,10 +4,10 @@ import { Navbar } from '../components/Navbar/Navbar';
 import './taaskifyStyles.css';
 import { useTheme } from '../Context/UseTheme';
 import React, { useEffect, useRef, useState } from 'react';
-import { AddNewBoard } from '../components/Containers/AddNewBoard';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useUser } from '../Context/useUser';
 import { useBoard } from '../Context/useBoardContext';
+import { EditBoardContainer } from '../components/Containers/EditBoardContainer';
 
 
 
@@ -20,7 +20,7 @@ export const TaaskifyApp = () => {
 
   // Get user data from UserContext
   const [newColumn, setNewColumn] = useState<boolean>(false);
-  const addNewBoardContainer = useRef<HTMLDivElement>(null);
+  const editBoardBoardContainer = useRef<HTMLDivElement>(null);
 
   // constructing data for retrieval
   const boards = user?.user.boards || [];
@@ -30,6 +30,7 @@ export const TaaskifyApp = () => {
     emailAddress: user?.user.emailAddress || '',
   };
 
+  // pulling theme from context
   const { theme } = useTheme();
 
   // changing the bg of the body element in the App
@@ -46,7 +47,8 @@ export const TaaskifyApp = () => {
 
   // theme to handle the new column container
   const handleBgTheme: React.CSSProperties = {
-    background: theme === "dark" ? "linear-gradient(to bottom,rgba(43, 44, 55, 0.9) 0%,rgba(43, 44, 55, 0.5) 100%)" : "linear-gradient(to bottom,rgba(233, 239, 250, 1) 0%,rgba(233, 239, 250, 0.5) 100%)"
+    background: theme === "dark" ? "linear-gradient(to bottom,rgba(43, 44, 55, 0.9) 0%,rgba(43, 44, 55, 0.5) 100%)" : "linear-gradient(to bottom,rgba(233, 239, 250, 1) 0%,rgba(233, 239, 250, 0.5) 100%)",
+    opacity: "0.25"
   }
 
   // handles the new column button
@@ -58,7 +60,7 @@ export const TaaskifyApp = () => {
   // hook to handle clicks outside the container
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (newColumn && addNewBoardContainer.current && !addNewBoardContainer.current.contains(event.target as Node)) {
+      if (newColumn && editBoardBoardContainer.current && !editBoardBoardContainer.current.contains(event.target as Node)) {
         setNewColumn(false);
       }
     }
@@ -76,6 +78,14 @@ export const TaaskifyApp = () => {
     visible: { opacity: 1 },
     exit: { opacity: 0 },
   });
+
+  // Pulling the current boards data from here
+  const currentBoardID = boards[activeBoardIndex]?._id || ""
+  const columns = boards[activeBoardIndex]?.columns.map((column: any) => ({
+    id: column._id,
+    name: column.name,
+    tasks : column.tasks
+  })) || [];
 
 
 
@@ -101,12 +111,12 @@ export const TaaskifyApp = () => {
         {/* shows the empty component when users has no column */}
         {
           boards[activeBoardIndex]?.columns?.length === 0 && (
-            <EmptyColumn container='column'/>
+            <EmptyColumn container='column' onEditBoardTrigger={handlesNewColumn}/>
         )}
         {/* shows the empty component when users has no column */}
         {
           boards.length === 0 && (
-            <EmptyColumn container='boards'/>
+            <EmptyColumn container='boards' onEditBoardTrigger={handlesNewColumn}/>
           )
         }
         {/* shows the component when users has column but still want to create more columns*/}
@@ -126,9 +136,9 @@ export const TaaskifyApp = () => {
             animate={getMenuAnimationOnMobile().visible}
             exit={getMenuAnimationOnMobile().exit}
             transition={{ duration: 0.5 }}
-            ref={addNewBoardContainer}
+            ref={editBoardBoardContainer}
           >
-            <AddNewBoard onCloseContainer={() => {}}/>
+            <EditBoardContainer name={boards[activeBoardIndex]?.name} boardID={currentBoardID} columns={columns} onCloseProp={() => setNewColumn(false)}/>
           </motion.div>
         )}
       </AnimatePresence>

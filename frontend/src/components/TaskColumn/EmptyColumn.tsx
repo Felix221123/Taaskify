@@ -7,24 +7,29 @@ import { AddNewBoard } from '../Containers/AddNewBoard';
 
 interface emptyColumnProp {
   container: string
+  onEditBoardTrigger: () => void;
 }
 
 
-export const EmptyColumn: React.FC<emptyColumnProp> = ({ container }) => {
-  const [newColumnContainer, setNewColumnContainer] = useState<boolean>(false);
+export const EmptyColumn: React.FC<emptyColumnProp> = ({ container,onEditBoardTrigger }) => {
+  const [newBoardContainer, setNewBoardContainer] = useState<boolean>(false);
   const addNewBoardContainer = useRef<HTMLDivElement>(null);
 
 
   // function to handle the creation of columns
-  const handleNewColumn = () => {
-    setNewColumnContainer(true);
+  const handleNewBoard = () => {
+    setNewBoardContainer(true);
   }
+
+  const handleNewColumn = () => {
+    onEditBoardTrigger(); // Trigger the prop passed from the parent component
+  };
 
   // hook to handle clicks outside the container
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (newColumnContainer && addNewBoardContainer.current && !addNewBoardContainer.current.contains(event.target as Node)) {
-        setNewColumnContainer(false);
+      if (newBoardContainer && addNewBoardContainer.current && !addNewBoardContainer.current.contains(event.target as Node)) {
+        setNewBoardContainer(false);
       }
     }
 
@@ -32,7 +37,7 @@ export const EmptyColumn: React.FC<emptyColumnProp> = ({ container }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [newColumnContainer])
+  }, [newBoardContainer])
 
 
   // animations for navbar container on mobile
@@ -61,16 +66,15 @@ export const EmptyColumn: React.FC<emptyColumnProp> = ({ container }) => {
             <p className="text font-bold text-center" data-testid="emptyText">
               Your Taaskify account has no boards, create a board.
             </p>
-            <AddNewColumnBtn buttonName="+ Add New Board" onClickProp={handleNewColumn} />
+            <AddNewColumnBtn buttonName="+ Add New Board" onClickProp={handleNewBoard} />
           </div>
         )}
 
 
-      {/* replace this with the edit board container */}
-      {/* TODO:replace this with the edit board container */}
+      {/* calling the add new board container when there is no board in the application*/}
       <AnimatePresence>
         {
-          newColumnContainer && (
+          newBoardContainer && (
             <motion.div
               className="containerOpenForBoard"
               initial={getMenuAnimationOnMobile().hidden}
@@ -85,7 +89,7 @@ export const EmptyColumn: React.FC<emptyColumnProp> = ({ container }) => {
       </AnimatePresence>
 
       {/* condition of overlay effect */}
-      {newColumnContainer && (<div id="overLayEffect"></div>)}
+      {newBoardContainer && (<div id="overLayEffect"></div>)}
     </>
   );
 };

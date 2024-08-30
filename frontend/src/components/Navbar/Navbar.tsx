@@ -51,8 +51,6 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
   // useEffect to handle the active board
   useEffect(() => {
     changeBoard(activeBoardIndex);
-    console.log(`here is the active board`, activeBoardIndex);
-    console.log(boards[activeBoardIndex]);
   }, [activeBoardIndex, changeBoard, boards]);
 
   // handles the visibility of the menu container

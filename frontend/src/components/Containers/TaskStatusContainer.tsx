@@ -38,11 +38,9 @@ export const TaskStatusDropdown: React.FC<TaskStatusDropdownProps> = ({ status, 
     const newStatus = e.target.value;
     setLocalStatus(newStatus);
     setStatus(newStatus);
-    console.log("Status selected:", newStatus);
   };
 
-
-
+  // useEffect to check whether there is column still available
   useEffect(() => {
     if (!status && columns.length > 0) {
       setStatus(columns[0].id);

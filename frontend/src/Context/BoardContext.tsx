@@ -6,8 +6,6 @@ export const BoardContext = createContext<any>(null);
 export const BoardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [activeBoardIndex, setActiveBoardIndex] = useState<number>(0);
 
-  console.log(`users active board, ${activeBoardIndex}`);
-
   const changeBoard = (index: number) => {
     setActiveBoardIndex(index);
   };

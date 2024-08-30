@@ -191,6 +191,10 @@ export const TaskColumn: React.FC<TaskColumnProps> = ({ name, tasks, boards , co
                 subtasks={selectedViewTask.subtasks}
                 ontoggleEdit={() => handleEditDeleteTaskBtn("edit")}
                 ontoggleDelete={() => handleEditDeleteTaskBtn("delete")}
+                columns={columns}
+                boardID={currentBoardID}
+                columnID={columnID}
+                taskID={selectedViewTask._id}
               />
             </motion.div>
           </>

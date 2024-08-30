@@ -4,55 +4,13 @@ import { EditBoardContainer } from '../components/Containers/EditBoardContainer'
 import { AddNewBoard } from '../components/Containers/AddNewBoard';
 import {
   AddNewTaskContainer,
-  SubTaskAddNewTaskColumnContainer,
 } from '../components/Containers/AddNewTaskContainer';
 import { EditDeleteContainer } from '../components/Containers/EditDeleteContainer';
 import {
-  SubTaskForTaskContainer,
   ViewTaskContainer,
 } from '../components/Containers/ViewTaskContainer';
 import { customRender } from '../utils/testingUtils';
-import React, { useState } from 'react';
-import { Task } from '../components/Interface/AddTaskInterface';
 import { SettingsContainer } from '../components/Containers/SettingsContainer';
-
-
-
-
-
-export const SubtaskWrapper: React.FC<{ container: string }> = ({
-  container,
-}) => {
-  const [task, setTask] = useState<Task>({
-    title: '',
-    description: '',
-    status: 'Todo',
-    subtasks: [
-      { title: '', isCompleted: false },
-      { title: '', isCompleted: false },
-    ],
-  });
-
-  return (
-    <>
-      {container === 'SubTaskAddNewTaskColumnContainer' ? (
-        <SubTaskAddNewTaskColumnContainer
-          subtasks={task.subtasks}
-          setSubtasks={(newSubtasks) =>
-            setTask({ ...task, subtasks: newSubtasks })
-          }
-        />
-      ) : container === 'SubTaskForTaskContainer' ? (
-        <SubTaskForTaskContainer
-          subtasks={task.subtasks}
-          setSubtasks={(newSubtasks) =>
-            setTask({ ...task, subtasks: newSubtasks })
-          }
-        />
-      ) : null}
-    </>
-  );
-};
 
 
 
@@ -198,88 +156,9 @@ describe('Add New Task Container Component', () => {
     fireEvent.change(textAreaElement, { target: { value: 'New Board Name' } });
     expect(textAreaElement).toHaveValue('New Board Name');
   });
-
-  it('it should display board columns title with the columns', () => {
-    customRender(
-      <SubtaskWrapper container="SubTaskAddNewTaskColumnContainer" />
-    );
-    const paragraph = screen.getByText(/Subtasks/i);
-    expect(paragraph).toBeVisible();
-    expect(paragraph).toBeInTheDocument();
-  });
 });
 
 
-
-describe('SubTaskColumnContainer task component', () => {
-  test('renders the initial columns', () => {
-    customRender(
-      <SubtaskWrapper container="SubTaskAddNewTaskColumnContainer" />
-    );
-
-    // Check if the initial two columns are rendered with correct placeholders
-    expect(screen.getByPlaceholderText('e.g. Make coffee')).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText('e.g. Drink coffee & smile')
-    ).toBeInTheDocument();
-  });
-
-  test('adds a new column when the button is clicked', () => {
-    customRender(
-      <SubtaskWrapper container="SubTaskAddNewTaskColumnContainer" />
-    );
-
-    const addButton = screen.getByTestId('custom-secondary-button');
-    fireEvent.click(addButton);
-    // Check if the new column is added with the correct placeholder
-    expect(screen.getByPlaceholderText('e.g. Sample Text')).toBeInTheDocument();
-  });
-
-  test('calls handleColumnChange on input change', () => {
-    customRender(
-      <SubtaskWrapper container="SubTaskAddNewTaskColumnContainer" />
-    );
-
-    const firstInput = screen.getByPlaceholderText(
-      'e.g. Make coffee'
-    ) as HTMLInputElement;
-    fireEvent.change(firstInput, { target: { value: 'New Task' } });
-
-    expect(firstInput.value).toBe('New Task');
-  });
-
-  test('does not remove the first two columns', () => {
-    customRender(
-      <SubtaskWrapper container="SubTaskAddNewTaskColumnContainer" />
-    );
-
-    const firstCrossIcon = screen.getAllByTestId('removeIcon')[0];
-    fireEvent.click(firstCrossIcon);
-
-    // Check if the first two columns are still present
-    expect(screen.getByPlaceholderText('e.g. Make coffee')).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText('e.g. Drink coffee & smile')
-    ).toBeInTheDocument();
-  });
-
-  test('removes a column when the cross icon is clicked', () => {
-    customRender(
-      <SubtaskWrapper container="SubTaskAddNewTaskColumnContainer" />
-    );
-
-    const addButton = screen.getByTestId('custom-secondary-button');
-    fireEvent.click(addButton); // Add a new column
-
-    const crossIcons = screen.getAllByTestId('removeIcon');
-    fireEvent.click(crossIcons[2]); // Remove the newly added column
-
-    // Check if the new column is removed
-    expect(
-      screen.queryByPlaceholderText('e.g. Sample Text')
-    ).not.toBeInTheDocument();
-  });
-});
 
 // testing the edit / delete container component
 describe('Edit Delete container', () => {
@@ -321,6 +200,10 @@ describe('Task Container Component', () => {
         subtasks={task.subtasks}
         ontoggleDelete={() => {}}
         ontoggleEdit={() => {}}
+        columns={[]}
+        boardID='1'
+        columnID='1'
+        taskID='1'
       />
     );
     const editBtn = screen.getByTestId('editBtn');
@@ -331,12 +214,6 @@ describe('Task Container Component', () => {
 
     fireEvent.click(editBtn);
     expect(container).not.toBeInTheDocument();
-  });
-
-  it('it should check the completed task', () => {
-    customRender(<SubtaskWrapper container="SubTaskForTaskContainer" />);
-    expect(screen.getByTestId('subtaskContainer')).toBeInTheDocument();
-    expect(screen.getByTestId('subtaskContainer')).toBeVisible();
   });
 });
 

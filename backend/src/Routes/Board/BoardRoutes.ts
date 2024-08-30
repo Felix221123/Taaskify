@@ -7,6 +7,7 @@ import DeleteBoardController from "../../Controller/Board/DeleteBoardController"
 import DeleteTaskController from "../../Controller/Board/DeleteTaskController";
 import EditBoardController from "../../Controller/Board/EditBoardController";
 import EditTaskController from "../../Controller/Board/EditTaskController";
+import UpdateSubtaskStatusController from "../../Controller/Board/UpdateSubtaskStatusController";
 
 
 
@@ -34,3 +35,6 @@ export const editBoardRoute = router.patch("/editboard" , EditBoardController)
 
 // router to edit task for users
 export const editTaskRoute = router.patch("/edittask" , EditTaskController)
+
+// router to update the status of a subtask for users
+export const updateSubtaskStatusRoute = router.put("/update-subtask-status" , UpdateSubtaskStatusController)

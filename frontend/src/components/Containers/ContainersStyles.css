@@ -386,7 +386,7 @@
 .ViewTaskContainer > .subTaskContainer > .listOfTask {
   display: flex;
   flex-direction: column;
-  height: 7rem;
+  max-height: 7rem;
   overflow: hidden;
 }
 .ViewTaskContainer > .subTaskContainer > .listOfTask > .scrollableContainer {

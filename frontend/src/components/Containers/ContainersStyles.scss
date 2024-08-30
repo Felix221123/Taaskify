@@ -288,7 +288,7 @@
 
     > .listOfTask {
       @include flex(column);
-      height: 7rem;
+      max-height: 7rem;
       overflow: hidden;
 
       > .scrollableContainer {

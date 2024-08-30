@@ -2,12 +2,9 @@ import { useTheme } from '../../Context/UseTheme';
 import React from 'react';
 import {
   onCloseContainerProp,
-  SubTaskEditTaskColumnContainerProps,
   Task,
 } from '../Interface/AddTaskInterface';
 import './ContainersStyles.css';
-import { SecondaryBtn } from '../Buttons/SecondaryBtn';
-import { CrossIcon } from '../../Icons/Cross';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
 import { CloseIcon } from '../../Icons/CloseIcon';
 import { useForm,Controller } from 'react-hook-form';
@@ -190,84 +187,6 @@ a little."
           {/* primary button for submission */}
           <PrimaryBtnSmall buttonName="Save Changes" btnType='submit'/>
         </form>
-      </div>
-    </>
-  );
-};
-
-
-
-
-
-
-// sub component used to get the subtask from the user for the main component
-export const SubTaskEditTaskColumnContainer: React.FC<
-  SubTaskEditTaskColumnContainerProps
-> = ({ subtasks, setSubtasks }) => {
-  // const to keep track of the columns available
-  // Initialize with the first two subtasks
-  const { theme } = useTheme();
-  const TitleColorOnChange: React.CSSProperties = {
-    color: theme === 'light' ? '#000112' : '#FFFFFF',
-  };
-
-  const TextColorOnChange: React.CSSProperties = {
-    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
-  };
-
-  const addNewColumn = () => {
-    setSubtasks([...subtasks, { title: '', isCompleted: false }]);
-    console.log('Add new column clicked. Current columns:', subtasks);
-  };
-
-  const handleColumnChange = (index: number, value: string) => {
-    const newSubtasks = [...subtasks];
-    newSubtasks[index].title = value;
-    setSubtasks(newSubtasks);
-  };
-
-  const removeColumn = (index: number) => {
-    if (index < 2) return; // Prevent deletion of the first two columns
-    const newSubtasks = subtasks.filter((_, i) => i !== index);
-    setSubtasks(newSubtasks);
-  };
-
-  return (
-    <>
-      <div className="boardColumnsContainer">
-        <p className="boardColumnsText font-bold" style={TextColorOnChange}>
-          Board Columns
-        </p>
-        {/* TODO:CREATE A EDIT FOR THE COLUMNS BOARD */}
-        <div className="containerForColumn">
-          {/* creating first two subtask */}
-          {/* first one here */}
-          <div className="scrollableContainer">
-            {subtasks.map((column, index) => (
-              <div className="eachColumnContainer" key={index}>
-                <label htmlFor={`eachColumnBoard-${index}`}>
-                  <input
-                    type="text"
-                    id={`eachColumnBoard-${index}`}
-                    value={column.title}
-                    style={TitleColorOnChange}
-                    onChange={(e) => handleColumnChange(index, e.target.value)}
-                    placeholder={
-                      index === 0
-                        ? 'e.g. Make coffee'
-                        : index === 1
-                          ? 'e.g. Drink coffee & smile'
-                          : 'e.g. Sample Text'
-                    }
-                  />
-                </label>
-                <CrossIcon onClick={() => removeColumn(index)} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <SecondaryBtn buttonName="+ Add New Column" onClickProp={addNewColumn} />
       </div>
     </>
   );
