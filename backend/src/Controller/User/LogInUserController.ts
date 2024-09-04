@@ -41,6 +41,18 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
       });
     }
 
+    // Remove the password from the user object before returning it
+    const userWithoutPassword = {
+      _id: user._id,
+      emailAddress: user.emailAddress,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      boards: user.boards,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      __v: user.__v,
+    };
+
     // using the sign jwt to assign a token to the user
     signJWT(user, (error, token) => {
       if (error) {
@@ -63,7 +75,7 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
 
         return res.status(200).json({
           message: "Auth Successful",
-          user,
+          user:userWithoutPassword,
         });
       }
     });

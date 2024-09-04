@@ -13,7 +13,7 @@
   z-index: -1;
 
   > .text {
-    color: $mediumGrey;
+    color: $linesLight;
     @include fontSize15px();
     padding: 0rem 0.5rem;
   }
@@ -41,7 +41,7 @@
     }
 
     > .taskColumnName , .taskCount{
-      color: $hoverPurpleclr;
+      color: $deepPurpleclr;
     }
   }
 
@@ -85,6 +85,9 @@
     }
   }
 }
+
+
+
 
 // Including the right mixins for the right selectors
 .emptyBoardContainer {

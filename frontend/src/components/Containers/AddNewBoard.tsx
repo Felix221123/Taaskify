@@ -1,20 +1,39 @@
 import React, { useState } from 'react';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
-import { SecondaryBtn } from '../Buttons/SecondaryBtn';
 import './ContainersStyles.css';
-import { useTheme } from '../../Context/UseTheme';
-import { CrossIcon } from '../../Icons/Cross';
+import { useTheme } from '../../Context/Theme/UseTheme';
+import { useForm } from 'react-hook-form';
+import CreateNewBoardApi from '../../packages/Api/BoardApi/CreateNewBoardApi';
+import { useUser } from '../../Context/User/useUser';
+import { openCustomNotification } from '../../utils/notificationUtil';
+import { SuccessIcon } from '../../Icons/SuccessIcon';
+import { ErrorIcon } from '../../Icons/ErrorIcon';
+import { OnContainerCloseProp } from '../Interface/Boards';
+import { NotificationContainerStyle } from '../../utils/NotificationContainerStyle';
+import { CapitaliseAfterSpace } from '../../utils/CapitaliseAfterSpace';
+import { BoardColumnContainer } from './BoardColumnContainer';
 
-export const AddNewBoard = () => {
-  const [boardName, setBoardName] = useState<string>('');
 
-  // handling the onchange of the input
-  const handleAddBoardOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBoardName(e.target.value);
-    console.log(boardName);
-  };
+interface CreateBoardFormData {
+  boardName: string;
+  columns: Array<{ name: string, tasks: [] }>;
+}
 
+
+
+
+export const AddNewBoard: React.FC<OnContainerCloseProp> = ({ onCloseContainer }) => {
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm<CreateBoardFormData>({
+    defaultValues: {
+      boardName: '',
+      columns: [{ name: 'Todo' }],
+    },
+  });
+  const [boardError, setBoardError] = useState<string | null>(null);
+
+  // useTheme and useUser context
   const { theme } = useTheme();
+  const { user } = useUser()
 
   // background theme colors
   const boardContainerTheme: React.CSSProperties = {
@@ -31,8 +50,43 @@ export const AddNewBoard = () => {
     color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
 
+  // Submit handler
+  const onSubmit = async (data: CreateBoardFormData) => {
+    try {
+      // passing the users id from the useUser context
+      const userID = user?.user._id;
+      const boardName = CapitaliseAfterSpace(data.boardName) || "";
 
+      // calling the create new board api for a user
+      await CreateNewBoardApi({ userID, name: boardName, columns: data.columns });
 
+      reset(); // Reset form after successful submission
+
+      // calling the container after a successful board creating
+      onCloseContainer()
+
+      // notification for creating boards successfully
+      openCustomNotification(
+        <>
+          <NotificationContainerStyle message="Board Created">
+            <SuccessIcon />
+          </NotificationContainerStyle>
+        </>,
+        <>Your new board has been successfully created.</>
+      );
+
+    } catch (err) {
+      // passing a string and a notification component to a state when there is an error in creating a board
+      setBoardError('Failed to create the board. Please try again.');
+      openCustomNotification(
+        <NotificationContainerStyle message='Error'>
+          <ErrorIcon />
+        </NotificationContainerStyle>,
+        <>Failed to create the board. Please ensure there is a "Board Name".</>
+      );
+      console.error(err);
+    }
+  };
 
 
   return (
@@ -45,88 +99,33 @@ export const AddNewBoard = () => {
         <article className="editBoardText font-bold" style={TitleColorOnChange}>
           Add New Board
         </article>
-        <div className="boardNameContainer">
-          <label
-            htmlFor="boardName"
-            className="font-bold"
-            style={TextColorOnChange}
-          >
-            Board Name
-            <input
-              type="text"
-              id="boardName"
-              value={boardName}
-              onChange={handleAddBoardOnChange}
-              className="font-medium leading-6"
-              style={TitleColorOnChange}
-              placeholder="e.g. Web Design"
-            />
-          </label>
-        </div>
-        <BoardColumnContainerForNewBoards />
-        <PrimaryBtnSmall buttonName="Save Changes" />
-      </div>
-    </>
-  );
-};
-
-export const BoardColumnContainerForNewBoards: React.FC = () => {
-  // const to keep track of the columns available
-  const [boardColumns, setBoardColumns] = useState<string[]>(['Todo', 'Doing']);
-
-  const { theme } = useTheme();
-  const TitleColorOnChange: React.CSSProperties = {
-    color: theme === 'light' ? '#000112' : '#FFFFFF',
-  };
-
-  const TextColorOnChange: React.CSSProperties = {
-    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
-  };
-
-  const addNewColumn = () => {
-    setBoardColumns((prevColumns) => [...prevColumns, '']);
-    console.log('Add new column clicked. Current columns:', boardColumns);
-  };
-
-  const handleColumnChange = (index: number, value: string) => {
-    const newColumns = [...boardColumns];
-    newColumns[index] = value;
-    setBoardColumns(newColumns);
-  };
-
-  const removeColumn = (index: number) => {
-    const newColumns = boardColumns.filter((_, i) => i !== index);
-    setBoardColumns(newColumns);
-  };
-
-  return (
-    <>
-      <div className="boardColumnsContainer">
-        <p className="boardColumnsText font-bold" style={TextColorOnChange}>
-          Board Columns
-        </p>
-        {/* TODO:CREATE A EDIT FOR THE COLUMNS BOARD */}
-        <div className="containerForColumn">
-          <div className="scrollableContainer">
-            {boardColumns.map((column, index) => (
-              <div className="eachColumnContainer" key={index}>
-                <label htmlFor={`eachColumnBoard-${index}`}>
-                  <input
-                    type="text"
-                    id={`eachColumnBoard-${index}`}
-                    value={column}
-                    style={TitleColorOnChange}
-                    onChange={(e) => handleColumnChange(index, e.target.value)}
-                  />
-                </label>
-                <CrossIcon onClick={() => removeColumn(index)} />
-              </div>
-            ))}
+        <form action="" onSubmit={handleSubmit(onSubmit)} method='post'>
+          <div className="boardNameContainer">
+            <label
+              htmlFor="boardName"
+              className="font-bold"
+              style={TextColorOnChange}
+            >
+              Board Name
+              <input
+                type="text"
+                id="boardName"
+                {...register('boardName', { required: true })}
+                className="font-medium leading-6"
+                placeholder="e.g. Web Design"
+                style={{
+                  ...TitleColorOnChange,
+                  ...(errors.boardName || boardError ? { border: "2px solid red", outline: "none" } : {})
+                }}
+              />
+            </label>
+            {boardError && <span className="error-text text-xs text-center text-red-500">{boardError}</span>}
           </div>
-        </div>
-
-        <SecondaryBtn buttonName="+ Add New Column" onClickProp={addNewColumn} />
+          <BoardColumnContainer control={control} />
+          <PrimaryBtnSmall buttonName="Create New Board" btnType='submit' />
+        </form>
       </div>
     </>
   );
 };
+

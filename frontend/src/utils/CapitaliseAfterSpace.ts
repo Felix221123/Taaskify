@@ -1,5 +1,5 @@
 
-export const CapitaliseAfterSpace = (inputString:string|undefined) => {
+export const CapitaliseAfterSpace = (inputString:string| undefined) => {
   // Split the input string into an array of words
   const words = inputString?.split(' ');
 

@@ -3,26 +3,26 @@ import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import { forgotPasswordRoute, logInRoute, logOutRoute, resetPasswordRoute, signUpRoute, updatePasswordRoute, validateTokenRoute } from './Routes/User/UsersRoutes';
-import { createBoardRoute, createTaskRoute } from './Routes/Board/BoardRoutes';
+import { createBoardRoute, createTaskRoute, deleteBoardRoute, deleteTaskRoute, editBoardRoute, editTaskRoute, updateSubtaskStatusRoute } from './Routes/Board/BoardRoutes';
 import config from './Config/config';
 
 
 // defining the express app
 const app = express()
 
-// using the cookie parser in express
-app.use(cookieParser());
 
 // using cors in app
 app.use(cors({
-  origin: config.server.base_url, // Replace with your frontend URL
-  credentials: true,               // Allow credentials (cookies, authorization headers, etc.)
+  origin: config.server.base_url,
+  credentials: true,
 }));
+
+// using the cookie parser in express
+app.use(cookieParser());
 
 
 // making the app use json formatting data
 app.use(express.json());
-
 
 
 // Endpoint to create all routes to server
@@ -55,27 +55,25 @@ app.use("/api/user/" , resetPasswordRoute)
 
 // Endpoint routes for users board routes
 // endpoint for users to create boards
-app.use("/api/board/" , createBoardRoute);
+app.use("/api/user/board/" , createBoardRoute);
 
 // endpoint for users to create new task
-app.use("/api/board/" , createTaskRoute)
+app.use("/api/user/board/" , createTaskRoute)
 
+// endpoint for users to delete task
+app.use("/api/user/board/" , deleteBoardRoute);
 
+// endpoint for users to delete task
+app.use("/api/user/board/" , deleteTaskRoute);
 
+// endpoint for users to edit board
+app.use("/api/user/board/", editBoardRoute)
 
+// endpoint for users to edit task
+app.use("/api/user/board/" , editTaskRoute)
 
-
-
-
-
-
-
-
-
-
-
-
-
+// endpoint for users to update subtask status
+app.use("/api/user/board/" , updateSubtaskStatusRoute)
 
 
 
@@ -97,7 +95,7 @@ app.use((_req: Request, _res: Response, next: NextFunction) => {
 })
 
 
-
+// addition function
 export const Add = (a: number, b: number) => {
   return a + b
 }

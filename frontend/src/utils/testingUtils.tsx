@@ -1,8 +1,9 @@
-import { ThemeProvider } from '../Context/ThemeContext';
+import { ThemeProvider } from '../Context/Theme/ThemeContext';
 import { render, RenderOptions } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom'
-import { UserProvider } from '../Context/UserContext';
+import { UserProvider } from '../Context/User/UserContext';
+import { BoardProvider } from '../Context/Board/BoardContext';
 
 interface CustomRenderOptions extends RenderOptions {
   initialEntries?: string[];
@@ -26,9 +27,11 @@ export const customRender = (
 ) => {
   return render(
     <UserProvider>
-      <ThemeProvider {...providerProps}>
-        <MemoryRouter initialEntries={initialEntries}>{ui}</MemoryRouter>
-      </ThemeProvider>
+      <BoardProvider>
+        <ThemeProvider {...providerProps}>
+          <MemoryRouter initialEntries={initialEntries}>{ui}</MemoryRouter>
+        </ThemeProvider>
+      </BoardProvider>
     </UserProvider>,
     renderOptions
   );

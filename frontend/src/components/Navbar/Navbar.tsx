@@ -5,7 +5,7 @@ import AddNewTask from '/src/assets/icon-add-task-mobile.svg';
 import { EditDeleteContainer } from '../Containers/EditDeleteContainer';
 import { EditBtn } from '../Buttons/EditBtn';
 import './NavbarStyle.css';
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import EyeBtn from '/src/assets/icon-show-sidebar.svg';
 import BoardImg from '/src/assets/icon-board.svg';
 import HideSideImg from '/src/assets/icon-hide-sidebar.svg';
@@ -20,19 +20,20 @@ import { SettingsContainer } from '../Containers/SettingsContainer';
 import { ProfileContainer } from '../Containers/ProfileContainer';
 import { Loading } from '../Containers/Loading';
 import { CapitaliseAfterSpace } from '../../utils/CapitaliseAfterSpace';
+import { useBoard } from '../../Context/Board/useBoardContext';
 
 
 
 
-export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) => {
+export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
   const [menuVisibility, setMenuVisibility] = useState<boolean>(false);
   const [delEditVisible, setDelEditVisible] = useState<boolean>(false);
   const [showSideBar, setShowSideBar] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<number | null>(null);
   const [isHideSideBarHovered, setIsHideSideBarHovered] = useState<string>('');
   const [activeBoard, setActiveBoard] = useState<number>(0);
-  const [addTaskBtn, setAddTaskBtn] = useState(false);
-  const [addBoardBtn, setAddBoardBtn] = useState(false);
+  const [addTaskBtn, setAddTaskBtn] = useState<boolean>(false);
+  const [addBoardBtn, setAddBoardBtn] = useState<boolean>(false);
   const [editDelBoardCon, setEditDelBoardCon] = useState<string>('');
   const [profileVisibility, setProfileVisibility] = useState<boolean>(false);
   const [isLoggingOut, setLoggingOut] = useState<string>("");
@@ -44,11 +45,12 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
   const UserContainer = useRef<HTMLDivElement>(null);
 
 
+  const { activeBoardIndex, changeBoard } = useBoard(); // Use the context
 
   // useEffect to handle the active board
   useEffect(() => {
-    onBoardChange(activeBoard);
-  }, [activeBoard, onBoardChange]);
+    changeBoard(activeBoardIndex);
+  }, [activeBoardIndex, changeBoard, boards]);
 
   // handles the visibility of the menu container
   const handleMenuVisibility = useCallback(() => {
@@ -77,6 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
   const handlesAddBoardOnOpen = () => {
     setAddBoardBtn(true);
     setMenuVisibility(false);
+    setShowSideBar(false)
   };
 
   // handles the edit / delete button
@@ -88,12 +91,14 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
   // function to handle the click on a board
   const handleBoardClick = (index: number) => {
     setActiveBoard(index);
+    changeBoard(index);
     handlesSideBarClose();
   };
 
   // function to handle the click on a board on mobile
   const handleBoardClickOnMobile = (index: number) => {
     setActiveBoard(index);
+    changeBoard(index);
     setMenuVisibility(false);
   };
 
@@ -113,6 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
   // styles to match the headers bgColor when theme changes
   const handleBgTheme: React.CSSProperties = {
     backgroundColor: theme === 'light' ? '#FFFFFF' : '#3E3F4E',
+    zIndex: menuVisibility ? "99999" : "0"
   };
 
   // animation for side bar
@@ -222,7 +228,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
 
   // handling the click event of opening the addTask container
   const handleOpenAddTaskClick = () => {
-    if (boards.length === 0) {
+    if (boards[activeBoard]?.columns?.length === 0 || boards.length == 0) {
       setAddTaskBtn(false);
     } else {
       setAddTaskBtn(true);
@@ -240,10 +246,21 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
     setProfileVisibility(false);
     setLoggingOut(logout); // Immediately set the logging out state
     setTimeout(() => {
-      // Perform any additional cleanup or navigation if needed
       setLoggingOut(''); // Optionally clear the logging out state after the delay
     }, 5000);
   }
+
+
+  // Pulling the current boards data from here
+  const currentBoardID = boards[activeBoard]?._id || ""
+  const columns = boards[activeBoard]?.columns?.map(column => ({
+    id: column._id,
+    name: column.name,
+    tasks : column.tasks
+  })) || [];
+
+
+
 
   return (
     <>
@@ -488,7 +505,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
             data-testid="addTaskContainer"
             ref={TaskContainers}
           >
-            <AddNewTaskContainer onCloseProp={handleCloseAddToTaskContainer} />
+            <AddNewTaskContainer onCloseProp={handleCloseAddToTaskContainer} boardID={currentBoardID} columns={columns}/>
           </motion.div>
         )}
       </AnimatePresence>
@@ -504,12 +521,12 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
             transition={{ duration: 0.5 }}
             ref={addNewBoardContainer}
           >
-            <AddNewBoard />
+            <AddNewBoard onCloseContainer={() => setAddBoardBtn(false)}/>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* calling the delete board container */}
+      {/* calling the delete and edit board container */}
       <AnimatePresence>
         {editDelBoardCon === 'delete' && (
           <motion.div
@@ -524,6 +541,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
               deleteContainerName="board"
               deleteContainerItemName={boards[activeBoard]?.name}
               setEditDelBoardCon={setEditDelBoardCon}
+              boardID={currentBoardID}
             />
           </motion.div>
         )}
@@ -537,7 +555,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, onBoardChange, user }) =
             transition={{ duration: 0.5 }}
             ref={EditDelContainer}
           >
-            <EditBoardContainer boardName={boards[activeBoard]?.name} />
+            <EditBoardContainer name={boards[activeBoard]?.name} boardID={currentBoardID} columns={columns} onCloseProp={() => setEditDelBoardCon('')}/>
           </motion.div>
         )}
       </AnimatePresence>

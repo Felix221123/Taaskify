@@ -11,7 +11,7 @@ import { Loading } from "../components/Containers/Loading"
 import "../components/Containers/ContainersStyles.css"
 import { ForgotPassword } from "./ForgotPassword"
 import { ConfirmationContainer } from "../components/Containers/ConfirmationContainer"
-import { useUser } from "../Context/useUser"
+import { useUser } from "../Context/User/useUser"
 
 
 
@@ -84,7 +84,7 @@ export const LogIn: React.FC<LogInModalProps> = ({ onLogInSuccessful }) => {
   // handles the bg color
   useEffect(() => {
     document.body.style.background = "rgb(0,14,36)";
-    document.body.style.background = "linear-gradient(90deg, rgba(0,14,36,1) 4%, rgba(166,17,180,0.013064600840336116) 100%, rgba(0,212,255,1) 100%)";
+    document.body.style.background = "linear-gradient(90deg, rgba(0,14,36,1) 4%)";
   }, []);
 
 

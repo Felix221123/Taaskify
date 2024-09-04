@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '../Context/UseTheme';
+import { useTheme } from '../Context/Theme/UseTheme';
 
 export const SettingsIcon: React.FC = () => {
   // handle theme change

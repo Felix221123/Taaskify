@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { UserData } from '../components/Interface/UserApiInterface';
-import { FetchData } from '../packages/FetchManager/fetchData';
+import { UserData } from '../../components/Interface/UserApiInterface';
+import { FetchData } from '../../packages/FetchManager/fetchData';
 
 
 
@@ -13,7 +13,6 @@ export const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserData | null>(null);
-
 
   // useEffect tpo handle fetch request when users refresh the site
   useEffect(() => {
@@ -50,6 +49,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     fetchUserData(); // Fetch user data when the app loads
   }, []);
+
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

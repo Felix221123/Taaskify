@@ -7,7 +7,7 @@ import { UpdatePassword } from '../Auth/UpdatePassword'
 import { ProtectedRoute } from './ProtectedRoutes'
 import { UserLogInData, UserSignUpData } from '../components/Interface/UserApiInterface'
 import { ResetPassword } from '../Auth/ResetPassword'
-import { useUser } from '../Context/useUser'
+import { useUser } from '../Context/User/useUser'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Loading } from '../components/Containers/Loading'
 import "../components/Containers/ContainersStyles.css"
@@ -37,6 +37,7 @@ export const AppRoute: React.FC = () => {
   const handleSignUpSuccess = (user: UserSignUpData) => {
     setUser(user);
   }
+
 
   // animations for loading state
   const getMenuAnimationForSpin = () => ({

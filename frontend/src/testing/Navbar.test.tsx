@@ -5,10 +5,10 @@ import { EditBtn } from '../components/Buttons/EditBtn';
 import { EditDeleteContainer } from '../components/Containers/EditDeleteContainer';
 import { ToggleContainer } from '../components/Containers/ToggleContainer';
 import { customRender } from '../utils/testingUtils';
-import { useState } from 'react';
 import { EditBoardContainer } from '../components/Containers/EditBoardContainer';
 import { DeleteContainer } from '../components/Containers/DeleteContainer';
 import { UpdatePassword } from '../Auth/UpdatePassword';
+
 
 // Mock data for boards
 const boards = [
@@ -32,29 +32,26 @@ const boards = [
                 isCompleted: false,
               },
             ],
+            _id: "1"
           },
         ],
+        _id: "1"
       },
     ],
+    _id: "1"
   },
 ];
 
 // Wrapper component to manage state in tests
 const NavbarTestWrapper = () => {
-  const [activeBoardIndex, setActiveBoardIndex] = useState(0);
-  console.log(activeBoardIndex);
-
-  const handleBoardChange = (index: number) => {
-    setActiveBoardIndex(index);
-  };
 
   const userData = {
-    firstName : "felix",
+    firstName: "felix",
     lastName: "baah",
-    emailAddress:"felixbaah@gmail.com"
+    emailAddress: "felixbaah@gmail.com"
   }
 
-  return <Navbar boards={boards} onBoardChange={handleBoardChange} user={userData}/>;
+  return <Navbar boards={boards} user={userData} />;
 };
 
 
@@ -185,7 +182,7 @@ describe('Renders the containers ', () => {
 
     customRender(<NavbarTestWrapper />);
     customRender(<EditDeleteContainer containerName="board" />);
-    customRender(<EditBoardContainer boardName="board" />);
+    customRender(<EditBoardContainer name="board" boardID='1' columns={[]} onCloseProp={() => {}}/>);
     fireEvent.click(button);
     expect(screen.getByTestId('editDeleteCon')).toBeInTheDocument();
 
@@ -200,12 +197,15 @@ describe('Renders the containers ', () => {
 
     customRender(<NavbarTestWrapper />);
     customRender(<EditDeleteContainer containerName="board" />);
-    customRender(<EditBoardContainer boardName="board" />);
+    customRender(<EditBoardContainer name="board" boardID='1' columns={[]} onCloseProp={() => {}}/>);
     customRender(
       <DeleteContainer
         deleteContainerItemName=""
         deleteContainerName=""
-        setEditDelBoardCon={() => {}}
+        setEditDelBoardCon={() => { }}
+        boardID='1'
+        columnID='1'
+        taskID='1'
       />
     );
     fireEvent.click(button);

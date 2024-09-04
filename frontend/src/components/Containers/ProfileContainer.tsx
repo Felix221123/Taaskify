@@ -3,11 +3,11 @@ import { SettingsProfileProps } from '../Interface/ProfileProps';
 import { GetUsersFirstLetterOfNames } from '../../utils/GetFirstLetterOfName';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
 import './ContainersStyles.css';
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import LogoutIcon from '../../Icons/LogoutIcon';
 import { useNavigate } from 'react-router-dom';
 import LogOutUserApi from '../../packages/Api/UserApi/LogOutUserApi';
-import { useUser } from '../../Context/useUser';
+import { useUser } from '../../Context/User/useUser';
 
 
 

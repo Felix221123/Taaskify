@@ -1,10 +1,10 @@
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import { useState } from 'react';
 import { ButtonProps } from '../Interface/ButtonInterface';
 import React from 'react';
 import './button-styles.css';
 
-export const SecondaryBtn = ({ buttonName, onClickProp }: ButtonProps) => {
+export const SecondaryBtn = ({ buttonName, onClickProp, btnType = 'button' }: ButtonProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   // Event handlers to toggle hover state
@@ -43,6 +43,7 @@ export const SecondaryBtn = ({ buttonName, onClickProp }: ButtonProps) => {
       onMouseOut={handleMouseOut}
       onClick={onClickProp}
       data-testid="custom-secondary-button"
+      type={btnType}
     >
       {buttonName}
     </button>

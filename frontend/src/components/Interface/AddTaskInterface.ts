@@ -1,6 +1,16 @@
 export interface Subtask {
   title: string;
   isCompleted: boolean;
+  _id?:string
+}
+
+
+
+
+export interface SubtaskPropWithID {
+  title: string;
+  isCompleted: boolean;
+  _id:string;
 }
 
 export interface Task {
@@ -9,6 +19,16 @@ export interface Task {
   status: string | undefined;
   subtasks: Subtask[];
 }
+
+
+export interface TaskProps{
+  title: string | undefined;
+  description: string | undefined;
+  status: string | undefined;
+  subtasks: Subtask[];
+  _id:string;
+}
+
 
 export interface onClickPropsEditBtnProps {
   onClickEditBtn?: () => void;
@@ -26,9 +46,10 @@ export interface EditDeleteContainerProps {
   containerName: string;
 }
 
-export interface iconCheck {
+export interface iconCheckProps {
   index: number;
   onToggle: (isCompleted: boolean) => void;
+  isCompleted:boolean;
 }
 
 export interface TaskStatusContainerName {

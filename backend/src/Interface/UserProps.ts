@@ -6,6 +6,8 @@ export interface IUser extends Document {
   firstName: string;
   lastName: string;
   boards: mongoose.Types.DocumentArray<mongoose.Document>;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 
@@ -21,6 +23,7 @@ export interface LogInUsersProps{
   emailAddress: string;
   password: string;
 }
+
 
 
 

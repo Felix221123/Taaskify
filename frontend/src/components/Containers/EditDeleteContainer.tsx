@@ -5,8 +5,11 @@ import {
   onClickPropsForDelete,
 } from '../Interface/AddTaskInterface';
 import './ContainersStyles.css';
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import { motion, AnimatePresence } from 'framer-motion';
+
+
+
 
 export const EditDeleteContainer = forwardRef<
   HTMLDivElement,

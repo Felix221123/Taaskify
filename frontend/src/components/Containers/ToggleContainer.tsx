@@ -1,7 +1,9 @@
 import LightThemeImg from '/src/assets/icon-light-theme.svg';
 import DarkThemeImg from '/src/assets/icon-dark-theme.svg';
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import './ContainersStyles.css';
+
+
 
 export const ToggleContainer = () => {
   // toggle onclick

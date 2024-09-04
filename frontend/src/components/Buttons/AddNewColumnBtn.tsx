@@ -1,10 +1,10 @@
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import { useState } from 'react';
 import { ButtonProps } from '../Interface/ButtonInterface';
 import React from 'react';
 import './button-styles.css';
 
-export const AddNewColumnBtn = ({ buttonName }: ButtonProps) => {
+export const AddNewColumnBtn = ({ buttonName, onClickProp }: ButtonProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   // Event handlers to toggle hover state
@@ -42,6 +42,7 @@ export const AddNewColumnBtn = ({ buttonName }: ButtonProps) => {
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       data-testid="custom-addnewColumn-button"
+      onClick={onClickProp}
     >
       {buttonName}
     </button>

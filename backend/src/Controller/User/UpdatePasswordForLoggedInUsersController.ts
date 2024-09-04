@@ -43,6 +43,18 @@ const UpdatePasswordForLoggedInUsersController:RequestHandler = async (req: Requ
     user.password = hashedPassword;
     await user.save();
 
+    // Remove the password from the user object before returning it
+    const userWithoutPassword = {
+      _id: user._id,
+      emailAddress: user.emailAddress,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      boards: user.boards,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      __v: user.__v,
+    };
+
     // Issue a new JWT after password update
     signJWT(user, (error, token) => {
       if (error) {
@@ -60,7 +72,7 @@ const UpdatePasswordForLoggedInUsersController:RequestHandler = async (req: Requ
 
         return res.status(200).json({
           message: "Password updated successfully",
-          user,
+          user:userWithoutPassword,
         });
       }
     });

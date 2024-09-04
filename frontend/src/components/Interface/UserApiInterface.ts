@@ -15,11 +15,10 @@ export interface LogInUserProps {
 
 
 export interface UserSignUpProps{
-  _id: string;
+  _id: string | undefined;
   firstName: string;
   lastName: string;
   emailAddress:string;
-  password:string;
   boards: Array<any>;
   createdAt: string;
   updatedAt: string;

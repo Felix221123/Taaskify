@@ -1,6 +1,7 @@
 import { NextFunction, Request, RequestHandler, Response } from "express"
 import UserBoardModel from "../../Models/UserModel";
-// import { ColumnDataProps, BoardDataProps } from "../../Interface/BoardProps";
+
+
 
 
 const CreateTaskController: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
@@ -57,14 +58,30 @@ const CreateTaskController: RequestHandler = async (req: Request, res: Response,
     // Save the updated user document
     await user.save();
 
+    // Remove the password from the user object before returning it
+    const userWithoutPassword = {
+      _id: user._id,
+      emailAddress: user.emailAddress,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      boards: user.boards,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      __v: user.__v,
+    };
+
     // Return the updated user document
-    return res.status(201).json(user);
+    return res.status(201).json({
+      user: userWithoutPassword
+    });
 
   } catch (error) {
     return res.status(500).json({ message: 'Server error', error });
   }
 
-
 }
+
+
+
 
 export default CreateTaskController

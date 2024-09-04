@@ -1,22 +1,38 @@
 import React, { useState } from 'react';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
-import { SecondaryBtn } from '../Buttons/SecondaryBtn';
 import { EditProps } from '../Interface/EditBoardInterface';
 import './ContainersStyles.css';
-import { useTheme } from '../../Context/UseTheme';
-import { CrossIcon } from '../../Icons/Cross';
+import { useTheme } from '../../Context/Theme/UseTheme';
+import { BoardColumnContainer } from './BoardColumnContainer';
+import { useForm } from 'react-hook-form';
+import { useUser } from '../../Context/User/useUser';
+import { CapitaliseAfterSpace } from '../../utils/CapitaliseAfterSpace';
+import EditBoardApi from '../../packages/Api/BoardApi/EditBoardApi';
+import { openCustomNotification } from '../../utils/notificationUtil';
+import { NotificationContainerStyle } from '../../utils/NotificationContainerStyle';
+import { SuccessIcon } from '../../Icons/SuccessIcon';
+import { ErrorIcon } from '../../Icons/ErrorIcon';
 
-export const EditBoardContainer = ({ boardName }: EditProps) => {
-  const [content, setContent] = useState<string | undefined>(boardName);
 
-  // forms to handle the onChange of the board name
-  const handleBoardNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setContent(newValue);
-    console.log(content);
-  };
 
+interface EditBoardFormData {
+  boardName: string;
+  columns: Array<{ name: string, tasks: [] }>;
+}
+
+
+export const EditBoardContainer = ({ name, boardID, columns, onCloseProp }: EditProps) => {
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm<EditBoardFormData>({
+    defaultValues: {
+      boardName: name || '',
+      columns: columns || [{ name: 'Todo' }],
+    },
+  });
+  const [boardError, setBoardError] = useState<string | null>(null);
+
+  // pulling data for useContext
   const { theme } = useTheme();
+  const { user } = useUser();
 
   // background theme colors
   const boardContainerTheme: React.CSSProperties = {
@@ -33,6 +49,47 @@ export const EditBoardContainer = ({ boardName }: EditProps) => {
     color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
 
+  console.log(boardID, columns);
+
+  // Submit handler
+  const onSubmit = async (data: EditBoardFormData) => {
+    try {
+      // passing the user's id from the useUser context
+      const userID = user?.user._id;
+      const boardName = CapitaliseAfterSpace(data.boardName) || "";
+
+      // calling the edit board api for a user
+      await EditBoardApi({ userID, boardID, name: boardName, columns: data.columns });
+
+      onCloseProp();   // close container after a successful editing
+
+      reset();    // reset the form
+
+      console.log(`form has been submitted here`);
+      // notification for editing board successfully
+      openCustomNotification(
+        <>
+          <NotificationContainerStyle message="Board Updated">
+            <SuccessIcon />
+          </NotificationContainerStyle>
+        </>,
+        <>Your board has been successfully updated.</>
+      );
+
+    } catch (err) {
+      // passing a string and a notification component to a state when there is an error in editing a board
+      setBoardError('Failed to edit the board. Please try again.');
+      openCustomNotification(
+        <NotificationContainerStyle message='Error'>
+          <ErrorIcon />
+        </NotificationContainerStyle>,
+        <>Failed to edit the board. Please ensure there is a "Board Name".</>
+      );
+      console.error(err);
+    }
+  };
+
+
   return (
     <>
       <div
@@ -43,91 +100,33 @@ export const EditBoardContainer = ({ boardName }: EditProps) => {
         <article className="editBoardText font-bold" style={TitleColorOnChange}>
           Edit Board
         </article>
-        <div className="boardNameContainer">
-          <label
-            htmlFor="boardName"
-            className="font-bold"
-            style={TextColorOnChange}
-          >
-            Board Name
-            <input
-              type="text"
-              id="boardName"
-              value={content}
-              onChange={handleBoardNameOnChange}
-              className="font-medium leading-6"
-              style={TitleColorOnChange}
-            />
-          </label>
-        </div>
-        <BoardColumnContainer />
-        <PrimaryBtnSmall buttonName="Save Changes" />
-      </div>
-    </>
-  );
-};
-
-// container to control the board column container
-export const BoardColumnContainer = () => {
-  // const to keep track of the columns available
-  const [boardColumns, setBoardColumns] = useState<string[]>([]);
-
-  const { theme } = useTheme();
-  const TitleColorOnChange: React.CSSProperties = {
-    color: theme === 'light' ? '#000112' : '#FFFFFF',
-  };
-
-  const TextColorOnChange: React.CSSProperties = {
-    color: theme === 'light' ? '#828FA3' : '#FFFFFF',
-  };
-
-  // dding new columns
-  const addNewColumn = () => {
-    setBoardColumns((prevColumns) => [...prevColumns, '']);
-    console.log('Add new column clicked. Current columns:', boardColumns);
-  };
-
-  // handling the input from each column
-  const handleColumnChange = (index: number, value: string) => {
-    const newColumns = [...boardColumns];
-    newColumns[index] = value;
-    setBoardColumns(newColumns);
-  };
-
-  // removing columns
-  const removeColumn = (index: number) => {
-    const newColumns = boardColumns.filter((_, i) => i !== index);
-    setBoardColumns(newColumns);
-  };
-
-  return (
-    <>
-      <div className="boardColumnsContainer">
-        <p className="boardColumnsText font-bold" style={TextColorOnChange}>
-          Board Columns
-        </p>
-        {/* TODO:CREATE A EDIT FOR THE COLUMNS BOARD */}
-        <div className="containerForColumn">
-          <div className="scrollableContainer">
-            {boardColumns.map((column, index) => (
-              <div className="eachColumnContainer" key={index}>
-                <label htmlFor={`eachColumnBoard-${index}`}>
-                  <input
-                    type="text"
-                    id={`eachColumnBoard-${index}`}
-                    value={column}
-                    style={TitleColorOnChange}
-                    onChange={(e) => handleColumnChange(index, e.target.value)}
-                  />
-                </label>
-                <CrossIcon onClick={() => removeColumn(index)} />
-              </div>
-            ))}
+        <form action="" onSubmit={handleSubmit(onSubmit)} method='patch'>
+          <div className="boardNameContainer">
+            <label
+              htmlFor="boardName"
+              className="font-bold"
+              style={TextColorOnChange}
+            >
+              Board Name
+              <input
+                type="text"
+                id="boardName"
+                {...register('boardName', { required: true })}
+                className="font-medium leading-6"
+                placeholder="e.g. Web Design"
+                style={{
+                  ...TitleColorOnChange,
+                  ...(errors.boardName || boardError ? { border: "2px solid red", outline: "none" } : {})
+                }}
+              />
+            </label>
+            {boardError && <span className="error-text text-xs text-center text-red-500">{boardError}</span>}
           </div>
-        </div>
-
-        <SecondaryBtn buttonName="+ Add New Column" onClickProp={addNewColumn} />
+          <BoardColumnContainer control={control} />
+          <PrimaryBtnSmall buttonName="Save Changes" btnType='submit' />
+        </form>
       </div>
     </>
   );
 };
+
