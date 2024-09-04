@@ -1,9 +1,9 @@
-import { ThemeProvider } from '../Context/ThemeContext';
+import { ThemeProvider } from '../Context/Theme/ThemeContext';
 import { render, RenderOptions } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom'
-import { UserProvider } from '../Context/UserContext';
-import { BoardProvider } from '../Context/BoardContext';
+import { UserProvider } from '../Context/User/UserContext';
+import { BoardProvider } from '../Context/Board/BoardContext';
 
 interface CustomRenderOptions extends RenderOptions {
   initialEntries?: string[];

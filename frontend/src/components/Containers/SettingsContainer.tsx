@@ -2,7 +2,7 @@ import React from 'react';
 import { GetUsersFirstLetterOfNames } from '../../utils/GetFirstLetterOfName';
 import { ProfileProps } from '../Interface/ProfileProps';
 import './ContainersStyles.css';
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import { SettingsIcon } from '../../Icons/SettingsIcon';
 
 export const SettingsContainer: React.FC<ProfileProps> = ({

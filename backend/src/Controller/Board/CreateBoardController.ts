@@ -55,7 +55,10 @@ const CreateBoardController:RequestHandler = async (req:Request, res:Response, _
       { message: 'Server error', error }
     );
   }
-
 }
+
+
+
+
 
 export default CreateBoardController

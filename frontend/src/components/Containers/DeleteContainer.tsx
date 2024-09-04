@@ -3,14 +3,15 @@ import { DeleteContainerProps } from '../Interface/DeleteContainerInterface';
 import { DestructiveBtn } from '../Buttons/DestructiveBtn';
 import { CancelBtn } from '../Buttons/CancelBtn';
 import './ContainersStyles.css';
-import { useTheme } from '../../Context/UseTheme';
 import { CapitaliseAfterSpace } from '../../utils/CapitaliseAfterSpace';
 import DeleteBoardApi from '../../packages/Api/BoardApi/DeleteBoardApi';
 import { openCustomNotification } from '../../utils/notificationUtil';
 import { NotificationContainerStyle } from '../../utils/NotificationContainerStyle';
 import { SuccessIcon } from '../../Icons/SuccessIcon';
 import DeleteTaskApi from '../../packages/Api/BoardApi/DeleteTaskApi';
-import { useUser } from '../../Context/useUser';
+import { useTheme } from '../../Context/Theme/UseTheme';
+import { useUser } from '../../Context/User/useUser';
+
 
 interface DeleteContainerPropsWithSetter extends DeleteContainerProps {
   setEditDelBoardCon: React.Dispatch<React.SetStateAction<string>>;

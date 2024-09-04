@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
 import './ContainersStyles.css';
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import { useForm } from 'react-hook-form';
 import CreateNewBoardApi from '../../packages/Api/BoardApi/CreateNewBoardApi';
-import { useUser } from '../../Context/useUser';
+import { useUser } from '../../Context/User/useUser';
 import { openCustomNotification } from '../../utils/notificationUtil';
 import { SuccessIcon } from '../../Icons/SuccessIcon';
 import { ErrorIcon } from '../../Icons/ErrorIcon';
@@ -65,7 +65,6 @@ export const AddNewBoard: React.FC<OnContainerCloseProp> = ({ onCloseContainer }
       // calling the container after a successful board creating
       onCloseContainer()
 
-      console.log(`forms has been submitted here`);
       // notification for creating boards successfully
       openCustomNotification(
         <>
@@ -87,7 +86,6 @@ export const AddNewBoard: React.FC<OnContainerCloseProp> = ({ onCloseContainer }
       );
       console.error(err);
     }
-
   };
 
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IconCheck } from '../../Icons/IconCheck';
 import { EditBtn } from '../Buttons/EditBtn';
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import {
   SubTaskEditTaskColumnContainerProps,
   Task,
@@ -10,7 +10,7 @@ import './ContainersStyles.css';
 import { EditDeleteContainer } from './EditDeleteContainer';
 import { CountCompletedTasks } from '../../utils/CountSubtask';
 import { TaskStatusDropdown } from './TaskStatusContainer';
-import { useUser } from '../../Context/useUser';
+import { useUser } from '../../Context/User/useUser';
 import UpdateSubtaskStatusApi from '../../packages/Api/BoardApi/UpdateSubtaskStatusApi';
 
 

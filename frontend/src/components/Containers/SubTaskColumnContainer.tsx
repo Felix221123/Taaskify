@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useFieldArray, Controller } from 'react-hook-form';
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import { SecondaryBtn } from '../Buttons/SecondaryBtn';
 import { CrossIcon } from '../../Icons/Cross';
 import './ContainersStyles.css';

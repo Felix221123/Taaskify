@@ -1,4 +1,4 @@
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import { useState } from 'react';
 import { ButtonProps } from '../Interface/ButtonInterface';
 import React from 'react';

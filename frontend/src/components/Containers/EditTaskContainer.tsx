@@ -1,4 +1,4 @@
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import React from 'react';
 import {
   onCloseContainerProp,
@@ -8,7 +8,7 @@ import './ContainersStyles.css';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
 import { CloseIcon } from '../../Icons/CloseIcon';
 import { useForm,Controller } from 'react-hook-form';
-import { useUser } from '../../Context/useUser';
+import { useUser } from '../../Context/User/useUser';
 import { TaskStatusDropdown } from './TaskStatusContainer';
 import { SubTaskInputContainer } from './SubTaskColumnContainer';
 import EditTaskApi from '../../packages/Api/BoardApi/EditTaskApi';

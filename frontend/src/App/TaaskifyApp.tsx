@@ -2,11 +2,11 @@ import { EmptyColumn } from '../components/TaskColumn/EmptyColumn';
 import { TaskColumn } from '../components/TaskColumn/TaskColumn';
 import { Navbar } from '../components/Navbar/Navbar';
 import './taaskifyStyles.css';
-import { useTheme } from '../Context/UseTheme';
+import { useTheme } from '../Context/Theme/UseTheme';
 import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useUser } from '../Context/useUser';
-import { useBoard } from '../Context/useBoardContext';
+import { useUser } from '../Context/User/useUser';
+import { useBoard } from '../Context/Board/useBoardContext';
 import { EditBoardContainer } from '../components/Containers/EditBoardContainer';
 
 

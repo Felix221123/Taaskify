@@ -5,7 +5,7 @@ import AddNewTask from '/src/assets/icon-add-task-mobile.svg';
 import { EditDeleteContainer } from '../Containers/EditDeleteContainer';
 import { EditBtn } from '../Buttons/EditBtn';
 import './NavbarStyle.css';
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import EyeBtn from '/src/assets/icon-show-sidebar.svg';
 import BoardImg from '/src/assets/icon-board.svg';
 import HideSideImg from '/src/assets/icon-hide-sidebar.svg';
@@ -20,7 +20,7 @@ import { SettingsContainer } from '../Containers/SettingsContainer';
 import { ProfileContainer } from '../Containers/ProfileContainer';
 import { Loading } from '../Containers/Loading';
 import { CapitaliseAfterSpace } from '../../utils/CapitaliseAfterSpace';
-import { useBoard } from '../../Context/useBoardContext';
+import { useBoard } from '../../Context/Board/useBoardContext';
 
 
 
@@ -43,7 +43,6 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
   const addNewBoardContainer = useRef<HTMLDivElement>(null);
   const EditDelContainer = useRef<HTMLDivElement>(null);
   const UserContainer = useRef<HTMLDivElement>(null);
-
 
 
   const { activeBoardIndex, changeBoard } = useBoard(); // Use the context

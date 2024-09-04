@@ -10,19 +10,19 @@ import config from './Config/config';
 // defining the express app
 const app = express()
 
-// using the cookie parser in express
-app.use(cookieParser());
 
 // using cors in app
 app.use(cors({
-  origin: config.server.base_url, // Replace with your frontend URL
-  credentials: true,               // Allow credentials (cookies, authorization headers, etc.)
+  origin: config.server.base_url,
+  credentials: true,
 }));
+
+// using the cookie parser in express
+app.use(cookieParser());
 
 
 // making the app use json formatting data
 app.use(express.json());
-
 
 
 // Endpoint to create all routes to server
@@ -74,7 +74,6 @@ app.use("/api/user/board/" , editTaskRoute)
 
 // endpoint for users to update subtask status
 app.use("/api/user/board/" , updateSubtaskStatusRoute)
-
 
 
 

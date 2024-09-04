@@ -1,7 +1,7 @@
 import './App.css';
-import { BoardProvider } from './Context/BoardContext';
-import { ThemeProvider } from './Context/ThemeContext';
-import { UserProvider } from './Context/UserContext';
+import { BoardProvider } from './Context/Board/BoardContext';
+import { ThemeProvider } from './Context/Theme/ThemeContext';
+import { UserProvider } from './Context/User/UserContext';
 import { AppRoute } from './Routes/AppRoute';
 
 function App() {

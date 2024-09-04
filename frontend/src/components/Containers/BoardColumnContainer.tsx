@@ -1,4 +1,4 @@
-import { useTheme } from "../../Context/UseTheme";
+import { useTheme } from "../../Context/Theme/UseTheme";
 import { Controller, useFieldArray } from 'react-hook-form';
 import { CrossIcon } from '../../Icons/Cross';
 import { SecondaryBtn } from '../Buttons/SecondaryBtn';

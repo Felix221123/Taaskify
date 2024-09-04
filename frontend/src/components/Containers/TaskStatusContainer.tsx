@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import { ChevronIconDown } from '../../Icons/ChevronIconDown';
 import { CapitaliseAfterSpace } from '../../utils/CapitaliseAfterSpace';
 

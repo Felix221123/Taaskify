@@ -2,14 +2,14 @@ import React, { useRef, useState, useEffect } from 'react';
 import { ColumnProps } from '../Interface/Column';
 import { generateRandomColor } from '../../utils/ColorGeneration';
 import './taskColumnStyles.css';
-import { useTheme } from '../../Context/UseTheme';
+import { useTheme } from '../../Context/Theme/UseTheme';
 import { ViewTaskContainer } from '../Containers/ViewTaskContainer';
 import { countIncompleteSubtasks } from '../../utils/CountSubtask';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TaskProps } from '../Interface/AddTaskInterface';
 import { EditTaskContainer } from '../Containers/EditTaskContainer';
 import { DeleteContainer } from '../Containers/DeleteContainer';
-import { useBoard } from '../../Context/useBoardContext';
+import { useBoard } from '../../Context/Board/useBoardContext';
 
 
 
