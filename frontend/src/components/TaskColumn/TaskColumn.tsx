@@ -137,7 +137,7 @@ export const TaskColumn: React.FC<TaskColumnProps> = ({ name, tasks, boards , co
           </p>
         </div>
         <div className="mainTaskContainer">
-          {tasks.map((task, index) => (
+          {tasks?.map((task, index) => (
             <div
               className="columnTaskContainer cursor-pointer"
               key={index}
