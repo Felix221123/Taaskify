@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IconCheck } from '../../Icons/IconCheck';
 import { EditBtn } from '../Buttons/EditBtn';
+import { useForm, Controller } from 'react-hook-form';
 import { useTheme } from '../../Context/Theme/UseTheme';
 import {
   SubTaskEditTaskColumnContainerProps,
@@ -20,10 +21,18 @@ interface OnClickEditDeleteProps {
 }
 
 interface ViewTaskContainerProps extends Task, OnClickEditDeleteProps {
-  columns: { id: string; name: string }[];
+  columns: { id: string; name: string; tasks:Array<any> }[];
   boardID: string;
   columnID: string;
   taskID: string;
+}
+
+
+interface ViewTaskFormData {
+  taskTitle: string;
+  description: string;
+  status: string;
+  subtasks: Array<{ title: string; isCompleted: boolean }>;
 }
 
 
@@ -39,12 +48,16 @@ export const ViewTaskContainer: React.FC<ViewTaskContainerProps> = ({
   columnID,
   taskID,
 }) => {
-  const [task, setTask] = useState<Task>({
-    title,
-    description,
-    status,
-    subtasks,
+  // Initialize form with react-hook-form
+  const { control, setValue } = useForm<ViewTaskFormData>({
+    defaultValues: {
+      taskTitle: title,
+      description: description,
+      status: status,
+      subtasks: subtasks,
+    },
   });
+
   const [deleEditContainer, setDelEditContainer] = useState<boolean>(false);
 
   // handles the visibility of the edit/ delete container
@@ -73,27 +86,34 @@ export const ViewTaskContainer: React.FC<ViewTaskContainerProps> = ({
       >
         <div className="titleWithEditBtn">
           <article className="title font-bold" style={TitleColorOnChange}>
-            {task.title}
+            { title }
           </article>
           <EditBtn onClickEditBtn={handleVisibilityForDelEditContainer} />
         </div>
         <div className="descriptionContainer leading-6 font-medium">
-          {task.description}
+          { description }
         </div>
+        {/* subtask container */}
         <SubTaskForTaskContainer
-          subtasks={task.subtasks}
-          setSubtasks={(newSubtasks) =>
-            setTask({ ...task, subtasks: newSubtasks })
-          }
+          subtasks={subtasks}
+          setSubtasks={(newSubtasks) => setValue('subtasks', newSubtasks)}
           boardID={boardID}
           columnID={columnID}
           taskID={taskID}
         />
-        <TaskStatusDropdown
-          status={task.status ?? ""}
-          setStatus={(newStatus) => setTask({ ...task, status: newStatus })}
-          columns={columns}
-          containerName="Current Status"
+
+        {/* Task status for handling the status of the task */}
+        <Controller
+          control={control}
+          name="status"
+          render={({ field }) => (
+            <TaskStatusDropdown
+              status={field.value}
+              setStatus={(newStatus) => field.onChange(newStatus)}
+              columns={columns}
+              containerName="Current Status"
+            />
+          )}
         />
         {/* button for edit / delete task container */}
         <div className="editDeleteBtn">

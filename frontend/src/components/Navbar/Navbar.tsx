@@ -31,7 +31,6 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
   const [showSideBar, setShowSideBar] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<number | null>(null);
   const [isHideSideBarHovered, setIsHideSideBarHovered] = useState<string>('');
-  const [activeBoard, setActiveBoard] = useState<number>(0);
   const [addTaskBtn, setAddTaskBtn] = useState<boolean>(false);
   const [addBoardBtn, setAddBoardBtn] = useState<boolean>(false);
   const [editDelBoardCon, setEditDelBoardCon] = useState<string>('');
@@ -90,14 +89,12 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
 
   // function to handle the click on a board
   const handleBoardClick = (index: number) => {
-    setActiveBoard(index);
     changeBoard(index);
     handlesSideBarClose();
   };
 
   // function to handle the click on a board on mobile
   const handleBoardClickOnMobile = (index: number) => {
-    setActiveBoard(index);
     changeBoard(index);
     setMenuVisibility(false);
   };
@@ -228,7 +225,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
 
   // handling the click event of opening the addTask container
   const handleOpenAddTaskClick = () => {
-    if (boards[activeBoard]?.columns?.length === 0 || boards.length == 0) {
+    if (boards[activeBoardIndex]?.columns?.length === 0 || boards.length == 0) {
       setAddTaskBtn(false);
     } else {
       setAddTaskBtn(true);
@@ -252,8 +249,8 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
 
 
   // Pulling the current boards data from here
-  const currentBoardID = boards[activeBoard]?._id || ""
-  const columns = boards[activeBoard]?.columns?.map(column => ({
+  const currentBoardID = boards[activeBoardIndex]?._id || ""
+  const columns = boards[activeBoardIndex]?.columns?.map(column => ({
     id: column._id,
     name: column.name,
     tasks : column.tasks
@@ -280,7 +277,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
               style={TitleColorOnChange}
               data-testid="nameOfBoard"
             >
-              <span className="title">{CapitaliseAfterSpace(boards[activeBoard]?.name)} </span>
+              <span className="title">{CapitaliseAfterSpace(boards[activeBoardIndex]?.name)} </span>
               <img
                 src={menuVisibility ? ChevronUp : ChevronDown}
                 alt="arrow down and up"
@@ -334,7 +331,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
               }
               style={TitleColorOnChange}
             >
-              {CapitaliseAfterSpace(boards[activeBoard]?.name)}
+              {CapitaliseAfterSpace(boards[activeBoardIndex]?.name)}
             </article>
           </div>
           <div className="desktopRightHandSide">
@@ -396,7 +393,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
                         onMouseOver={() => handleHovered(index)}
                         onMouseLeave={handleUnHovered}
                         style={
-                          activeBoard === index
+                          activeBoardIndex === index
                             ? ActiveBoard
                             : isHovered === index
                               ? HoveredStyle
@@ -467,7 +464,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
                     className={`boardStyle font-bold cursor-pointer`}
                     key={index}
                     onClick={() => handleBoardClickOnMobile(index)}
-                    style={activeBoard === index ? ActiveBoard : {}}
+                    style={activeBoardIndex === index ? ActiveBoard : {}}
                   >
                     <img src={BoardImg} alt="board image" />
                     {CapitaliseAfterSpace(board.name)}
@@ -539,7 +536,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
           >
             <DeleteContainer
               deleteContainerName="board"
-              deleteContainerItemName={boards[activeBoard]?.name}
+              deleteContainerItemName={boards[activeBoardIndex]?.name}
               setEditDelBoardCon={setEditDelBoardCon}
               boardID={currentBoardID}
             />
@@ -555,7 +552,7 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
             transition={{ duration: 0.5 }}
             ref={EditDelContainer}
           >
-            <EditBoardContainer name={boards[activeBoard]?.name} boardID={currentBoardID} columns={columns} onCloseProp={() => setEditDelBoardCon('')}/>
+            <EditBoardContainer name={boards[activeBoardIndex]?.name} boardID={currentBoardID} columns={columns} onCloseProp={() => setEditDelBoardCon('')}/>
           </motion.div>
         )}
       </AnimatePresence>

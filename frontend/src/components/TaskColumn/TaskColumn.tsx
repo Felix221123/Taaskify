@@ -112,11 +112,13 @@ export const TaskColumn: React.FC<TaskColumnProps> = ({ name, tasks, boards , co
 
   // Pulling the current boards data from here
   const currentBoardID = boards[activeBoardIndex]?._id || ""
-  const columns = boards[activeBoardIndex]?.columns?.map(column => ({
+  const columns = boards[activeBoardIndex].columns?.map(column => ({
     id: column._id,
     name: column.name,
     tasks : column.tasks
   })) || [];
+
+
 
 
   return (

@@ -57,7 +57,10 @@ const CreateBoardController: RequestHandler = async (req: Request, res: Response
 
     const io = getSocketIO(); // Call getSocketIO after initSocket was called in server.ts
     if (io) {
-      io.emit("new-board", { userID: (user._id as Types.ObjectId).toString(), board: createdBoard });
+      io.emit("new-board", {
+        userID: (user._id as Types.ObjectId).toString(),
+        board: createdBoard
+      });
     } else {
       console.error("Socket.IO is not initialized.");
     }

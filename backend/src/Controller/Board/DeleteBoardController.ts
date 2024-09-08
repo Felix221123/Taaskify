@@ -1,6 +1,8 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import UserBoardModel from "../../Models/UserModel";
-
+import { getSocketIO } from "../../socket";
+import { Types } from "mongoose";
+import { User } from '../../Interface/UserData';
 
 
 
@@ -29,11 +31,41 @@ const DeleteBoardController: RequestHandler = async (req: Request, res: Response
       return res.status(404).json({ message: 'Board not found' });
     }
 
-    // Remove the board from the user's boards array
+    // const deletedBoard = user.boards[boardIndex]; // Store the board info before deleting it
     user.boards.splice(boardIndex, 1);
 
     // Save the updated user document
     await user.save();
+    
+
+    // Fetch the updated user with full board data (including tasks and id)
+    const updatedUser = await UserBoardModel.findById(userID).lean();
+
+    // Ensure updatedUser exists and contains the boards property
+    if (updatedUser === null || typeof updatedUser !== 'object' || !('boards' in updatedUser)) {
+      return res.status(500).json({ message: "Failed to retrieve updated user data" });
+    }
+
+    // Cast the updated user to the User type
+    const safeUpdatedUser = updatedUser as unknown as User;
+
+    // Find the deleted board to ensure it was removed
+    const deletedBoard = safeUpdatedUser.boards.find((board) => board._id.toString() === boardID);
+
+    if (deletedBoard) {
+      return res.status(500).json({ message: "Failed to delete board" });
+    }
+
+    // Emit the event to notify clients about the deleted board
+    const io = getSocketIO();
+    if (io) {
+      io.emit("delete-board", {
+        userID: (user._id as Types.ObjectId).toString(),
+        boardID: boardID, // Emit the board ID to the client
+      });
+    } else {
+      console.error("Socket.IO is not initialized.");
+    }
 
     // Remove the password from the user object before returning it
     const userWithoutPassword = {

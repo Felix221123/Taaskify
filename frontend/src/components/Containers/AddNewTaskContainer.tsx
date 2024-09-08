@@ -40,7 +40,7 @@ interface AddNewTaskContainerProps extends onCloseContainerProp {
 
 
 export const AddNewTaskContainer: React.FC<AddNewTaskContainerProps> = ({ onCloseProp, columns, boardID }) => {
-  const { control, handleSubmit, register, reset, getValues, setValue } = useForm<CreateTaskFormData>({
+  const { control, handleSubmit, register, reset } = useForm<CreateTaskFormData>({
     defaultValues: {
       taskTitle: '',
       description: '',
@@ -69,11 +69,14 @@ export const AddNewTaskContainer: React.FC<AddNewTaskContainerProps> = ({ onClos
   };
 
 
+
   // Handle form submission
   const onSubmit = async (data: CreateTaskFormData) => {
     try {
       const userID = user?.user._id; // Replace with actual user ID
       const columnID = data.status
+
+      console.log(`here is hwo the status look like in add new task ${columnID} `);
 
       const taskData = {
         userID,
@@ -93,12 +96,12 @@ export const AddNewTaskContainer: React.FC<AddNewTaskContainerProps> = ({ onClos
         console.log(`task has been created successfully ${taskData}`);
         openCustomNotification(
           <>
-          <NotificationContainerStyle message='Task Created'>
-            <SuccessIcon />
-          </NotificationContainerStyle>
+            <NotificationContainerStyle message='Task Created'>
+              <SuccessIcon />
+            </NotificationContainerStyle>
           </>,
           <>
-          Your new Task has been successfully created.
+            Your new Task has been successfully created.
           </>
         )
       }
@@ -180,11 +183,17 @@ a little."
           />
 
           {/* controller for choosing the task status */}
-          <TaskStatusDropdown
-            status={getValues('status')}
-            setStatus={(newStatus) => setValue('status', newStatus)}
-            columns={columns}
-            containerName='Status'
+          <Controller
+            control={control}
+            name="status"
+            render={({ field }) => (
+              <TaskStatusDropdown
+                status={field.value}
+                setStatus={(newStatus) => field.onChange(newStatus)}
+                columns={columns}
+                containerName='Status'
+              />
+            )}
           />
 
           {/* submission button */}

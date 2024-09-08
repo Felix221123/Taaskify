@@ -34,7 +34,6 @@ app.use(express.json());
 
 
 // Endpoint to create all routes to server
-
 // endpoint to check authenticated users
 app.use("/api/user/", validateTokenRoute)
 

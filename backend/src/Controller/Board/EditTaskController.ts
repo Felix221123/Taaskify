@@ -1,5 +1,8 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import UserBoardModel from "../../Models/UserModel";
+import { getSocketIO } from "../../socket";
+// import { User } from '../../Interface/UserData';
+import { Types } from "mongoose";
 
 const EditTaskController: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
   const { userID, boardID, columnID, taskID, taskTitle, description, status, subtasks } = req.body;
@@ -38,10 +41,14 @@ const EditTaskController: RequestHandler = async (req: Request, res: Response, _
       return res.status(404).json({ message: 'Task not found' });
     }
 
+    let taskMoved = false;
+    let newColumn: any = null;
+
     // Check if the task needs to be moved to a new column
     if (currentColumn._id.toString() !== columnID) {
+      taskMoved = true;
       // Find the new column by its ID
-      const newColumn = board.columns.id(columnID);
+      newColumn = board.columns.find((col: any) => col._id.toString() === columnID);
 
       if (!newColumn) {
         return res.status(404).json({ message: 'New column not found' });
@@ -78,6 +85,35 @@ const EditTaskController: RequestHandler = async (req: Request, res: Response, _
 
     // Save the updated user document
     await user.save();
+
+    // Fetch the updated user with full board data (including tasks and id)
+    const updatedUser = await UserBoardModel.findById(userID).lean();
+
+    // Validate that the updated user is found
+    if (!updatedUser || !updatedUser.boards) {
+      return res.status(500).json({ message: 'Failed to retrieve updated user data' });
+    }
+
+    // const safeUpdatedUser = updatedUser as unknown as User;
+
+    // Emit the updated task details to all connected clients via Socket.IO
+    const io = getSocketIO();
+    if (io) {
+      io.emit('update-task', {
+        userID: (user._id as Types.ObjectId).toString(),
+        boardID: boardID,
+        columnID: taskMoved ? newColumn._id.toString() : currentColumn._id.toString(),
+        task: {
+          _id: task._id.toString(),
+          title: taskTitle,
+          description: description || task.description,
+          status: status || task.status,
+          subtasks: subtasks && subtasks.length > 0 ? subtasks : task.subtasks,
+        }
+      });
+    } else {
+      console.error('Socket.IO is not initialized.');
+    }
 
     // Remove the password from the user object before returning it
     const userWithoutPassword = {

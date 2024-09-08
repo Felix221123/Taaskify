@@ -26,13 +26,13 @@ export const customRender = (
   }: CustomRenderOptions = {},
 ) => {
   return render(
-    <UserProvider>
-      <BoardProvider>
+    <BoardProvider>
+      <UserProvider>
         <ThemeProvider {...providerProps}>
           <MemoryRouter initialEntries={initialEntries}>{ui}</MemoryRouter>
         </ThemeProvider>
-      </BoardProvider>
-    </UserProvider>,
+      </UserProvider>
+    </BoardProvider>,
     renderOptions
   );
 };
