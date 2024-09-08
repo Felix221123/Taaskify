@@ -13,4 +13,7 @@ export default defineConfig({
     css: true,
     setupFiles: './src/test/setup.ts',
   },
+  build: {
+    chunkSizeWarningLimit: 1000, // Set limit in kB, this example sets it to 1000 kB (1 MB)
+  },
 });

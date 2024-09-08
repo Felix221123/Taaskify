@@ -287,6 +287,56 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     });
 
+    // Listen for the "subtask-updated" event from the server
+    socket.on('subtask-updated', (data) => {
+      const currentUser = userRef.current;
+
+      if (currentUser && currentUser.user._id === data.userID) {
+        setUser((prevUser) => {
+          if (!prevUser) return prevUser;
+
+          const updatedBoards = prevUser.user.boards.map(board => {
+            if (board._id === data.boardID) {
+              return {
+                ...board,
+                columns: board.columns.map((column: any) => {
+                  if (column._id === data.columnID) {
+                    return {
+                      ...column,
+                      tasks: column.tasks.map((task: any) => {
+                        if (task._id === data.taskID) {
+                          return {
+                            ...task,
+                            subtasks: task.subtasks.map((subtask: any) =>
+                              subtask._id === data.subtask._id
+                                ? { ...subtask, isCompleted: data.subtask.isCompleted }
+                                : subtask
+                            )
+                          };
+                        }
+                        return task;
+                      })
+                    };
+                  }
+                  return column;
+                })
+              };
+            }
+            return board;
+          });
+
+          return {
+            ...prevUser,
+            user: {
+              ...prevUser.user,
+              boards: updatedBoards,
+            },
+          };
+        });
+      }
+    });
+
+
 
 
     // Clean up socket on unmount
@@ -297,6 +347,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       socket.off('new-task');
       socket.off('delete-task');
       socket.off('update-task');
+      socket.off('subtask-updated');
     };
   }, [socket, activeBoardIndex, changeBoard]);
 

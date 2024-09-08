@@ -1,5 +1,9 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import UserBoardModel from "../../Models/UserModel";
+import { getSocketIO } from "../../socket";
+import { Types } from "mongoose";
+
+
 
 const UpdateSubtaskStatusController: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
   const { userID, boardID, columnID, taskID, subtaskID, isCompleted } = req.body;
@@ -50,6 +54,24 @@ const UpdateSubtaskStatusController: RequestHandler = async (req: Request, res: 
 
     // Save the updated user document
     await user.save();
+
+    // Emit the "subtask-updated" event via Socket.IO
+    const io = getSocketIO();
+    if (io) {
+      io.emit("subtask-updated", {
+        userID: (user._id as Types.ObjectId).toString(),
+        boardID: boardID,
+        columnID: columnID,
+        taskID: taskID,
+        subtask: {
+          _id: subtask._id.toString(),
+          title: subtask.title,
+          isCompleted: subtask.isCompleted,
+        },
+      });
+    } else {
+      console.error("Socket.IO is not initialized.");
+    }
 
     // Remove the password from the user object before returning it
     const userWithoutPassword = {

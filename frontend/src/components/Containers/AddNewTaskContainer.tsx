@@ -44,7 +44,7 @@ export const AddNewTaskContainer: React.FC<AddNewTaskContainerProps> = ({ onClos
     defaultValues: {
       taskTitle: '',
       description: '',
-      subtasks: [{ title: '' }, { title: '' }],
+      subtasks: [{ title: '' }],
       status: ''
     },
   });
@@ -76,8 +76,6 @@ export const AddNewTaskContainer: React.FC<AddNewTaskContainerProps> = ({ onClos
       const userID = user?.user._id; // Replace with actual user ID
       const columnID = data.status
 
-      console.log(`here is hwo the status look like in add new task ${columnID} `);
-
       const taskData = {
         userID,
         boardID,
@@ -93,7 +91,6 @@ export const AddNewTaskContainer: React.FC<AddNewTaskContainerProps> = ({ onClos
       if (response) {
         reset();   // reset forms after submission
         onCloseProp();       //close container after a successful submission
-        console.log(`task has been created successfully ${taskData}`);
         openCustomNotification(
           <>
             <NotificationContainerStyle message='Task Created'>

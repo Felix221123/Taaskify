@@ -49,8 +49,6 @@ export const EditBoardContainer = ({ name, boardID, columns, onCloseProp }: Edit
     color: theme === 'light' ? '#828FA3' : '#FFFFFF',
   };
 
-  console.log(boardID, columns);
-
   // Submit handler
   const onSubmit = async (data: EditBoardFormData) => {
     try {
@@ -65,7 +63,6 @@ export const EditBoardContainer = ({ name, boardID, columns, onCloseProp }: Edit
 
       reset();    // reset the form
 
-      console.log(`form has been submitted here`);
       // notification for editing board successfully
       openCustomNotification(
         <>

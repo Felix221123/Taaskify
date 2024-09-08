@@ -47,16 +47,6 @@ export const TaskStatusDropdown: React.FC<TaskStatusDropdownProps> = ({
     }
   }, [status, columns, setStatus]);
 
-  console.log(`Current status: ${status}`);
-
-  console.log('Columns:', columns);
-  console.log('Current status:', status);
-
-  const currentColumn = columns.find(column => column.id === status);
-
-  console.log(currentColumn,  )
-
-
 
   return (
     <div className="card">
@@ -71,7 +61,7 @@ export const TaskStatusDropdown: React.FC<TaskStatusDropdownProps> = ({
           >
             {columns.map((column) => (
               <option key={column.id} value={column.id} style={TitleColorOnChange}>
-                {CapitaliseAfterSpace(column.name)}
+                {CapitaliseAfterSpace( column.name )}
               </option>
             ))}
           </select>

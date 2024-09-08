@@ -48,7 +48,7 @@ const CreateTaskController: RequestHandler = async (req: Request, res: Response,
     const newTask = {
       title: taskTitle,
       description: description || "",
-      status: column.name, // The status is derived from the column name
+      status: column._id, // The status is derived from the column name
       subtasks: subtasks.map((subtask: { title: string }) => ({
         title: subtask.title,
         isCompleted: false

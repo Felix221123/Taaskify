@@ -10,7 +10,7 @@ export interface Subtask {
 export interface SubtaskPropWithID {
   title: string;
   isCompleted: boolean;
-  _id:string;
+  _id?:string;
 }
 
 export interface Task {
