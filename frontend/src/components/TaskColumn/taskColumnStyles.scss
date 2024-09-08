@@ -78,6 +78,7 @@
       @include fontSize15px();
       line-height: auto;
       cursor: pointer;
+      overflow: hidden;
     }
     > .subtaskCount {
       @include fontSize12px();

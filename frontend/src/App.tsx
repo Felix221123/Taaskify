@@ -7,13 +7,13 @@ import { AppRoute } from './Routes/AppRoute';
 function App() {
   return (
     <>
-      <UserProvider>
-        <BoardProvider>
+      <BoardProvider>
+        <UserProvider>
           <ThemeProvider>
             <AppRoute />
           </ThemeProvider>
-        </BoardProvider>
-      </UserProvider>
+        </UserProvider>
+      </BoardProvider>
     </>
   );
 }

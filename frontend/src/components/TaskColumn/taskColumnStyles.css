@@ -98,6 +98,7 @@
   font-size: clamp(0.9375rem, 0.94vw, 0.94rem);
   line-height: auto;
   cursor: pointer;
+  overflow: hidden;
 }
 .mainTaskContainer > .columnTaskContainer > .subtaskCount {
   font-size: clamp(0.75rem, 0.755vw, 0.76rem);

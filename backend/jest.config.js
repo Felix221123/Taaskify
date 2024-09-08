@@ -5,7 +5,8 @@
 module.exports = {
   testEnvironment: 'node',
   transform: {
-    '^.+.tsx?$': ['ts-jest', {}],
+    '^.+\\.ts?$': ['ts-jest', {}],
   },
-  setupFilesAfterEnv:['./setupTest.ts']
+  setupFilesAfterEnv:['./setupTest.ts'],
+  testMatch: ['**/__tests__/**/*.test.ts'],
 }

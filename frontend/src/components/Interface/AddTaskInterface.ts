@@ -10,24 +10,26 @@ export interface Subtask {
 export interface SubtaskPropWithID {
   title: string;
   isCompleted: boolean;
-  _id:string;
+  _id?:string;
 }
 
 export interface Task {
   title: string | undefined;
   description: string | undefined;
-  status: string | undefined;
-  subtasks: Subtask[];
+  status: string;
+  subtasks: SubtaskPropWithID[];
 }
 
 
 export interface TaskProps{
   title: string | undefined;
   description: string | undefined;
-  status: string | undefined;
-  subtasks: Subtask[];
+  status: string;
+  subtasks: SubtaskPropWithID[];
   _id:string;
 }
+
+
 
 
 export interface onClickPropsEditBtnProps {

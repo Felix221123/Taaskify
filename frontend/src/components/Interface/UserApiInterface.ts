@@ -1,3 +1,4 @@
+import { TaskProps } from "./AddTaskInterface";
 
 export interface SignUpUserProps {
   firstName: string;
@@ -13,13 +14,25 @@ export interface LogInUserProps {
   password: string;
 }
 
+interface UserColumnProps{
+  _id:string
+  name:string;
+  tasks:TaskProps[]
+}
+
+interface BoardData{
+  _id:string;
+  name:string;
+  columns:UserColumnProps[]
+}
+
 
 export interface UserSignUpProps{
   _id: string | undefined;
   firstName: string;
   lastName: string;
   emailAddress:string;
-  boards: Array<any>;
+  boards: BoardData[];
   createdAt: string;
   updatedAt: string;
   __v: number;

@@ -1,5 +1,5 @@
 import { useTheme } from '../../Context/Theme/UseTheme';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   onCloseContainerProp,
   Task,
@@ -7,7 +7,7 @@ import {
 import './ContainersStyles.css';
 import { PrimaryBtnSmall } from '../Buttons/PrimaryBtnSmall';
 import { CloseIcon } from '../../Icons/CloseIcon';
-import { useForm,Controller } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useUser } from '../../Context/User/useUser';
 import { TaskStatusDropdown } from './TaskStatusContainer';
 import { SubTaskInputContainer } from './SubTaskColumnContainer';
@@ -44,7 +44,7 @@ interface EditTaskContainerProps extends onCloseContainerProp {
 export const EditTaskContainer: React.FC<EditTaskContainerProps> = ({
   onCloseProp, task, columns, boardID, taskID
 }) => {
-  const { control, handleSubmit, register, reset, getValues, setValue } = useForm<EditTaskFormData>({
+  const { control, handleSubmit, register, reset, } = useForm<EditTaskFormData>({
     defaultValues: {
       taskTitle: task.title,
       description: task.description,
@@ -56,6 +56,12 @@ export const EditTaskContainer: React.FC<EditTaskContainerProps> = ({
   // calling context values
   const { theme } = useTheme();
   const { user } = useUser();
+
+  useEffect(() => {
+    console.log(`here is the status in the edit task ${task.status}`);
+  },[task])
+  // console.log(`here is the status in the edit task ${task.status}`);
+
 
   // background theme colors
   const boardContainerTheme: React.CSSProperties = {
@@ -177,15 +183,21 @@ a little."
           />
 
           {/* controller for choosing the task status */}
-          <TaskStatusDropdown
-            status={getValues('status')}
-            setStatus={(newStatus) => setValue('status', newStatus)}
-            columns={columns}
-            containerName='Status'
+          <Controller
+            control={control}
+            name="status"
+            render={({ field }) => (
+              <TaskStatusDropdown
+                status={field.value}
+                setStatus={(newStatus) => field.onChange(newStatus)}
+                columns={columns}
+                containerName="Status"
+              />
+            )}
           />
 
           {/* primary button for submission */}
-          <PrimaryBtnSmall buttonName="Save Changes" btnType='submit'/>
+          <PrimaryBtnSmall buttonName="Save Changes" btnType='submit' />
         </form>
       </div>
     </>

@@ -1,19 +1,27 @@
 import 'dotenv/config'
 import express, { NextFunction, Request, Response } from 'express';
+import { createServer } from 'http';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import { forgotPasswordRoute, logInRoute, logOutRoute, resetPasswordRoute, signUpRoute, updatePasswordRoute, validateTokenRoute } from './Routes/User/UsersRoutes';
 import { createBoardRoute, createTaskRoute, deleteBoardRoute, deleteTaskRoute, editBoardRoute, editTaskRoute, updateSubtaskStatusRoute } from './Routes/Board/BoardRoutes';
 import config from './Config/config';
+import { initSocket } from './socket';
 
 
 // defining the express app
 const app = express()
 
+// defining the server
+const server = createServer(app);
+
+// defining socket.io with CORS settings
+initSocket(server);
+
 
 // using cors in app
 app.use(cors({
-  origin: config.server.base_url,
+  origin: [config.server.base_url],
   credentials: true,
 }));
 
@@ -26,7 +34,6 @@ app.use(express.json());
 
 
 // Endpoint to create all routes to server
-
 // endpoint to check authenticated users
 app.use("/api/user/", validateTokenRoute)
 
@@ -103,6 +110,6 @@ export const Add = (a: number, b: number) => {
 
 
 
-
-export default app;
+// Export both the app and server
+export { app, server };
 

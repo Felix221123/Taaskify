@@ -1,5 +1,8 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import UserBoardModel from "../../Models/UserModel";
+import { getSocketIO } from "../../socket";
+import { Types } from "mongoose";
+import { User } from '../../Interface/UserData';
 
 
 
@@ -42,10 +45,46 @@ const DeleteTaskController: RequestHandler = async (req: Request, res: Response,
     }
 
     // Remove the task from the column's tasks array
+    // const deletedTask = column.tasks[taskIndex];     // Store the deleted task
     column.tasks.splice(taskIndex, 1);
 
     // Save the updated user document
     await user.save();
+
+    // Fetch the updated user with full board data (including tasks and id)
+    const updatedUser = await UserBoardModel.findById(userID).lean();
+
+    // Ensure updatedUser exists and contains the boards property
+    if (updatedUser === null || typeof updatedUser !== 'object' || !('boards' in updatedUser)) {
+      return res.status(500).json({ message: "Failed to retrieve updated user data" });
+    }
+
+    // Cast the updated user to the User type
+    const safeUpdatedUser = updatedUser as unknown as User;
+
+    // Check if the task is still present (it shouldn't be)
+    const boardAfterDeletion = safeUpdatedUser.boards.find((b) => b._id.toString() === boardID);
+    const columnAfterDeletion = boardAfterDeletion?.columns.find((c) => c._id.toString() === columnID);
+    const taskStillExists = columnAfterDeletion?.tasks.find((t) => t._id.toString() === taskID);
+
+    if (taskStillExists) {
+      return res.status(500).json({ message: "Failed to delete task" });
+    }
+
+
+    // Emit the event to notify clients about the deleted task
+    const io = getSocketIO();
+    if (io) {
+      io.emit("delete-task", {
+        userID: (user._id as Types.ObjectId).toString(),
+        boardID: boardID,
+        columnID: columnID,
+        taskID: taskID, // Emit the task ID that was deleted
+        task: taskID // Optionally, send the deleted task data if needed on the client-side
+      });
+    } else {
+      console.error("Socket.IO is not initialized.");
+    }
 
     // Remove the password from the user object before returning it
     const userWithoutPassword = {

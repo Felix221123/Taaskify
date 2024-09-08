@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTheme } from '../../Context/Theme/UseTheme';
 import { ChevronIconDown } from '../../Icons/ChevronIconDown';
 import { CapitaliseAfterSpace } from '../../utils/CapitaliseAfterSpace';
-
-
 
 interface TaskStatusDropdownProps {
   status: string;
@@ -17,11 +15,13 @@ interface ColumnOption {
   name: string;
 }
 
-
-export const TaskStatusDropdown: React.FC<TaskStatusDropdownProps> = ({ status, setStatus, columns, containerName }) => {
+export const TaskStatusDropdown: React.FC<TaskStatusDropdownProps> = ({
+  status,
+  setStatus,
+  columns,
+  containerName,
+}) => {
   const { theme } = useTheme();
-  // Local state to manage the status
-  const [localStatus, setLocalStatus] = useState(status);
 
   // Input color theme
   const TextColorOnChange: React.CSSProperties = {
@@ -33,21 +33,19 @@ export const TaskStatusDropdown: React.FC<TaskStatusDropdownProps> = ({ status, 
     color: theme === 'light' ? '#000112' : '#FFFFFF',
   };
 
-  // handles the form submission
+  // Handles the form submission
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newStatus = e.target.value;
-    setLocalStatus(newStatus);
-    setStatus(newStatus);
+    setStatus(newStatus); // Directly set status from the parent
   };
 
-  // useEffect to check whether there is column still available
+  // Ensure current status is passed and avoid setting a default if the status is already set
   useEffect(() => {
     if (!status && columns.length > 0) {
-      setStatus(columns[0].id);
-      console.log("Default status set:", columns[0].id);
+      const defaultStatus = columns[0].id; // Set default to the first column
+      setStatus(defaultStatus); // Update parent state with default
     }
   }, [status, columns, setStatus]);
-
 
 
   return (
@@ -56,14 +54,14 @@ export const TaskStatusDropdown: React.FC<TaskStatusDropdownProps> = ({ status, 
         {containerName}
         <div className="select-container cursor-pointer">
           <select
-            value={localStatus}
+            value={status} // Directly use status from props
             onChange={handleStatusChange}
             style={TitleColorOnChange}
             className="dropdownContainer w-full h-10 font-medium"
           >
             {columns.map((column) => (
               <option key={column.id} value={column.id} style={TitleColorOnChange}>
-                {CapitaliseAfterSpace(column.name)}
+                {CapitaliseAfterSpace( column.name )}
               </option>
             ))}
           </select>

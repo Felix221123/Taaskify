@@ -1,7 +1,7 @@
 import "dotenv/config"
 import env from "./utils/validateEnv"
 import mongoose from "mongoose"
-import app from "./server"
+import { server } from "./server"
 
 
 // defining the port
@@ -13,8 +13,8 @@ mongoose
   .connect(env.MONGO_CONNECTION_STRING)
   .then(() => {
     console.log(`You successfully connected to mongodb`);
-    app.listen(port, () => {
-      console.log(`Your app is listening at port ${port}`);
+    server.listen(port, () => {
+      console.log(`Server running at http://localhost:${port}`);
     });
   })
   .catch((error) => {

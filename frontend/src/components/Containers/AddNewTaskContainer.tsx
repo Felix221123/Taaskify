@@ -40,11 +40,11 @@ interface AddNewTaskContainerProps extends onCloseContainerProp {
 
 
 export const AddNewTaskContainer: React.FC<AddNewTaskContainerProps> = ({ onCloseProp, columns, boardID }) => {
-  const { control, handleSubmit, register, reset, getValues, setValue } = useForm<CreateTaskFormData>({
+  const { control, handleSubmit, register, reset } = useForm<CreateTaskFormData>({
     defaultValues: {
       taskTitle: '',
       description: '',
-      subtasks: [{ title: '' }, { title: '' }],
+      subtasks: [{ title: '' }],
       status: ''
     },
   });
@@ -69,6 +69,7 @@ export const AddNewTaskContainer: React.FC<AddNewTaskContainerProps> = ({ onClos
   };
 
 
+
   // Handle form submission
   const onSubmit = async (data: CreateTaskFormData) => {
     try {
@@ -90,15 +91,14 @@ export const AddNewTaskContainer: React.FC<AddNewTaskContainerProps> = ({ onClos
       if (response) {
         reset();   // reset forms after submission
         onCloseProp();       //close container after a successful submission
-        console.log(`task has been created successfully ${taskData}`);
         openCustomNotification(
           <>
-          <NotificationContainerStyle message='Task Created'>
-            <SuccessIcon />
-          </NotificationContainerStyle>
+            <NotificationContainerStyle message='Task Created'>
+              <SuccessIcon />
+            </NotificationContainerStyle>
           </>,
           <>
-          Your new Task has been successfully created.
+            Your new Task has been successfully created.
           </>
         )
       }
@@ -180,11 +180,17 @@ a little."
           />
 
           {/* controller for choosing the task status */}
-          <TaskStatusDropdown
-            status={getValues('status')}
-            setStatus={(newStatus) => setValue('status', newStatus)}
-            columns={columns}
-            containerName='Status'
+          <Controller
+            control={control}
+            name="status"
+            render={({ field }) => (
+              <TaskStatusDropdown
+                status={field.value}
+                setStatus={(newStatus) => field.onChange(newStatus)}
+                columns={columns}
+                containerName='Status'
+              />
+            )}
           />
 
           {/* submission button */}
