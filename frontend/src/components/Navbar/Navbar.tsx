@@ -85,6 +85,9 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
   const handleEditDelContainer = (button: string) => {
     setEditDelBoardCon(button);
     setDelEditVisible(false);
+    if (showSideBar){
+      setShowSideBar(false);
+    }
   };
 
   // function to handle the click on a board
@@ -229,6 +232,9 @@ export const Navbar: React.FC<NavbarProps> = ({ boards, user }) => {
       setAddTaskBtn(false);
     } else {
       setAddTaskBtn(true);
+      if (showSideBar){
+        setShowSideBar(false);
+      }
     }
   };
 
