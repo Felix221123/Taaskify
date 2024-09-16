@@ -17,6 +17,9 @@ $fontStyle: "Plus Jakarta Sans", sans-serif;
 $bgpurpleHoverclr10: rgba(99, 95, 199, 0.1);
 $bgpurpleHoverclr25: rgba(99, 95, 199, 0.25);
 $borderClr: #979797;
+$lightRedish:#EF2A82;
+$textMain:#172755;
+$textDescription:#8794BA;
 
 //components mixins here
 @mixin flex($direc) {
@@ -102,16 +105,16 @@ $borderClr: #979797;
 }
 
 @mixin OverlayEffect() {
-  position: fixed; /* Sit on top of the page content */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
+  position: fixed;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
 }
 
 
@@ -137,14 +140,14 @@ $borderClr: #979797;
         > .dropdownContainer {
           display: block ;
           align-items: center;
-          padding: 0rem 2rem 0rem 1rem; // Adjusted padding to make room for the chevron
+          padding: 0rem 2rem 0rem 1rem;
           border-radius: 0.25rem;
           @include fontSize13px();
           background-color: transparent;
           border: 1px solid $mediumGrey;
-          // -webkit-appearance: none;
-          // -moz-appearance: none;
-          // appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
         }
 
         > .chevron-icon {
