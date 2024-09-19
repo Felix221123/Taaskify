@@ -11,6 +11,7 @@ import { useUser } from '../Context/User/useUser'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Loading } from '../components/Containers/Loading'
 import "../components/Containers/ContainersStyles.css"
+import { LandingPage } from '../Page/LandingPage'
 
 
 export const AppRoute: React.FC = () => {
@@ -52,8 +53,11 @@ export const AppRoute: React.FC = () => {
     <>
       <Router>
         <Routes>
+          {/* route for landing page */}
+          <Route index element={<LandingPage />} />
+          <Route path="/" element={<LandingPage />} />
           {/* route for login page  */}
-          <Route index element={<LogIn onLogInSuccessful={handleLoginSuccess} />} />
+          <Route element={<LogIn onLogInSuccessful={handleLoginSuccess} />} />
           {/* route for login page */}
           <Route path="/login/" element={<LogIn onLogInSuccessful={handleLoginSuccess} />} />
           {/* route for signup page */}
