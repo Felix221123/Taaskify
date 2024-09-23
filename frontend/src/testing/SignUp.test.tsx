@@ -29,7 +29,7 @@ describe('SignUp Component', () => {
 
     // Check if the password label and input are rendered
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Enter your Password')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Create your Password')).toBeInTheDocument();
 
     // Check if the confirm password label and input are rendered
     expect(screen.getByLabelText('Confirm Password')).toBeInTheDocument();
