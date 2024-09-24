@@ -29,15 +29,17 @@ const extractJWT = (req: Request, res: Response,next:NextFunction) => {
       try {
         const user = await UserBoardModel.findById(decoded._id); // Using the decoded token's _id
 
-        if (!user) {
+        // comparing the users session token to the token assigned
+        if (!user || user.currentSessionToken !== token) {
           return res.status(404).json({
-            message: "User not found",
+            message: "Session invalid or user not found",
           });
         }
 
         req.user = user; // Attach user to the request object
-
         next();
+
+
       } catch (dbError) {
         return res.status(500).json({
           message: "Database error",

@@ -7,7 +7,8 @@ const UserBoardSchema: Schema = new Schema({
   password: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  boards: [BoardSchema]  // Embedding boards directly within the user
+  boards: [BoardSchema],  // Embedding boards directly within the user
+  currentSessionToken: { type: String, require: true }, // Track the active session token
 }, { timestamps: true });
 
 

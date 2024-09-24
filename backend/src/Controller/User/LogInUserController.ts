@@ -54,7 +54,7 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
     };
 
     // using the sign jwt to assign a token to the user
-    signJWT(user, (error, token) => {
+    signJWT(user, async(error, token) => {
       if (error) {
         logging.error(NAMESPACE, "Unable to sign token", error);
 
@@ -62,7 +62,12 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
           message: "Unable to sign token",
           error: error
         });
-      } else if (token) {
+      }
+      else if (token) {
+        // Save the new session token to the user in the database
+        user.currentSessionToken = token;
+        await user.save();
+
         // Store JWT in an HttpOnly cookie
         const oneHourFromNow = new Date(Date.now() + 1000 * 60 * 60);
         res.cookie("authToken", token, {

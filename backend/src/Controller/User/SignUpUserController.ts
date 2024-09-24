@@ -4,7 +4,7 @@ import UserBoardModel from "../../Models/UserModel";
 import signJWT from "../../Functions/signJWT";
 import config from "../../Config/config";
 import { sendEmail } from "../../Services/EmailService";
-
+import jwt from "jsonwebtoken"
 
 
 
@@ -22,6 +22,21 @@ const SignUpUserController: RequestHandler = async (req: Request, res: Response,
 
   if (existingEmail) {
     return res.status(409).json({ error: "A user with this email already exists" });
+  }
+
+  // Check if another user is currently logged in by verifying the current token
+  const token = req.cookies.authToken;
+  if (token) {
+    jwt.verify(token, config.server.token.secret, async (error: any, decoded: any) => {
+      if (!error && decoded && decoded._id) {
+        const loggedInUser = await UserBoardModel.findById(decoded._id).exec();
+        if (loggedInUser) {
+          // Invalidate the session for the currently logged-in user
+          loggedInUser.currentSessionToken = null;
+          await loggedInUser.save();
+        }
+      }
+    });
   }
 
   // using the bcryptjs to has passwords
@@ -64,7 +79,12 @@ const SignUpUserController: RequestHandler = async (req: Request, res: Response,
               message: "Unable to sign token",
               error: error,
             });
-          } else if (token) {
+          }
+          else if (token) {
+            // Assign the new token and save it in the user's `currentSessionToken`
+            user.currentSessionToken = token;
+            await user.save();
+
             res.cookie("authToken", token, {
               httpOnly: true,
               secure: config.server.node_env === "production",    // Ensures the cookie is sent only over HTTPS, make this true during production

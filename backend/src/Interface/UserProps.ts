@@ -6,6 +6,7 @@ export interface IUser extends Document {
   firstName: string;
   lastName: string;
   boards: mongoose.Types.DocumentArray<mongoose.Document>;
+  currentSessionToken:string | null;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -1,8 +1,8 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import UserBoardModel from "../../Models/UserModel";
 import { getSocketIO } from "../../socket";
-// import { User } from '../../Interface/UserData';
 import { Types } from "mongoose";
+
 
 const EditTaskController: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
   const { userID, boardID, columnID, taskID, taskTitle, description, status, subtasks } = req.body;
@@ -63,11 +63,13 @@ const EditTaskController: RequestHandler = async (req: Request, res: Response, _
         title: taskTitle,
         description: description || task.description,
         status: status || task.status,
-        subtasks: subtasks && subtasks.length > 0 ? subtasks.map((subtask: { title: string, isCompleted: boolean }) => ({
+        subtasks: subtasks && subtasks.length > 0 ? subtasks.map((subtask: { title: string, isCompleted: boolean, _id?:string }) => ({
+          _id: subtask._id || new Types.ObjectId() ,
           title: subtask.title,
           isCompleted: subtask.isCompleted || false,
         })) : task.subtasks
       });
+      console.log(subtasks, 'here is the subtask')
     } else {
       // Update the task's details in the current column
       task.title = taskTitle;
@@ -76,11 +78,14 @@ const EditTaskController: RequestHandler = async (req: Request, res: Response, _
 
       // Update subtasks if provided
       if (subtasks && subtasks.length > 0) {
-        task.subtasks = subtasks.map((subtask: { title: string, isCompleted: boolean }) => ({
+        task.subtasks = subtasks.map((subtask: { title: string, isCompleted: boolean,_id?:string }) => ({
+          _id: subtask._id || new Types.ObjectId() ,
           title: subtask.title,
           isCompleted: subtask.isCompleted || false,
         }));
+        console.log(subtasks, 'here is the subtask')
       }
+
     }
 
     // Save the updated user document
@@ -94,8 +99,6 @@ const EditTaskController: RequestHandler = async (req: Request, res: Response, _
       return res.status(500).json({ message: 'Failed to retrieve updated user data' });
     }
 
-    // const safeUpdatedUser = updatedUser as unknown as User;
-
     // Emit the updated task details to all connected clients via Socket.IO
     const io = getSocketIO();
     if (io) {
@@ -108,7 +111,11 @@ const EditTaskController: RequestHandler = async (req: Request, res: Response, _
           title: taskTitle,
           description: description || task.description,
           status: status || task.status,
-          subtasks: subtasks && subtasks.length > 0 ? subtasks : task.subtasks,
+          subtasks: subtasks && subtasks.length > 0 ? subtasks.map((subtask: { title: string, isCompleted: boolean, _id?:string }) => ({
+            _id: subtask._id || new Types.ObjectId() , // Retain subtask ID or generate new if missing
+            title: subtask.title,
+            isCompleted: subtask.isCompleted || false,
+          })) : task.subtasks
         }
       });
     } else {
