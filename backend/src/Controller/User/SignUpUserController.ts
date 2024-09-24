@@ -7,12 +7,22 @@ import { sendEmail } from "../../Services/EmailService";
 import jwt from "jsonwebtoken"
 
 
+const MAX_USERS = 15; // Maximum limit for users
+
 
 const SignUpUserController: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
   const { firstName, lastName, emailAddress, password } = req.body;
 
   if (!firstName || !lastName || !emailAddress || !password) {
     next(Error("Parameters missing"))
+  }
+
+  // Check if the number of users has reached the limit
+  const totalUsers = await UserBoardModel.countDocuments({});
+  if (totalUsers >= MAX_USERS) {
+    return res.status(403).json({
+      message: "User limit reached. No new users can be added at this time.",
+    });
   }
 
   // preventing the same email address from being used

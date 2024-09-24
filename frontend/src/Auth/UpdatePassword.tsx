@@ -8,9 +8,7 @@ import UpdateLoggedInUserPasswordApi from "../packages/Api/UserApi/UpdateLoggedI
 import { AnimatePresence, motion } from "framer-motion";
 import { Loading } from "../components/Containers/Loading";
 import { ConfirmationContainer } from "../components/Containers/ConfirmationContainer";
-
-
-
+import { AddNewColumnBtn } from "../components/Buttons/AddNewColumnBtn";
 
 
 export const UpdatePassword: React.FC = () => {
@@ -81,15 +79,24 @@ export const UpdatePassword: React.FC = () => {
     document.body.style.background = "linear-gradient(90deg, rgba(0,14,36,1) 4%)";
   }, []);
 
+  // handles the navigation from going back to the dashboard
+  const handleNavigation = (route:string) => {
+    const routeFormat = route.replace(/\s+/g, '-').toLowerCase()
+    navigate(`/${routeFormat}/`)
+  }
+
 
 
   return (
     <>
+     <div className='goBackBtn'>
+      <AddNewColumnBtn buttonName='Go Back' onClickProp={() => handleNavigation("taaskify")}/>
+    </div>
       <div className="Intro flex flex-col gap-y-3 mt-10">
         <article data-testid="updatePasswordText" className="textClr font-bold text-center text-3xl">Update Your Taaskify Password</article>
         <p className="textClr text text-center font-medium text-lg px-3">Please enter your current password and your new password</p>
       </div>
-      <div className="formContainer" data-testid="loginContainer">
+      <div className="formContainer mb-8" data-testid="loginContainer">
         <form className="LogInform" action="" method="post" onSubmit={handleSubmit(onPasswordReset)}>
           <div className="flex-column">
             <label htmlFor="password">Current Password </label>
@@ -170,7 +177,6 @@ export const UpdatePassword: React.FC = () => {
             animate={getMenuAnimationForSpin().visible}
             exit={getMenuAnimationForSpin().exit}
             transition={{ duration: 0.5 }}
-            // ref={confirmationEmailContainer}
             data-testid="confirmationEmailContainer"
           >
             <ConfirmationContainer containerName="updatepassword"/>

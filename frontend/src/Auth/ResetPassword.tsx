@@ -11,8 +11,6 @@ import "../components/Containers/ContainersStyles.css"
 import { ConfirmationContainer } from '../components/Containers/ConfirmationContainer';
 
 
-
-
 export const ResetPassword: React.FC = () => {
   const [passwordResetSuccess, setPasswordResetSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
