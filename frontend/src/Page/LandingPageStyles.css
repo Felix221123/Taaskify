@@ -21,4 +21,309 @@
   80%, 100% {
     transform: scale(0);
   }
+}
+.landingPage {
+  width: 100%;
+  background-color: #000112;
+}
+.landingPage > header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  background-color: #000112;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.landingPage > header > .logInBtn {
+  width: 9.375rem;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ffffff;
+  border-radius: 1.5rem;
+  color: #ffffff;
+}
+.landingPage > header > .logInBtn:hover {
+  background-color: #EF2A82;
+  transition: 0.5s;
+  border: none;
+}
+@media (min-width: 767px) {
+  .landingPage > header > .logInBtn {
+    width: 13rem;
+  }
+}
+.landingPage > header > .logo {
+  font-size: clamp(1.5rem, 1.52vw, 1.55rem);
+  color: #ffffff;
+}
+@media (min-width: 767px) {
+  .landingPage > header {
+    padding: 2rem 5rem;
+  }
+  .landingPage > header > .logo {
+    font-size: clamp(2rem, 2.05vw, 2.05rem);
+  }
+}
+.landingPage > .heroSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-direction: column-reverse;
+  gap: 1.5rem;
+  padding: 0rem 1.5rem;
+  background-color: #000112;
+}
+.landingPage > .heroSection > .appImageSection {
+  margin-top: 1rem;
+}
+@media (min-width: 767px) {
+  .landingPage > .heroSection > .appImageSection {
+    margin-top: 0rem;
+  }
+}
+.landingPage > .heroSection > .appImageSection > img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 1rem;
+}
+.landingPage > .heroSection > .textSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  margin-bottom: 3.5rem;
+}
+@media (min-width: 767) {
+  .landingPage > .heroSection > .textSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 2.5rem;
+  }
+}
+.landingPage > .heroSection > .textSection > h1 {
+  line-height: 120%;
+  font-size: clamp(1.75rem, 1.78vw, 1.79rem);
+  color: #ffffff;
+}
+@media (min-width: 767px) {
+  .landingPage > .heroSection > .textSection > h1 {
+    font-size: clamp(2.5rem, 2.55vw, 2.6rem);
+  }
+}
+.landingPage > .heroSection > .textSection > .description {
+  color: #ffffff;
+  font-size: clamp(0.9375rem, 0.94vw, 0.94rem);
+}
+.landingPage > .heroSection > .textSection > .signUpBtn {
+  width: 20.9375rem;
+  height: 2.5rem;
+  background-color: #EF2A82;
+  color: #ffffff;
+  border-radius: 1.5rem;
+}
+.landingPage > .heroSection > .textSection > .signUpBtn:hover {
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  transform: 0.5s;
+}
+@media (min-width: 767px) {
+  .landingPage > .heroSection > .textSection > .signUpBtn {
+    width: 12rem;
+  }
+}
+@media (min-width: 900px) {
+  .landingPage > .heroSection {
+    display: grid;
+    grid-template-columns: 0.4fr 0.6fr;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 5rem;
+    -moz-column-gap: 3.5rem;
+         column-gap: 3.5rem;
+  }
+}
+.landingPage > .mainFeatures {
+  padding: 2.5rem 1.5rem;
+  background-color: #000112;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+.landingPage > .mainFeatures > h2 {
+  font-size: clamp(2rem, 2.05vw, 2.05rem);
+}
+@media (min-width: 767px) {
+  .landingPage > .mainFeatures > h2 {
+    text-align: center;
+  }
+}
+.landingPage > .mainFeatures > .featureDescription {
+  font-size: clamp(0.9375rem, 0.94vw, 0.94rem);
+}
+@media (min-width: 767px) {
+  .landingPage > .mainFeatures > .featureDescription {
+    text-align: center;
+    padding: 0% 10%;
+    margin-bottom: 3.5rem;
+  }
+}
+.landingPage > .mainFeatures .features {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+@media (min-width: 900px) {
+  .landingPage > .mainFeatures .features {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.landingPage > .mainFeatures .features > .eachFeature {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  -moz-column-gap: 2.5rem;
+       column-gap: 2.5rem;
+}
+@media (min-width: 900px) {
+  .landingPage > .mainFeatures .features > .eachFeature {
+    padding: 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    row-gap: 1rem;
+  }
+}
+.landingPage > .mainFeatures .features > .eachFeature > .textContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+.landingPage > .mainFeatures .features > .eachFeature > .textContainer > article {
+  font-weight: 900;
+  color: #e4ebfa;
+  font-size: clamp(1.125rem, 1.13vw, 1.13rem);
+}
+.landingPage > .mainFeatures .features > .eachFeature > .textContainer > .description {
+  font-size: clamp(0.875rem, 0.88vw, 0.89rem);
+}
+.landingPage > .featureExplanationContainer {
+  padding: 2.5rem 1.5rem 7rem 1.5rem;
+  background-color: #000112;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+@media (min-width: 900px) {
+  .landingPage > .featureExplanationContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 7rem;
+  }
+}
+.landingPage > .featureExplanationContainer > .featureContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+}
+.landingPage > .featureExplanationContainer > .featureContainer > .textSection {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+@media (min-width: 900px) {
+  .landingPage > .featureExplanationContainer > .featureContainer > .textSection {
+    padding: 0 10% 0 0;
+  }
+}
+.landingPage > .featureExplanationContainer > .featureContainer > .textSection > article {
+  font-size: clamp(1.5rem, 1.52vw, 1.55rem);
+  color: #e4ebfa;
+}
+.landingPage > .featureExplanationContainer > .featureContainer > .textSection > .description {
+  font-size: clamp(0.875rem, 0.88vw, 0.89rem);
+}
+.landingPage > .featureExplanationContainer > .featureContainer > .imgContainer > img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.5rem;
+}
+@media (min-width: 900px) {
+  .landingPage > .featureExplanationContainer > .featureContainer {
+    display: grid;
+    grid-template-columns: 0.4fr 0.6fr;
+    gap: 4rem;
+    align-items: center;
+    grid-auto-flow: dense column-reverse;
+    padding: 0 2.5rem;
+  }
+  .landingPage > .featureExplanationContainer > .featureContainer > .textSection {
+    order: 1;
+  }
+  .landingPage > .featureExplanationContainer > .featureContainer > .imgContainer {
+    order: 1;
+  }
+}
+@media (min-width: 900px) {
+  .landingPage > .featureExplanationContainer > .column-reverse {
+    display: grid;
+    grid-template-columns: 0.6fr 0.4fr; /* Adjust as needed */
+    gap: 4rem;
+    align-items: center;
+  }
+  .landingPage > .featureExplanationContainer > .column-reverse > .textSection {
+    order: 2;
+  }
+  .landingPage > .featureExplanationContainer > .column-reverse > .imgContainer {
+    order: 1;
+  }
+}
+.landingPage > footer {
+  padding: 5rem 1.5rem;
+  color: white;
+}
+.landingPage > footer > hr {
+  margin-bottom: 2.5rem;
+  border: 1px solid #8794BA;
+}
+.landingPage > footer > .footerText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-items: flex-start;
+  row-gap: 1.5rem;
+}
+@media (min-width: 767px) {
+  .landingPage > footer > .footerText {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.landingPage > footer > .footerText > .logo {
+  font-size: clamp(2rem, 2.05vw, 2.05rem);
+}
+.landingPage > footer > .footerText > .link > .portfolio-link:hover {
+  color: #EF2A82;
+  transition: 0.5s;
 }/*# sourceMappingURL=LandingPageStyles.css.map */

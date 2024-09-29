@@ -1,16 +1,294 @@
 @import "../static/base";
 
+@mixin LandingPage() {
+  width: 100%;
+  background-color: $blackclr;
+
+  > header {
+    @include flexComp(row);
+    justify-content: space-between;
+    padding: 1.2rem 1.5rem;
+    background-color: $blackclr;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+
+    > .logInBtn {
+      width: 9.375rem;
+      height: 2.5rem;
+      @include flexComp(column);
+      border: 1px solid $whiteclr;
+      border-radius: 1.5rem;
+      color: $whiteclr;
+
+      &:hover{
+        background-color: $lightRedish;
+        transition: .5s;
+        border: none;
+      }
+
+      @media (min-width: 767px) {
+        width: 13rem;
+      }
+    }
+    > .logo {
+      @include fontSize24px();
+      color: $whiteclr;
+    }
+
+    @media (min-width: 767px) {
+      padding: 2rem 5rem;
+
+      > .logo {
+        @include fontSize32px();
+      }
+    }
+  }
+
+  > .heroSection {
+    position: relative;
+    @include flex(column);
+    flex-direction: column-reverse;
+    gap: 1.5rem;
+    padding: 0rem 1.5rem;
+    background-color: $blackclr;
+
+    > .appImageSection {
+      margin-top: 1rem;
+      @media (min-width: 767px) {
+        margin-top: 0rem;
+      }
+      > img {
+        object-fit: cover;
+        border-radius: 1rem;
+      }
+    }
+
+    > .textSection {
+      position: relative;
+      @include flex(column);
+      row-gap: 2rem;
+      // align-items: center;
+      margin-bottom: 3.5rem;
+
+      @media (min-width: 767) {
+        @include flex(column);
+        align-items: flex-start;
+        row-gap: 2.5rem;
+      }
+
+      > h1 {
+        line-height: 120%;
+        @include fontSize28px();
+        color: $whiteclr;
+
+        @media (min-width: 767px) {
+          @include fontSize40px();
+        }
+      }
+      > .description {
+        color: $whiteclr;
+        @include fontSize15px();
+      }
+
+      > .signUpBtn {
+        width: 20.9375rem;
+        height: 2.5rem;
+        background-color: $lightRedish;
+        color: $whiteclr;
+        border-radius: 1.5rem;
+
+        &:hover{
+          border: 1px solid $whiteclr;
+          background-color: transparent;
+          transform:.5s ;
+        }
+
+        @media (min-width: 767px) {
+          width: 12rem;
+        }
+      }
+    }
+
+    @media (min-width: 900px) {
+      display: grid;
+      grid-template-columns: 0.4fr 0.6fr;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4rem 5rem;
+      column-gap: 3.5rem;
+    }
+  }
+
+  > .mainFeatures {
+    padding: 2.5rem 1.5rem;
+    background-color: $blackclr;
+    color: $whiteclr;
+    @include flex(column);
+    row-gap: 2rem;
+
+    > h2 {
+      @include fontSize32px();
+
+      @media (min-width: 767px) {
+        text-align: center;
+      }
+    }
+
+    > .featureDescription {
+      @include fontSize15px();
+      @media (min-width: 767px) {
+        text-align: center;
+        padding: 0% 10%;
+        margin-bottom: 3.5rem;
+      }
+    }
+
+    .features {
+      @include flex(column);
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+
+      @media (min-width: 900px) {
+        @include flexComp(row);
+      }
+
+      > .eachFeature {
+        @include flexComp(row);
+        column-gap: 2.5rem;
+        @media (min-width: 900px) {
+          padding: 0 2.5rem;
+          @include flexComp(column);
+          text-align: center;
+          row-gap: 1rem;
+        }
+
+        > .textContainer {
+          @include flex(column);
+          row-gap: 0.5rem;
+          > article {
+            font-weight: 900;
+            color: $linesLight;
+            @include fontSize18px;
+          }
+          > .description {
+            @include fontSize14px();
+          }
+        }
+      }
+    }
+  }
+
+  > .featureExplanationContainer {
+    padding: 2.5rem 1.5rem 7rem 1.5rem;
+    background-color: $blackclr;
+    color: $whiteclr;
+    @include flex(column);
+    row-gap: 2rem;
 
 
+    @media (min-width:900px) {
+      @include flex(column);
+      row-gap: 7rem;
+    }
 
+    > .featureContainer {
+      @include flex(column);
+      row-gap: 1.5rem;
 
+      > .textSection {
+        @include flex(column);
+        row-gap: 1rem;
 
+        @media (min-width: 900px) {
+          padding: 0 10% 0 0;
+        }
 
+        > article {
+          @include fontSize24px();
+          color: $linesLight;
+        }
 
+        > .description {
+          @include fontSize14px();
+        }
+      }
 
+      > .imgContainer {
+        > img {
+          object-fit: cover;
+          border-radius: 0.5rem;
+        }
+      }
 
+      @media (min-width: 900px) {
+        display: grid;
+        grid-template-columns: 0.4fr 0.6fr;
+        gap: 4rem;
+        align-items: center;
+        grid-auto-flow: dense column-reverse;
+        padding: 0 2.5rem;
 
+        > .textSection {
+          order: 1;
+        }
 
+        > .imgContainer {
+          order: 1;
+        }
+      }
+    }
+    > .column-reverse {
+      @media (min-width: 900px) {
+        display: grid;
+        grid-template-columns: 0.6fr 0.4fr; /* Adjust as needed */
+        gap: 4rem;
+        align-items: center;
+        > .textSection {
+          order: 2;
+        }
 
+        > .imgContainer {
+          order: 1;
+        }
+      }
+    }
+  }
+
+  > footer{
+    padding:5rem 1.5rem;
+    color: white;
+    > hr{
+      margin-bottom: 2.5rem;
+      border: 1px solid $textDescription;
+    }
+    > .footerText{
+      @include flexComp(column);
+      align-items: flex-start;
+      row-gap: 1.5rem;
+
+      @media (min-width:767px) {
+        @include flexComp(row);
+        justify-content: space-between;
+      }
+
+      > .logo{
+        @include fontSize32px();
+      }
+      > .link{
+        > .portfolio-link{
+          &:hover{
+            color: $lightRedish;
+            transition: .5s;
+          }
+        }
+      }
+    }
+  }
+}
 
 // main styles selectors
+.landingPage {
+  @include LandingPage();
+}

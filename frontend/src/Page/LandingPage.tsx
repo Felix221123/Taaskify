@@ -7,7 +7,7 @@ import AutomateUpdatesImg from "/src/assets/real-time.png"
 import CustomisableImg from "/src/assets/customisable.png"
 import DashboardImg from "/src/assets/dashboard.png"
 import { useNavigate } from "react-router-dom"
-
+import "./LandingPageStyles.css";
 
 export const LandingPage: React.FC = () => {
 
@@ -15,7 +15,7 @@ export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
   // handles the navigation controller
-  const handleNavigation = (route:string) => {
+  const handleNavigation = (route: string) => {
     const routeFormat = route.replace(/\s+/g, '-').toLowerCase()
     navigate(`/${routeFormat}/`)
   }
@@ -27,18 +27,18 @@ export const LandingPage: React.FC = () => {
       <div className="landingPage">
         {/* header section */}
         <header>
-          <div className="logo" data-testid='appName'>taaskify</div>
-          <button className="logInBtn" data-testid="logInLink" onClick={() => handleNavigation("login")}>Log In</button>
+          <div className="logo uppercase font-bold" data-testid='appName'>taaskify</div>
+          <button className="logInBtn font-normal" data-testid="logInLink" onClick={() => handleNavigation("login")}>Log In</button>
         </header>
         {/* hero section */}
         <div className="heroSection">
           <div className="textSection">
-            <h1>Manage Tasks Effortlessly with Real-Time Efficiency</h1>
-            <p className="description">
+            <h1 className='font-bold'>Manage Tasks Effortlessly with Real-Time Efficiency</h1>
+            <p className="description font-normal text-left">
               Taaskify offers a robust, real-time task management solution designed for individuals who value efficiency and flexibility.
               With customisable Kanban boards, real-time notifications, and secure authentication, stay on top of every project no matter where you are.
             </p>
-            <button className="signUpBtn" data-testid="signupLink" onClick={() => handleNavigation("signup")}>Try for free</button>
+            <button className="signUpBtn font-normal" data-testid="signupLink" onClick={() => handleNavigation("signup")}>Try for free</button>
           </div>
           <div className="appImageSection">
             <img src={HeroImage} alt="hero section image" />
@@ -46,8 +46,8 @@ export const LandingPage: React.FC = () => {
         </div>
         {/* main features section */}
         <div className="mainFeatures" data-testid='mainFeatures'>
-          <h2>Main Features</h2>
-          <p className="featureDescription">
+          <h2 className='font-bold'>Main Features</h2>
+          <p className="featureDescription font-normal">
             Taaskify empowers individuals with a fully customisable task management solution.
             Whether you're tracking daily activities or managing complex projects, our platform delivers
             real-time monitoring, tailored dashboards, and high performance. Stay organised, boost productivity,
@@ -56,18 +56,24 @@ export const LandingPage: React.FC = () => {
           <div className="features">
             <div className="eachFeature">
               <img src={RealTimeSvg} alt="real time icon" />
-              <article>Real-Time Monitoring</article>
-              <p className="description">Track and manage tasks 24/7 with real-time updates and notifications. Keep yourself and projects in sync at all times.</p>
+              <div className="textContainer">
+                <article>Real-Time Monitoring</article>
+                <p className="description">Track and manage tasks 24/7 with real-time updates and notifications. Keep yourself and projects in sync at all times.</p>
+              </div>
             </div>
             <div className="eachFeature">
               <img src={CustomisableColumnSvg} alt="customisable icon" />
-              <article>Customisable Columns</article>
-              <p className="description">Easily personalise your dashboard with a variety of columns tailored to suit your specific project needs</p>
+              <div className="textContainer">
+                <article>Customisable Columns</article>
+                <p className="description">Easily personalise your dashboard with a variety of columns tailored to suit your specific project needs</p>
+              </div>
             </div>
             <div className="eachFeature">
               <img src={HighPerformanceSvg} alt="high performance icon" />
-              <article>High Performance</article>
-              <p className="description">Built for speed and reliability, Taaskify delivers top-notch performance, ensuring seamless task management even with large workloads.</p>
+              <div className="textContainer">
+                <article>High Performance</article>
+                <p className="description">Built for speed and reliability, Taaskify delivers top-notch performance, ensuring seamless task management even with large workloads.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -75,23 +81,23 @@ export const LandingPage: React.FC = () => {
         <div className="featureExplanationContainer" data-testid='features'>
           <div className="featureContainer">
             <div className="textSection">
-              <article>
+              <article className='font-bold'>
                 Automated Updates
                 & Column Tracking
               </article>
               <p className="description">
-              Stay informed and on top of your projects with Taaskify's automated system. Get real-time insights delivered straight to your dashboard. Customise your Kanban board’s column according to your needs.
+                Stay informed and on top of your projects with Taaskify's automated system. Get real-time insights delivered straight to your dashboard. Customise your Kanban board’s column according to your needs.
               </p>
             </div>
             <div className="imgContainer">
               <img src={AutomateUpdatesImg} alt="feature image" />
             </div>
           </div>
-          <div className="featureContainer">
+          <div className="featureContainer column-reverse">
             <div className="textSection">
-              <article>Fully customizable to address your needs</article>
+              <article className='font-bold'>Fully customizable to address your needs</article>
               <p className="description">
-              Taaskify adapts to your workflow, allowing you to tailor every aspect of task management to suit your specific requirements. Whether you need to customise columns, adjust notifications,Taaskify gives you full control to create a seamless project management experience
+                Taaskify adapts to your workflow, allowing you to tailor every aspect of task management to suit your specific requirements. Whether you need to customise columns, adjust notifications,Taaskify gives you full control to create a seamless project management experience
               </p>
             </div>
             <div className="imgContainer">
@@ -100,9 +106,9 @@ export const LandingPage: React.FC = () => {
           </div>
           <div className="featureContainer">
             <div className="textSection">
-              <article>Dashboard </article>
+              <article className='font-bold'>Dashboard </article>
               <p className="description">
-              Kickstart your projects with our ready-to-use dashboards, designed to help you visualise and manage tasks efficiently using boards.
+                Kickstart your projects with our ready-to-use dashboards, designed to help you visualise and manage tasks efficiently using boards.
               </p>
             </div>
             <div className="imgContainer">
@@ -114,8 +120,8 @@ export const LandingPage: React.FC = () => {
         <footer data-testid='footer'>
           <hr />
           <div className="footerText">
-            <article className='uppercase font-bold'>taaskify</article>
-            <article>© Copyright 2024 Powered by <a href="https://felixbaah.com/" target="_blank" rel="noopener noreferrer" className='portfolio-link'>Felix Baah</a> </article>
+            <article className='logo uppercase font-bold'>taaskify</article>
+            <article className='link'>© Copyright 2024 Powered by <a href="https://felixbaah.com/" target="_blank" rel="noopener noreferrer" className='portfolio-link'>Felix Baah</a> </article>
             <a href="mailto:contact@taaskify.com">contact@taaskify.com</a>
           </div>
         </footer>
