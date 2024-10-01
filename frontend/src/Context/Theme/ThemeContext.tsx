@@ -25,7 +25,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     }
 
     // Check system preference
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: light)').matches;
     return prefersDark ? 'dark' : 'light';
   });
 

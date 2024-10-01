@@ -52,6 +52,9 @@ const UpdateSubtaskStatusController: RequestHandler = async (req: Request, res: 
     // Update the subtask's completion status
     subtask.isCompleted = isCompleted;
 
+    // Ensure that the task's status is retained or updated
+    task.status = task.status || column._id;
+
     // Save the updated user document
     await user.save();
 

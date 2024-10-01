@@ -83,9 +83,8 @@ const EditTaskController: RequestHandler = async (req: Request, res: Response, _
           title: subtask.title,
           isCompleted: subtask.isCompleted || false,
         }));
-        console.log(subtasks, 'here is the subtask')
+        console.log(subtasks, 'here is the subtask');
       }
-
     }
 
     // Save the updated user document
