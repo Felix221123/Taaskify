@@ -163,7 +163,18 @@ export const SubTaskForTaskContainer = ({
       setSubtasks(updatedSubtasks);
 
       // getting the users ID
-      const userID = user?.user._id
+      const userID = user?.user._id;
+
+      console.log(updatedCheckedIndices);
+
+
+      // console.log(userID,
+      //   boardID,
+      //   columnID,
+      //   taskID,
+      //   updatedSubtasks[index]._id,'is the subtask id',
+      // isChecked, ' is the responses for the update subtask checking');
+
 
       // Call the API to update the subtask status
       await UpdateSubtaskStatusApi({
@@ -171,7 +182,7 @@ export const SubTaskForTaskContainer = ({
         boardID,
         columnID,
         taskID,
-        subtaskID: updatedSubtasks[index]._id,
+        subtaskID: updatedSubtasks[index]?._id,
         isCompleted: isChecked,
       });
 

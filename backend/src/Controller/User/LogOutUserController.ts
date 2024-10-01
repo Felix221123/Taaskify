@@ -3,7 +3,14 @@ import config from "../../Config/config";
 
 
 
-const LogOutUserController: RequestHandler = (_req: Request, res: Response, _next: NextFunction) => {
+const LogOutUserController: RequestHandler = async(req: Request, res: Response, _next: NextFunction) => {
+
+  if (req.user) {
+    req.user.currentSessionToken = null;
+    await req.user.save();
+  }
+
+
   // Clear the JWT cookie
   res.clearCookie("authToken", {
     httpOnly: true,

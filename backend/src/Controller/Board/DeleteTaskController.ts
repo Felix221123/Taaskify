@@ -104,7 +104,11 @@ const DeleteTaskController: RequestHandler = async (req: Request, res: Response,
       user: userWithoutPassword
     });
 
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Error occurred while deleting task:', error);  // Log the error for debugging
+    if (error.name === 'CastError') {
+      return res.status(404).json({ message: 'User not found' }); // Handle cast errors, like invalid ObjectId
+    }
     return res.status(500).json({ message: 'Server error', error });
   }
 }

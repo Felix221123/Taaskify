@@ -172,3 +172,13 @@
     width: 30rem;
   }
 }
+
+
+
+.goBackBtn{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5rem;
+}

@@ -140,7 +140,7 @@ export const SignUp: React.FC<SignUpModalProps> = ({ onSignUpSuccessful }) => {
           <div className="inputForm">
             <img src={Password} alt="password icon" />
             <input
-              placeholder="Enter your Password"
+              placeholder="Create your Password"
               id="password"
               {...register("password", { required: "Password is required" })}
               className="input"

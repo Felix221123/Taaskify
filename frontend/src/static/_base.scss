@@ -266,3 +266,11 @@ $textDescription:#8794BA;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+
+@mixin SizeofOriginalContents() {
+  @media (min-width: 1440px) {
+    width: 90rem;
+    margin-inline: auto;
+  }
+}

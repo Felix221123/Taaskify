@@ -29,21 +29,21 @@ const UpdateSubtaskStatusController: RequestHandler = async (req: Request, res: 
     }
 
     // Find the column by its ID within the found board
-    const column = board.columns.id(columnID);
+    const column = board.columns.id(columnID) as any;
 
     if (!column) {
       return res.status(404).json({ message: 'Column not found' });
     }
 
     // Find the task by its ID within the found column
-    const task = column.tasks.id(taskID);
+    const task = column.tasks.id(taskID) as any;
 
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
     }
 
     // Find the subtask by its ID within the found task
-    const subtask = task.subtasks.id(subtaskID);
+    const subtask = task.subtasks.id(subtaskID) as any;
 
     if (!subtask) {
       return res.status(404).json({ message: 'Subtask not found' });
@@ -51,6 +51,9 @@ const UpdateSubtaskStatusController: RequestHandler = async (req: Request, res: 
 
     // Update the subtask's completion status
     subtask.isCompleted = isCompleted;
+
+    // Ensure that the task's status is retained or updated
+    task.status = task.status || column._id;
 
     // Save the updated user document
     await user.save();
