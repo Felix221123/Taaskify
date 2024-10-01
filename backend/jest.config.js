@@ -9,4 +9,5 @@ module.exports = {
   },
   setupFilesAfterEnv:['./setupTest.ts'],
   testMatch: ['**/__tests__/**/*.test.ts'],
+  globalTeardown: './globalTeardown.ts',
 }

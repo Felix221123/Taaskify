@@ -9,11 +9,11 @@ import config from "../../Config/config";
 // defining namespace
 const NAMESPACE = "Auth"
 
-const LogInUserController: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+const LogInUserController: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
   const { emailAddress, password } = req.body;
 
   if (!emailAddress || !password) {
-    next(Error("Parameters missing"))
+    return res.status(400).json({ message: "Parameters missing" });
   }
 
   try {
