@@ -188,11 +188,7 @@
   }
 }
 
-.toggleBtn {
-  /* The switch - the box around the slider */
-  /* Hide default HTML checkbox */
-  /* The slider */
-}
+
 .toggleBtn .switch {
   position: relative;
   display: inline-block;

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import logging from '../Config/logging';
 
+
 const NAMESPACE = 'user';
 
 const ValidateToken = (req: Request, res: Response, _next: NextFunction) => {

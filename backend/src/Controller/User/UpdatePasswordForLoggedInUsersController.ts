@@ -4,7 +4,6 @@ import signJWT from "../../Functions/signJWT";
 import config from "../../Config/config";
 
 
-
 const UpdatePasswordForLoggedInUsersController:RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
 
   // creating a password body structuring
@@ -44,7 +43,7 @@ const UpdatePasswordForLoggedInUsersController:RequestHandler = async (req: Requ
     await user.save();
 
     // Remove the password from the user object before returning it
-    const userWithoutPassword = {
+    const userWithoutPassword:any = {
       _id: user._id,
       emailAddress: user.emailAddress,
       firstName: user.firstName,
@@ -53,7 +52,8 @@ const UpdatePasswordForLoggedInUsersController:RequestHandler = async (req: Requ
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
       __v: user.__v,
-    };
+    };;
+
 
     // Issue a new JWT after password update
     signJWT(user, (error, token) => {
