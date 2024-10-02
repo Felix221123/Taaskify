@@ -8,7 +8,7 @@
     "server": "nodemon",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
-    "build": "tsc --out dist",
+    "build": "tsc",
     "format:style": "prettier . --write"
   },
   "keywords": [],

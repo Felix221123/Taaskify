@@ -33,7 +33,7 @@ test('Should create a new board for the user', async () => {
     firstName: 'John',
     lastName: 'Doe',
     emailAddress: 'john@example.com',
-    password: 'hashedpassword',
+    password: 'hashedPassword',
     boards: [],
   }) as Document;
 

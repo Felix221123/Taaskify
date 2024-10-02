@@ -9,6 +9,7 @@ export interface IUser extends Document {
   currentSessionToken:string | null;
   createdAt: Date;
   updatedAt: Date;
+  __v?: number;
 }
 
 
