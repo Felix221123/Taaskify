@@ -9,7 +9,7 @@ interface EditBoardProps {
 }
 
 const EditBoardApi = async (boardData: EditBoardProps): Promise<UserBoardData> => {
-  const Port = `http://localhost:5500`; // Define the backend port
+  const Port = import.meta.env.VITE_TAASKIFY_APP_BACKEND_URL || `http://localhost:5500`; // Define the backend port
   const editBoardUrl = `${Port}/api/user/board/editboard/`;
 
   // Make an options header for correct data posting

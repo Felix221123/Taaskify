@@ -11,7 +11,7 @@ interface CreateBoardProps {
 
 
 const CreateNewBoardApi = async (boardData:CreateBoardProps):Promise<UserBoardData> => {
-  const Port = `http://localhost:5500`; // Define the backend port
+  const Port = import.meta.env.VITE_TAASKIFY_APP_BACKEND_URL || `http://localhost:5500`; // Define the backend port
   const createBoardUrl = `${Port}/api/user/board/createboard/`;
 
   // Make an options header for correct data posting

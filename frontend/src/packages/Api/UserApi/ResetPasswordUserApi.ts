@@ -3,7 +3,7 @@ import { FetchData } from "../../FetchManager/fetchData";
 
 
 const ResetPasswordUserApi = async (resetProps:ResetPasswordProps):Promise<string> => {
-  const Port = `http://localhost:5500`;
+  const Port = import.meta.env.VITE_TAASKIFY_APP_BACKEND_URL || `http://localhost:5500`;
   const resetPasswordPort = `${Port}/api/user/reset-password/`
 
   // destructing the props data

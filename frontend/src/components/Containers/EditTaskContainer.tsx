@@ -1,5 +1,5 @@
 import { useTheme } from '../../Context/Theme/UseTheme';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   onCloseContainerProp,
   Task,
@@ -57,12 +57,6 @@ export const EditTaskContainer: React.FC<EditTaskContainerProps> = ({
   const { theme } = useTheme();
   const { user } = useUser();
 
-  useEffect(() => {
-    console.log(`here is the status in the edit task ${task.status}`);
-  },[task])
-  // console.log(`here is the status in the edit task ${task.status}`);
-
-
   // background theme colors
   const boardContainerTheme: React.CSSProperties = {
     backgroundColor: theme === 'light' ? '#FFFFFF' : '#3E3F4E',
@@ -100,7 +94,6 @@ export const EditTaskContainer: React.FC<EditTaskContainerProps> = ({
       if (response) {
         reset();
         onCloseProp();
-        console.log(`Task has been edited successfully ${taskData}`);
         openCustomNotification(
           <>
             <NotificationContainerStyle message='Task Updated'>

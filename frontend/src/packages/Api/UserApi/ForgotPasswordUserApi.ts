@@ -3,7 +3,7 @@ import { FetchData } from "../../FetchManager/fetchData";
 
 
 const ForgotPasswordUserApi = async (userEmailProps:ForgotPasswordProps):Promise<string> => {
-  const Port = `http://localhost:5500`;
+  const Port = import.meta.env.VITE_TAASKIFY_APP_BACKEND_URL || `http://localhost:5500`;
   const forgotPasswordPort = `${Port}/api/user/forgot-password/`;
 
   // destructing the email address from the props

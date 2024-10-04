@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "frontend/dist"
+
+[build.environment]
+  NODE_VERSION = "22.3.0"
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"

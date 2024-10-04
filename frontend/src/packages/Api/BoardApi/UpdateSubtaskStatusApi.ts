@@ -11,7 +11,7 @@ interface UpdateSubtaskStatusProps {
 }
 
 const UpdateSubtaskStatusApi = async (subtaskData: UpdateSubtaskStatusProps): Promise<UserBoardData> => {
-  const Port = `http://localhost:5500`; // Define the backend port
+  const Port = import.meta.env.VITE_TAASKIFY_APP_BACKEND_URL || `http://localhost:5500`; // Define the backend port
   const updateSubtaskUrl = `${Port}/api/user/board/update-subtask-status/`; // Endpoint for updating subtask status
 
   // Make an options header for correct data posting

@@ -3,7 +3,7 @@ import { FetchData } from "../../FetchManager/fetchData";
 
 
 const SignUpUserApi = async (signUpCredentials:SignUpUserProps):Promise<UserSignUpData> => {
-  const Port = `http://localhost:5500`;     //defining the backend port
+  const Port = import.meta.env.VITE_TAASKIFY_APP_BACKEND_URL || `http://localhost:5500`;     //defining the backend port
   const signUpPort = `${Port}/api/user/signup`;            // defining the route for sign up
 
 

@@ -13,7 +13,7 @@ interface EditTaskProps {
 }
 
 const EditTaskApi = async (taskData: EditTaskProps): Promise<UserBoardData> => {
-  const Port = `http://localhost:5500`; // Define the backend port
+  const Port = import.meta.env.VITE_TAASKIFY_APP_BACKEND_URL || `http://localhost:5500`; // Define the backend port
   const editTaskUrl = `${Port}/api/user/board/edittask/`;
 
   // Make an options header for correct data posting

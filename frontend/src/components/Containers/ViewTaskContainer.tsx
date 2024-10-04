@@ -165,17 +165,6 @@ export const SubTaskForTaskContainer = ({
       // getting the users ID
       const userID = user?.user._id;
 
-      console.log(updatedCheckedIndices);
-
-
-      // console.log(userID,
-      //   boardID,
-      //   columnID,
-      //   taskID,
-      //   updatedSubtasks[index]._id,'is the subtask id',
-      // isChecked, ' is the responses for the update subtask checking');
-
-
       // Call the API to update the subtask status
       await UpdateSubtaskStatusApi({
         userID,
@@ -185,7 +174,6 @@ export const SubTaskForTaskContainer = ({
         subtaskID: updatedSubtasks[index]?._id,
         isCompleted: isChecked,
       });
-
 
     } catch (error) {
       console.error('Failed to update subtask status:', error);
@@ -201,7 +189,10 @@ export const SubTaskForTaskContainer = ({
   };
 
 
-  // sets the hovered task
+  /**
+   * Sets the hovered task index
+   * @param {number} index The index of the hovered task
+   */
   const handleMouseOver = (index: number) => {
     setHoveredIndex(index);
   };
