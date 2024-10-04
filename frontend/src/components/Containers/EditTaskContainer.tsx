@@ -1,5 +1,5 @@
 import { useTheme } from '../../Context/Theme/UseTheme';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   onCloseContainerProp,
   Task,
