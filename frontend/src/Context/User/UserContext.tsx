@@ -28,7 +28,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [user]);
 
   // Setup a single socket connection (singleton pattern)
-  const socket = React.useMemo(() => io('http://localhost:5500', { withCredentials: true }), []); // Connect only once on component mount
+  const Port = import.meta.env.VITE_TAASKIFY_APP_BACKEND_URL || `http://localhost:5500`;
+  const socket = React.useMemo(() => io(Port, { withCredentials: true }), []); // Connect only once on component mount
 
 
   // useEffect tpo handle fetch request when users refresh the site
@@ -36,7 +37,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // method to handle on app load
     const fetchUserData = async () => {
       try {
-        const Port = `http://localhost:5500`;
+        const Port = import.meta.env.VITE_TAASKIFY_APP_BACKEND_URL || `http://localhost:5500`;
         const validatePort = `${Port}/api/user/validate`;
 
         // making an options header for correct data posting

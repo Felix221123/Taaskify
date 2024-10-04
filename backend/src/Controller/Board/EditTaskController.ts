@@ -69,7 +69,6 @@ const EditTaskController: RequestHandler = async (req: Request, res: Response, _
           isCompleted: subtask.isCompleted || false,
         })) : task.subtasks
       });
-      console.log(subtasks, 'here is the subtask')
     } else {
       // Update the task's details in the current column
       task.title = taskTitle;
@@ -83,7 +82,6 @@ const EditTaskController: RequestHandler = async (req: Request, res: Response, _
           title: subtask.title,
           isCompleted: subtask.isCompleted || false,
         }));
-        console.log(subtasks, 'here is the subtask');
       }
     }
 

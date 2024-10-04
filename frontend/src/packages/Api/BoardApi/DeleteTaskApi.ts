@@ -13,7 +13,7 @@ interface DeleteTaskProp{
 
 
 const DeleteTaskApi = async (taskData: DeleteTaskProp):Promise<UserBoardData> => {
-  const Port = `http://localhost:5500`; // Define the backend port
+  const Port = import.meta.env.VITE_TAASKIFY_APP_BACKEND_URL || `http://localhost:5500`; // Define the backend port
   const deleteTaskUrl = `${Port}/api/user/board/deletetask/`;
 
   // Make an options header for correct data posting

@@ -3,7 +3,7 @@ import { FetchData } from "../../FetchManager/fetchData";
 
 
 const UpdateLoggedInUserPasswordApi = async (userPasswordProps:UpdateLoggedInUsersPasswordProps):Promise<string> => {
-  const Port = `http://localhost:5500`;     //defining the backend port
+  const Port = import.meta.env.VITE_TAASKIFY_APP_BACKEND_URL || `http://localhost:5500`;     //defining the backend port
   const updatePasswordPort = `${Port}/api/user/update-password`;
 
 
