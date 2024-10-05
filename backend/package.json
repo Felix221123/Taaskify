@@ -10,7 +10,7 @@
     "lint:fix": "eslint src/**/*.ts --fix",
     "build": "tsc",
     "format:style": "prettier . --write",
-    "start": "node ./src/index.js"
+    "start": "npm run build && node dist/src/index.js"
   },
   "keywords": [],
   "author": "",
