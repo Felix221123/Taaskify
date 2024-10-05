@@ -1,4 +1,5 @@
 // runs after each test cases
+import { jest, afterEach } from '@jest/globals';
 
 afterEach(() => {
   jest.resetModules(); // Clears the cache for require/import
