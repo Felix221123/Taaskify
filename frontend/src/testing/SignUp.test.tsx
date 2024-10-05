@@ -2,8 +2,7 @@ import { LogIn } from "../Auth/LogIn";
 import { SignUp } from "../Auth/SignUp";
 import { customRender } from "../utils/testingUtils";
 import { fireEvent, screen } from "@testing-library/react";
-import { describe, it, } from 'vitest';
-
+import { describe, it, expect , test} from 'vitest';
 
 describe('SignUp Component', () => {
   it('renders the sign up form correctly', () => {

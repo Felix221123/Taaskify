@@ -8,7 +8,7 @@ import { customRender } from '../utils/testingUtils';
 import { EditBoardContainer } from '../components/Containers/EditBoardContainer';
 import { DeleteContainer } from '../components/Containers/DeleteContainer';
 import { UpdatePassword } from '../Auth/UpdatePassword';
-
+import { describe, it, expect , test} from 'vitest';
 
 // Mock data for boards
 const boards = [

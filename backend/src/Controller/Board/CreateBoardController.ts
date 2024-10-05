@@ -6,14 +6,14 @@ import { Types } from "mongoose";
 
 
 
-const CreateBoardController: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
+const CreateBoardController: RequestHandler = async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
 
   try {
     const { userID, name, columns } = req.body;
 
     // Validate the input
     if (!userID || !name) {
-      return res.status(400).json({ message: 'Invalid input' });
+      await res.status(400).json({ message: 'Invalid input' });
     }
 
     // find user by ID and update its board
@@ -21,10 +21,9 @@ const CreateBoardController: RequestHandler = async (req: Request, res: Response
 
     // making sure the user is found
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    };
-
-    // Create a new board object
+      await res.status(404).json({ message: 'User not found' });
+    } else {
+      // Create a new board object
     const newBoard = {
       name,
       columns: columns || []
@@ -41,7 +40,7 @@ const CreateBoardController: RequestHandler = async (req: Request, res: Response
 
     // Narrow the type using type guards or manual checking
     if (updatedUser === null || typeof updatedUser !== 'object' || !('boards' in updatedUser)) {
-      return res.status(500).json({ message: "Failed to retrieve updated user data" });
+      await res.status(500).json({ message: "Failed to retrieve updated user data" });
     }
 
     // Since we validated that `updatedUser` has `boards`, we can cast it as `User` safely
@@ -51,7 +50,7 @@ const CreateBoardController: RequestHandler = async (req: Request, res: Response
     const createdBoard = safeUpdatedUser.boards.find((board) => board.name === name);
 
     if (!createdBoard) {
-      return res.status(500).json({ message: "Board creation failed" });
+      await res.status(500).json({ message: "Board creation failed" });
     }
 
 
@@ -65,7 +64,7 @@ const CreateBoardController: RequestHandler = async (req: Request, res: Response
       console.error("Socket.IO is not initialized.");
     }
 
-    // Remove the password from the user object before returning it
+    // Remove the password from the user object before awaiting it
     const userWithoutPassword = {
       _id: user._id,
       emailAddress: user.emailAddress,
@@ -77,14 +76,17 @@ const CreateBoardController: RequestHandler = async (req: Request, res: Response
       __v: user.__v,
     };
 
-    // Return the updated user document
-    return res.status(201).json({
+    // await the updated user document
+    await res.status(201).json({
       user: userWithoutPassword
     });
 
+    }
+
+
 
   } catch (error) {
-    return res.status(500).json(
+    await res.status(500).json(
       { message: 'Server error', error }
     );
   }
