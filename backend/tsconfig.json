@@ -13,7 +13,7 @@
       "./node_modules/@types",
       "./types"
     ],
-    "types": ["node", "jest", "express"],
+    "types": ["node", "express"],
     "paths": {
       "*": ["node_modules/*", "src/*"]
     }
