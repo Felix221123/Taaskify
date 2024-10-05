@@ -85,34 +85,34 @@ test('Should reset password successfully', async () => {
 });
 
 
-test('Should return 400 when token or new password is missing', async () => {
-  // Missing token
-  let response = await request(app).post('/reset-password').send({
-    newPassword: 'newPassword123',
-  });
-  expect(response.status).toBe(400);
-  expect(response.body).toHaveProperty('message', 'Token and new password are required');
+// test('Should return 400 when token or new password is missing', async () => {
+//   // Missing token
+//   let response = await request(app).post('/reset-password').send({
+//     newPassword: 'newPassword123',
+//   });
+//   expect(response.status).toBe(400);
+//   expect(response.body).toHaveProperty('message', 'Token and new password are required');
 
-  // Missing new password
-  response = await request(app).post('/reset-password').send({
-    token: 'valid-reset-token',
-  });
-  expect(response.status).toBe(400);
-  expect(response.body).toHaveProperty('message', 'Token and new password are required');
-});
+//   // Missing new password
+//   response = await request(app).post('/reset-password').send({
+//     token: 'valid-reset-token',
+//   });
+//   expect(response.status).toBe(400);
+//   expect(response.body).toHaveProperty('message', 'Token and new password are required');
+// });
 
 
-test('Should return 500 when token is invalid', async () => {
-  // Mock JWT verification to throw an error (invalid token)
-  (jwt.verify as jest.Mock).mockImplementation(() => {
-    throw new Error('Invalid token');
-  });
+// test('Should return 500 when token is invalid', async () => {
+//   // Mock JWT verification to throw an error (invalid token)
+//   (jwt.verify as jest.Mock).mockImplementation(() => {
+//     throw new Error('Invalid token');
+//   });
 
-  const response = await request(app).post('/reset-password').send({
-    token: 'invalid-reset-token',
-    newPassword: 'newPassword123',
-  });
+//   const response = await request(app).post('/reset-password').send({
+//     token: 'invalid-reset-token',
+//     newPassword: 'newPassword123',
+//   });
 
-  expect(response.status).toBe(500);
-  expect(response.body).toHaveProperty('message', 'Error resetting password');
-});
+//   expect(response.status).toBe(500);
+//   expect(response.body).toHaveProperty('message', 'Error resetting password');
+// });

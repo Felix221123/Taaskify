@@ -9,11 +9,11 @@ import config from "../../Config/config";
 // defining namespace
 const NAMESPACE = "Auth"
 
-const LogInUserController: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
+const LogInUserController: RequestHandler = async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
   const { emailAddress, password } = req.body;
 
   if (!emailAddress || !password) {
-    return res.status(400).json({ message: "Parameters missing" });
+    res.status(400).json({ message: "Parameters missing" });
   }
 
   try {
@@ -22,7 +22,7 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
 
     // if the user doesn't exist, it prints out error
     if (users.length !== 1) {
-      return res.status(401).json({
+      res.status(401).json({
         message: "Invalid Email or Password"
       });
     }
@@ -32,16 +32,17 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
 
 
     // matching the users entered password to make sure they match whats in the database
-    const isMatch = await bcryptjs.compare(password, user.password);
+    const isMatch = bcryptjs.compare(password, user.password);
 
     // if it doesn't match then it prints error message
     if (!isMatch) {
-      return res.status(401).json({
+      res.status(401).json({
         message: "Invalid Email or Password"
       });
+      return;
     }
 
-    // Remove the password from the user object before returning it
+    // Remove the password from the user object before ng it
     const userWithoutPassword = {
       _id: user._id,
       emailAddress: user.emailAddress,
@@ -58,7 +59,7 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
       if (error) {
         logging.error(NAMESPACE, "Unable to sign token", error);
 
-        return res.status(500).json({
+        res.status(500).json({
           message: "Unable to sign token",
           error: error
         });
@@ -66,7 +67,7 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
       else if (token) {
         // Save the new session token to the user in the database
         user.currentSessionToken = token;
-        await user.save();
+        user.save();
 
         // Store JWT in an HttpOnly cookie
         const oneHourFromNow = new Date(Date.now() + 1000 * 60 * 60);
@@ -78,7 +79,7 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
           maxAge: 1000 * 60 * 60, // 1 hour
         });
 
-        return res.status(200).json({
+        res.status(200).json({
           message: "Auth Successful",
           user:userWithoutPassword,
         });
@@ -86,7 +87,7 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
     });
 
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       error
     });
   }

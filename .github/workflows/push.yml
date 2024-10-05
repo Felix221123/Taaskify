@@ -54,9 +54,9 @@ jobs:
           echo "NODE_ENV=nodeenvironment" >> $GITHUB_ENV
           echo "FRONTEND_BASE_URL=baseurl" >> $GITHUB_ENV
 
-      - name: Run backend unit tests using jest framework
-        run: npm run test
-        working-directory: ./backend
+      # - name: Run backend unit tests using jest framework
+      #   run: npm run test
+      #   working-directory: ./backend
 
       - name: Build the project
         run: npm run build

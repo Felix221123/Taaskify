@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
-import { vi } from "vitest"
+import { vi, beforeAll } from "vitest"
+
 
 vi.mock('../packages/FetchManager/fetchData', () => ({
   FetchData: vi.fn(() => Promise.resolve({

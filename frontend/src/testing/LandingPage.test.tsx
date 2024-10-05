@@ -3,6 +3,8 @@ import { customRender } from "../utils/testingUtils";
 import { LandingPage } from '../Page/LandingPage';
 import { LogIn } from '../Auth/LogIn';
 import { SignUp } from '../Auth/SignUp';
+import { describe, expect , test} from 'vitest';
+
 
 describe('Landing Page', () => {
   test('it should display the header and hero section', () => {

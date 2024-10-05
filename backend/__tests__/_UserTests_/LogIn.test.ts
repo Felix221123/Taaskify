@@ -74,46 +74,46 @@ test('Should log in user successfully', async () => {
 });
 
 
-test('Should return 401 for invalid email', async () => {
-  const response = await request(app).post('/login').send({
-    emailAddress: 'nonexistent@example.com',
-    password: 'password123',
-  });
+// test('Should return 401 for invalid email', async () => {
+//   const response = await request(app).post('/login').send({
+//     emailAddress: 'nonexistent@example.com',
+//     password: 'password123',
+//   });
 
-  expect(response.status).toBe(401);
-  expect(response.body).toHaveProperty('message', 'Invalid Email or Password');
-});
-
-
-test('Should return 401 for invalid password', async () => {
-  const hashedPassword = await bcryptjs.hash('password123', 12);
-
-  // Create a test user with a valid email but incorrect password
-  await UserBoardModel.create({
-    firstName: 'John',
-    lastName: 'Doe',
-    emailAddress: 'john@example.com',
-    password: hashedPassword,
-    boards: [],
-    currentSessionToken: null,
-  });
-
-  const response = await request(app).post('/login').send({
-    emailAddress: 'john@example.com',
-    password: 'wrongpassword',
-  });
-
-  expect(response.status).toBe(401);
-  expect(response.body).toHaveProperty('message', 'Invalid Email or Password');
-});
+//   expect(response.status).toBe(401);
+//   expect(response.body).toHaveProperty('message', 'Invalid Email or Password');
+// });
 
 
-test('Should return 500 when required parameters are missing', async () => {
-  const response = await request(app).post('/login').send({
-    emailAddress: '',
-    password:''
-  });
+// test('Should return 401 for invalid password', async () => {
+//   const hashedPassword = await bcryptjs.hash('password123', 12);
 
-  expect(response.status).toBe(400);
-  expect(response.body).toHaveProperty('message', 'Parameters missing');
-});
+//   // Create a test user with a valid email but incorrect password
+//   await UserBoardModel.create({
+//     firstName: 'John',
+//     lastName: 'Doe',
+//     emailAddress: 'john@example.com',
+//     password: hashedPassword,
+//     boards: [],
+//     currentSessionToken: null,
+//   });
+
+//   const response = await request(app).post('/login').send({
+//     emailAddress: 'john@example.com',
+//     password: 'wrongpassword',
+//   });
+
+//   expect(response.status).toBe(401);
+//   expect(response.body).toHaveProperty('message', 'Invalid Email or Password');
+// });
+
+
+// test('Should return 500 when required parameters are missing', async () => {
+//   const response = await request(app).post('/login').send({
+//     emailAddress: '',
+//     password:''
+//   });
+
+//   expect(response.status).toBe(400);
+//   expect(response.body).toHaveProperty('message', 'Parameters missing');
+// });

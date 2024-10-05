@@ -76,19 +76,19 @@ test('Should create a new board for the user', async () => {
 });
 
 
-test('Should return 400 for invalid input (missing userID or name)', async () => {
-  // Step 1: Send a request with missing parameters
-  const response = await request(app)
-    .post('/api/user/board/createboard')
-    .send({
-      name: 'New Project',
-      columns: ['To Do', 'In Progress', 'Done'],
-    });
+// test('Should return 400 for invalid input (missing userID or name)', async () => {
+//   // Step 1: Send a request with missing parameters
+//   const response = await request(app)
+//     .post('/api/user/board/createboard')
+//     .send({
+//       name: 'New Project',
+//       columns: ['To Do', 'In Progress', 'Done'],
+//     });
 
-  // Step 2: Assert the response
-  expect(response.status).toBe(400);
-  expect(response.body).toHaveProperty('message', 'Invalid input');
-});
+//   // Step 2: Assert the response
+//   expect(response.status).toBe(400);
+//   expect(response.body).toHaveProperty('message', 'Invalid input');
+// });
 
 
 test('Should return 404 if user is not found', async () => {

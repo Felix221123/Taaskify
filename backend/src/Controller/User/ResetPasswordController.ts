@@ -10,12 +10,12 @@ import signJWT from "../../Functions/signJWT";
 const NAMESPACE = "Auth";
 
 
-const ResetPasswordController:RequestHandler = async(req: Request, res: Response, _next: NextFunction) => {
+const ResetPasswordController:RequestHandler = async(req: Request, res: Response, _next: NextFunction): Promise<void> => {
   // requested body needed to change your password
   const { token, newPassword } = req.body;
 
   if (!token || !newPassword) {
-    return res.status(400).json({ message: "Token and new password are required" });
+    await res.status(400).json({ message: "Token and new password are required" });
   }
 
   try {
@@ -27,13 +27,12 @@ const ResetPasswordController:RequestHandler = async(req: Request, res: Response
 
     // throw an error if the user is not found
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    // Check if the new password is the same as the old password
+      await res.status(404).json({ message: "User not found" });
+    } else{
+       // Check if the new password is the same as the old password
     const isSamePassword = await bcryptjs.compare(newPassword, user.password);
     if (isSamePassword) {
-      return res.status(400).json({ message: "New password cannot be the same as the old password" });
+      await res.status(400).json({ message: "New password cannot be the same as the old password" });
     }
 
     // Hash the new password
@@ -68,11 +67,14 @@ const ResetPasswordController:RequestHandler = async(req: Request, res: Response
         });
       }
     });
+    }
+
+
 
 
   } catch (error:any) {
     logging.error(NAMESPACE, "Error resetting password", error);
-    return res.status(500).json({ message: "Error resetting password", error });
+    await res.status(500).json({ message: "Error resetting password", error });
   }
 
 }

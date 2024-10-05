@@ -10,37 +10,37 @@ import config from "../../Config/config";
 const NAMESPACE = "Auth";
 
 
-const ForgotPasswordController: RequestHandler = async (req: Request, res: Response, _next: NextFunction) => {
+const ForgotPasswordController: RequestHandler = async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
   const { emailAddress } = req.body;
 
   if (!emailAddress) {
-    return res.status(400).json({ message: "Email address is required" });
+    await res.status(400).json({ message: "Email address is required" });
   }
 
   try {
     const user = await UserBoardModel.findOne({ emailAddress }).exec();
 
     if (!user) {
-      return res.status(404).json({
+      await res.status(404).json({
         message: "User with that email does not exist"
       });
-    }
+    } else {
 
-    const firstName = user.firstName ? capitalizeFirstLetter(user.firstName) : "User";
+      const firstName = user?.firstName ? capitalizeFirstLetter(user.firstName) : "User";
 
-    // Generate a JWT reset token using signJWT function
-    signJWT(user, (error: any, resetToken) => {
-      if (error || !resetToken) {
-        logging.error(NAMESPACE, "Unable to sign reset token", error);
-        return res.status(500).json({
-          message: "Unable to sign reset token",
-          error: error,
-        });
-      }
+      // Generate a JWT reset token using signJWT function
+      signJWT(user, async (error: any, resetToken) => {
+        if (error || !resetToken) {
+          logging.error(NAMESPACE, "Unable to sign reset token", error);
+          await res.status(500).json({
+            message: "Unable to sign reset token",
+            error: error,
+          });
+        }
 
-      // Send the email with the reset link
-      const resetURL = `${config.server.base_url}/reset-password?token=${resetToken}`;
-      const emailTemplate = `
+        // Send the email with the reset link
+        const resetURL = `${config.server.base_url}/reset-password?token=${resetToken}`;
+        const emailTemplate = `
         <html>
         <body style="font-family: Arial, sans-serif;">
           <div>
@@ -59,26 +59,30 @@ const ForgotPasswordController: RequestHandler = async (req: Request, res: Respo
         </html>
       `;
 
-      // Send the email with the reset link
-      sendEmail(
-        [emailAddress],
-        "Password Reset Request",
-        emailTemplate
-      )
-        .then(() => {
-          logging.info(NAMESPACE, "Password reset email sent to " + emailAddress);
-          return res.status(200).json({ message: "Password reset email sent" , resetToken });
-        })
-        .catch((emailError) => {
-          logging.error(NAMESPACE, "Error sending password reset email", emailError);
-          return res.status(500).json({ message: "Error sending password reset email", error: emailError });
-        });
-    });
+        // Send the email with the reset link
+        sendEmail(
+          [emailAddress],
+          "Password Reset Request",
+          emailTemplate
+        )
+          .then(() => {
+            logging.info(NAMESPACE, "Password reset email sent to " + emailAddress);
+            return res.status(200).json({ message: "Password reset email sent", resetToken });
+          })
+          .catch((emailError) => {
+            logging.error(NAMESPACE, "Error sending password reset email", emailError);
+            return res.status(500).json({ message: "Error sending password reset email", error: emailError });
+          });
+      });
+    }
+
+
 
   } catch (error: any) {
     logging.error(NAMESPACE, "Error processing forgot password request", error);
-    return res.status(500).json({ message: "Error processing request", error });
+    await res.status(500).json({ message: "Error processing request", error });
   }
+
 
 }
 

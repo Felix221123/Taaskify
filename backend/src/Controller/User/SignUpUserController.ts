@@ -10,7 +10,7 @@ import jwt from "jsonwebtoken"
 const MAX_USERS = 15; // Maximum limit for users
 
 
-const SignUpUserController: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+const SignUpUserController: RequestHandler = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { firstName, lastName, emailAddress, password } = req.body;
 
   if (!firstName || !lastName || !emailAddress || !password) {
@@ -20,7 +20,7 @@ const SignUpUserController: RequestHandler = async (req: Request, res: Response,
   // Check if the number of users has reached the limit
   const totalUsers = await UserBoardModel.countDocuments({});
   if (totalUsers >= MAX_USERS) {
-    return res.status(403).json({
+    await res.status(403).json({
       message: "User limit reached. No new users can be added at this time.",
     });
   }
@@ -31,7 +31,7 @@ const SignUpUserController: RequestHandler = async (req: Request, res: Response,
   }).exec();
 
   if (existingEmail) {
-    return res.status(409).json({ error: "A user with this email already exists" });
+    await res.status(409).json({ error: "A user with this email already exists" });
   }
 
   // Check if another user is currently logged in by verifying the current token

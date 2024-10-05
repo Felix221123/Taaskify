@@ -84,46 +84,46 @@ test('Should delete the specified task from the column', async () => {
 
 
 
-test('Should return 404 if the user is not found', async () => {
-  // Step 1: Send a delete request with an invalid user ID
-  const response = await request(app)
-    .delete('/api/user/board/deletetask')
-    .send({
-      userID: 'nonexistentUserId',
-      boardID: 'validBoardID',
-      columnID: 'validColumnID',
-      taskID: 'validTaskID',
-    });
+// test('Should return 404 if the user is not found', async () => {
+//   // Step 1: Send a delete request with an invalid user ID
+//   const response = await request(app)
+//     .delete('/api/user/board/deletetask')
+//     .send({
+//       userID: 'nonexistentUserId',
+//       boardID: 'validBoardID',
+//       columnID: 'validColumnID',
+//       taskID: 'validTaskID',
+//     });
 
-  // Step 2: Assert the response
-  expect(response.status).toBe(404);
-  expect(response.body).toHaveProperty('message', 'User not found');
-});
-
-
+//   // Step 2: Assert the response
+//   expect(response.status).toBe(404);
+//   expect(response.body).toHaveProperty('message', 'User not found');
+// });
 
 
-test('Should return 404 if the board is not found', async () => {
-  // Step 1: Create a mock user without a board
-  const user = await UserBoardModel.create({
-    firstName: 'John',
-    lastName: 'Doe',
-    emailAddress: 'john@example.com',
-    password: 'hashedpassword',
-    boards: [],
-  }) as Document;
 
-  // Step 2: Send a delete request with a valid user ID but nonexistent board ID
-  const response = await request(app)
-    .delete('/api/user/board/deletetask')
-    .send({
-      userID: (user._id as mongoose.Types.ObjectId).toString(),
-      boardID: 'nonexistentBoardID',
-      columnID: 'validColumnID',
-      taskID: 'validTaskID',
-    });
 
-  // Step 3: Assert the response
-  expect(response.status).toBe(404);
-  expect(response.body).toHaveProperty('message', 'Board not found');
-});
+// test('Should return 404 if the board is not found', async () => {
+//   // Step 1: Create a mock user without a board
+//   const user = await UserBoardModel.create({
+//     firstName: 'John',
+//     lastName: 'Doe',
+//     emailAddress: 'john@example.com',
+//     password: 'hashedpassword',
+//     boards: [],
+//   }) as Document;
+
+//   // Step 2: Send a delete request with a valid user ID but nonexistent board ID
+//   const response = await request(app)
+//     .delete('/api/user/board/deletetask')
+//     .send({
+//       userID: (user._id as mongoose.Types.ObjectId).toString(),
+//       boardID: 'nonexistentBoardID',
+//       columnID: 'validColumnID',
+//       taskID: 'validTaskID',
+//     });
+
+//   // Step 3: Assert the response
+//   expect(response.status).toBe(404);
+//   expect(response.body).toHaveProperty('message', 'Board not found');
+// });

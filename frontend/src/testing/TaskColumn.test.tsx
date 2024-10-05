@@ -1,6 +1,7 @@
 import { screen , fireEvent} from '@testing-library/react';
 import { customRender } from '../utils/testingUtils';
 import { TaskColumn } from '../components/TaskColumn/TaskColumn';
+import { describe, it, expect , test} from 'vitest';
 
 describe('Task Column Component', () => {
   it('it should display the task name and it counts', () => {

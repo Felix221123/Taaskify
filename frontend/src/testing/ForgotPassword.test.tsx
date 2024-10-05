@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { customRender } from '../utils/testingUtils';
 import { ForgotPassword } from '../Auth/ForgotPassword';
-
+import { describe, expect , test} from 'vitest';
 
 
 describe('Forgot Password Component', () => {
