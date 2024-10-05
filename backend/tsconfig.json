@@ -6,20 +6,29 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "./dist",
-    // "rootDir": "./src",
+    "rootDir": "./",
     "ignoreDeprecations": "5.0",
     "baseUrl": "./",
     "typeRoots": [
       "./node_modules/@types",
-      "./types" // Ensure your custom types are recognized
+      "./types"
     ],
+    "types": ["node", "jest", "express"],
     "paths": {
-      "*": ["node_modules/*", "src/*"] // Adjust according to your project structure
+      "*": ["node_modules/*", "src/*"]
     }
   },
   "ts-node": {
     "files": true,
     "transpileOnly": true
   },
-  "exclude": ["./coverage", "./dist", "jest.config.js","__tests__","node_modules","**/*.test.ts","**/*.spec.ts"]
+  "exclude": [
+    "./coverage",
+    "./dist",
+    "jest.config.js",
+    "__tests__",
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
 }
