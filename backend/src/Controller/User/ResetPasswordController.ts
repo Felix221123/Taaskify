@@ -59,7 +59,7 @@ const ResetPasswordController:RequestHandler = async(req: Request, res: Response
           httpOnly: true,
           secure: config.server.node_env === "production",   // Ensures the cookie is sent only over HTTPS, make this true during production
           expires: oneHourFromNow,
-          sameSite: "lax",
+          sameSite: "strict",
           maxAge: 1000 * 60 * 60, // 1 hour
         });
 

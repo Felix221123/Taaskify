@@ -15,7 +15,7 @@ const LogOutUserController: RequestHandler = async(req: Request, res: Response, 
   res.clearCookie("authToken", {
     httpOnly: true,
     secure: config.server.node_env === "production",          // Ensures the cookie is sent only over HTTPS, make this true during production
-    sameSite: "lax",
+    sameSite: "strict",
   });
 
   // The client should remove the token, but here you can still send a response indicating success

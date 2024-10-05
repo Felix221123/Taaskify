@@ -66,7 +66,7 @@ const UpdatePasswordForLoggedInUsersController:RequestHandler = async (req: Requ
         res.cookie("authToken", token, {
           httpOnly: true,
           secure: config.server.node_env === "production",    // Ensures the cookie is sent only over HTTPS, make this true during production
-          sameSite: "lax",
+          sameSite: "strict",
           maxAge: 1000 * 60 * 60, // 1 hour
         });
 
