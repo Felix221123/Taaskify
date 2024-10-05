@@ -74,7 +74,7 @@ const LogInUserController: RequestHandler = async (req: Request, res: Response, 
           httpOnly: true, // Cannot be accessed via JavaScript
           secure: config.server.node_env === "production",   // Ensures the cookie is sent only over HTTPS, make this true during production
           expires: oneHourFromNow,
-          sameSite: "lax", // Helps prevent CSRF attacks
+          sameSite: "strict", // Helps prevent CSRF attacks
           maxAge: 1000 * 60 * 60, // 1 hour
         });
 
