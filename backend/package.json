@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.6.0",
+    "@flydotio/dockerfile": "^0.5.9",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
