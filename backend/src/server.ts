@@ -5,7 +5,6 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import { forgotPasswordRoute, logInRoute, logOutRoute, resetPasswordRoute, signUpRoute, updatePasswordRoute, validateTokenRoute } from './Routes/User/UsersRoutes';
 import { createBoardRoute, createTaskRoute, deleteBoardRoute, deleteTaskRoute, editBoardRoute, editTaskRoute, updateSubtaskStatusRoute } from './Routes/Board/BoardRoutes';
-import config from './Config/config';
 import { initSocket } from './socket';
 
 
@@ -18,12 +17,22 @@ const server = createServer(app);
 // defining socket.io with CORS settings
 initSocket(server);
 
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    const allowedOrigins = ['https://taaskify.com','http://localhost:5173'];
 
-// using cors in app
-app.use(cors({
-  origin: [config.server.base_url],
+    if (origin && allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error(`Not allowed by CORS for origin: ${origin}`)); // Block the request with an error
+    }
+  },
   credentials: true,
-}));
+};
+
+app.use(cors(corsOptions));
+
+
 
 // using the cookie parser in express
 app.use(cookieParser());

@@ -16,6 +16,7 @@ backend/dist
 backend/.env
 backend/coverage
 backend/Dockerfile
+backend/fly.toml
 # Built Visual Studio Code Extensions
 *.vsix
 .DS_Store
